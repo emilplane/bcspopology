@@ -50,6 +50,19 @@
     --winColor: hsl(128, 56%, 45%);
     --lossColorDark: hsl(0, 100%, 34%);
     --lossColorLight: hsl(0, 100%, 67%);
+
+    --b2popologyLight3: hsl(161, 61%, 82%);
+    --b2popologyLight2: hsl(160, 56%, 74%);
+    --b2popologyLight1: hsl(160, 61%, 64%);
+    --b2popology: hsl(160, 100%, 39%);
+    --b2popologyDark1: hsl(160, 100%, 31%);
+    --b2popologyDark1b: hsl(160, 100%, 28%);
+    --b2popologyDark2: hsl(160, 100%, 26%);
+    --b2popologyDark2b: hsl(160, 100%, 20%);
+    --b2popologyDark3: hsl(160, 100%, 15%);
+
+    --btd6central: hsl(219, 76%, 47%);
+    --btd6centralLight: #5985e5
 }
 
 html {

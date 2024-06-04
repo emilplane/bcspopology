@@ -82,6 +82,35 @@
     background-color: var(--heroes5);
 }
 
+.b2popologyButton {
+    background-color: var(--b2popologyLight3);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--b2popologyDark3);
+    }
+}
+.b2popologyButton:hover {
+    background-color: var(--b2popologyLight2);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--b2popologyDark2);
+    }
+}
+
+.btd6centralButton {
+    background-color: var(--btd6centralLight);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--btd6central);
+    }
+}
+.btd6centralButton:hover {
+    background-color: var(--btd6central);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--btd6centralLight);
+    }
+}
+.btd6centralText {
+    font-family: Poppins
+}
+
 .resourcesSection {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -89,6 +118,10 @@
         grid-template-columns: repeat(1, 1fr);
     }
     grid-gap: 16px;
+}
+
+.otherGamesSection > a > button {
+    width: 100%; height: 100%
 }
 
 .resourceButton {
@@ -238,3 +271,4 @@
         background-color: hsl(81, 83%, 35%);
     };
 }
+
