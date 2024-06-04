@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width"/>
+        <title>BCS Popology</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Urbanist&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Gabarito&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="styles/style.css"/>
+        <link rel="stylesheet" href="styles/home.css"/>
+    </head>
+    <body>
+        <main id="main">
+            <div class="coverImage" id="coverImage"></div>
+            <div class="statsPageWrapper">
+                <div class="statsPageBody" id="statsPageBody">
+                    <div class="headerStyle" id="header">
+                        <h4 class="luckiestGuy title">BCS Popology</h4>
+                        <div class="headerContent">
+                            <a href="index.html"><h5>Home</h5></a>
+                            <a href="popology.html"><h5>Popology</h5></a>
+                            <a href="https://discord.com/invite/9YAaxDXAYZ"><h5>Discord</h5></a>    
+                        </div>
+                        <div class="menuIcon" id="menuIcon">
+                            <span class="material-symbols-outlined menuIcon">menu</span>
+                        </div>
+                    </div>
+                    <section class="welcomeContainer">
+                        <h1>Version History</h1>
+                    </section>
+                    <section class="roundedBoxSection">
+                        <h4>Website 1.0</h4>
+                        <p>Initial release; adapted website from the 0.25.10 version of the <a href="https://b2popology.com">Battles 2 Popology</a>!</p>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </body>
+    <dialog class="menu" id="menu">
+        <div class="menuHeader">
+            <h2 class="luckiestGuy">Bloons Card Storm Popology</h2>
+            <span class="material-symbols-outlined menuClose" id="menuCloseButton">close</span>
+        </div>
+        <a href="index.html"><h3>Home</h3></a>
+        <a href="popology.html"><h3>Popology</h3></a>
+        <a href="https://discord.com/invite/9YAaxDXAYZ"><h3>Discord Server</h3></a>
+    </dialog>
+    <style id="coverImageStyle">
+        .coverImage {
+            background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url('media/bcs.png');
+            @media (prefers-color-scheme: dark) {
+                background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('media/bcs.png');
+            }
+        }
+    </style>
+    <script type="module" src="scripts/home.js"></script>
+</html>

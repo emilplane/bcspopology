@@ -1,0 +1,12 @@
+[
+    {
+        "name": "redBloon", "displayName": "Red Bloon",
+
+        "cost": 0, "quantity": 2, "hp": 40, "turns": 1
+    },
+    {
+        "name": "swarmRedBloon", "displayName": "Swarm Red Bloon",
+
+        "cost": 0, "quantity": 3, "hp": 20, "turns": 1
+    }
+]

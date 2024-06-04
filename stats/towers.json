@@ -1,0 +1,13 @@
+[
+    {
+        "name": "dartMonkey", "displayName": "Dart Monkey",
+
+        "cost": 1, "damage": 20, "shots": 1, "reloadTime": 1
+    },
+    {
+        "name": "tackShooter", "displayName": "Tack Shooter",
+
+        "cost": 2, "damage": 25, "shots": 2, "reloadTime": 2,
+        "special": "If a shot is available, attacks Bloons that would attack the hero for 35 dmg"
+    }
+]
