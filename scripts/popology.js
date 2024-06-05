@@ -45,84 +45,100 @@ const heroes = [
 const bloons = [
     {
         "name": "redBloon", "displayName": "Red Bloon",
+        "bloon": "red",
 
         "cost": 0, "quantity": 2, "hp": 40, "turns": 1
     },
     {
         "name": "swarmRedBloon", "displayName": "Swarm Red Bloon",
+        "bloon": "red",
 
         "cost": 0, "quantity": 3, "hp": 20, "turns": 1
     },
     {
         "name": "blueBloon", "displayName": "Blue Bloon",
+        "bloon": "blue",
 
-        "cost": 1, "quantity": 1, "hp": 60, "turns": 1
+        "cost": 1, "quantity": 2, "hp": 60, "turns": 1
     },
     {
         "name": "swarmBlueBloon", "displayName": "Swarm Blue Bloon",
+        "bloon": "blue",
 
         "cost": 1, "quantity": 3, "hp": 50, "turns": 1
     },
     {
         "name": "greenBloon", "displayName": "Green Bloon",
+        "bloon": "green",
 
         "cost": 2, "quantity": 2, "hp": 100, "turns": 1
     },
     {
         "name": "swarmGreenBloon", "displayName": "Swarm Green Bloon",
+        "bloon": "green",
 
         "cost": 2, "quantity": 3, "hp": 80, "turns": 1
     },
     {
-        "name": "swarmGreenBloon", "displayName": "Swarm Green Bloon",
+        "name": "goldenBloon", "displayName": "Golden Bloon",
+        "bloon": "gold",
 
         "cost": 2, "quantity": 2, "hp": 70, "turns": 2,
         "whenPopped": "+3 gold"
     },
     {
         "name": "yellowBloon", "displayName": "Yellow Bloon",
+        "bloon": "yellow",
 
         "cost": 3, "quantity": 2, "hp": 145, "turns": 1
     },
     {
         "name": "swarmYellowBloon", "displayName": "Swarm Yellow Bloon",
+        "bloon": "yellow",
 
         "cost": 3, "quantity": 3, "hp": 120, "turns": 1
     },
     {
         "name": "pinkBloon", "displayName": "Pink Bloon",
+        "bloon": "pink",
 
         "cost": 4, "quantity": 1, "hp": 100, "turns": 0
     },
     {
         "name": "whiteBloon", "displayName": "White Bloon",
+        "bloon": "white",
 
         "cost": 5, "quantity": 2, "hp": 100, "turns": 1,
         "whenPlayed": "+1 card"
     },
     {
         "name": "blackBloon", "displayName": "Black Bloon",
+        "bloon": "black",
 
         "cost": 5, "quantity": 2, "hp": 130, "turns": 1,
         "whenPopped": "+1 card"
     },
     {
         "name": "rainbowBloon", "displayName": "Rainbow Bloon",
+        "bloon": "rainbow",
 
         "cost": 8, "quantity": 2, "hp": 400, "turns": 2
     },
     {
         "name": "ceramicBloon", "displayName": "Ceramic Bloon",
+        "bloon": "ceramic",
 
         "cost": 5, "quantity": 3, "hp": 250, "turns": 2
     },
     {
         "name": "moab", "displayName": "MOAB",
+        "bloon": "moab",
 
         "cost": 6, "quantity": 1, "hp": 450, "turns": 4
     },
     {
         "name": "bfb", "displayName": "BFB",
+        "bloon": "bfb",
 
         "cost": 7, "quantity": 1, "hp": 550, "turns": 3
     },
@@ -369,8 +385,13 @@ function populateBloons() {
                 <p>${bloon.special}</p>
             `
         }
+
+        
+        clone.querySelector(".towerImageContainer").innerHTML = `
+            <img class="towerImage" src="media/bloonIcons/${bloon.bloon}/${bloon.bloon}.png"></img>
+        `
     
-        cardContainer.appendChild(clone)
+        cardContainer.appendChild(clone)    
     });
 }
 
@@ -448,43 +469,50 @@ function populateTowers() {
 
 function populatePowers() {
     powers.forEach(power => {
-        const clone = powerCardTemplate.content.cloneNode(true);
-        clone.querySelector(".towerCardTemplateName").innerText = power.displayName
-    
-        const costChip = statChipTemplate.content.cloneNode(true);
-        costChip.querySelector(".statChipStatName").innerText = "Cost"
-        costChip.querySelector(".statChipValue").innerText = power.cost
-        costChip.querySelector(".statChipImage").innerHTML = `
-            <img src="media/coin.png"></img>
-        `
-        clone.querySelector(".statChipContainer").appendChild(costChip)
-        if (power.hero != undefined) {
-            const heroChip = reverseStatChipTemplate.content.cloneNode(true);
-            heroChip.querySelector(".statChip").classList.add("linkedStatChip")
-            heroChip.querySelector(".statChip").addEventListener("click", () => {
-                handleButtonClick('heroes', power.hero);
-            })
-            switch (power.hero) {
-                case "quincy":
-                    heroChip.querySelector(".statChipValue").innerText = heroes[0].displayName
-                    break
-                case "gwendolin":
-                    heroChip.querySelector(".statChipValue").innerText = heroes[1].displayName
-                    break
-            }
-            heroChip.querySelector(".statChipStatName").innerText = "Only available with"
-            heroChip.querySelector(".statChipValue").classList.add("withHeroStyle")
-
-            clone.querySelector(".statChipContainer").appendChild(heroChip)
-        }
-
-        clone.querySelector(".effectSubContainer").innerHTML = `
-            <h5>Effect</h5>
-            <p>${power.effect}</p>
-        `
-    
-        cardContainer.appendChild(clone)
+        populatePower(power, cardContainer)
     });
+}
+
+function populatePower(power, container, embed) {
+    const clone = powerCardTemplate.content.cloneNode(true);
+    clone.querySelector(".towerCardTemplateName").innerText = power.displayName
+    if (embed) {
+        clone.querySelector(".roundedBoxSection").classList.add("heroPowerCardBackground")
+    }
+
+    const costChip = statChipTemplate.content.cloneNode(true);
+    costChip.querySelector(".statChipStatName").innerText = "Cost"
+    costChip.querySelector(".statChipValue").innerText = power.cost
+    costChip.querySelector(".statChipImage").innerHTML = `
+        <img src="media/coin.png"></img>
+    `
+    clone.querySelector(".statChipContainer").appendChild(costChip)
+    if (power.hero != undefined) {
+        const heroChip = reverseStatChipTemplate.content.cloneNode(true);
+        heroChip.querySelector(".statChip").classList.add("linkedStatChip")
+        heroChip.querySelector(".statChip").addEventListener("click", () => {
+            handleButtonClick('heroes', power.hero);
+        })
+        switch (power.hero) {
+            case "quincy":
+                heroChip.querySelector(".statChipValue").innerText = heroes[0].displayName
+                break
+            case "gwendolin":
+                heroChip.querySelector(".statChipValue").innerText = heroes[1].displayName
+                break
+        }
+        heroChip.querySelector(".statChipStatName").innerText = "Only available with"
+        heroChip.querySelector(".statChipValue").classList.add("withHeroStyle")
+
+        clone.querySelector(".statChipContainer").appendChild(heroChip)
+    }
+
+    clone.querySelector(".effectSubContainer").innerHTML = `
+        <h5>Effect</h5>
+        <p>${power.effect}</p>
+    `
+
+    container.appendChild(clone)
 }
 
 function populateHeroes() {
@@ -534,6 +562,24 @@ function populateHeroes() {
             <p>${hero.active2.effect}</p>
         `
         clone.querySelector(".statChipContainerActive2").appendChild(active2)
+
+        powers.forEach(power => {
+            if (power.hero == hero.name) {
+                console.log(power)
+                populatePower(power, clone.querySelector(".statChipContainerPowerCard"), true)
+            }
+        });
+        // const powerCard = heroAbilityChipTemplate.content.cloneNode(true);
+        // powerCard.querySelector(".statChipStatName").innerText = "Points"
+        // powerCard.querySelector(".statChipValue").innerText = hero.active2.cost
+        // powerCard.querySelector(".statChipImage").innerHTML = `
+        //     <img src="media/coin.png"></img>
+        // `
+        // powerCard.querySelector(".effectSubContainer").innerHTML = `
+        //     <h5>Effect</h5>
+        //     <p>${hero.active2.effect}</p>
+        // `
+        // clone.querySelector(".statChipContainerActive2").appendChild(powerCard)
     
         cardContainer.appendChild(clone)
     });
