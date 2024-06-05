@@ -99,8 +99,17 @@
     background-color: var(--btd6centralLight);
     @media (prefers-color-scheme: dark) {
         background-color: var(--btd6central);
+        color: black
     }
 }
+
+.btd6centralButton > h4, .btd6centralButton > h4 > p {
+    color: white;
+    @media (prefers-color-scheme: dark) {
+        color: black
+    }
+}
+
 .btd6centralButton:hover {
     background-color: var(--btd6central);
     @media (prefers-color-scheme: dark) {

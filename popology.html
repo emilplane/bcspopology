@@ -57,9 +57,20 @@
                             <div class="maxPointsContainer">    
                                 <h6 class="maxPoints"></h6>
                             </div>
-                            <div class="statChipContainer statChipContainerActive1"></div>
-                            <div class="statChipContainer statChipContainerPassive"></div>
-                            <div class="statChipContainer statChipContainerActive2"></div>
+                            <div class="heroAbilityContainer">
+                                <div>
+                                    <h5>Active Ability</h5>
+                                    <div class="statChipContainer statChipContainerActive1"></div>
+                                </div>
+                                <div>
+                                    <h5>Passive Ability</h5>
+                                    <div class="statChipContainer statChipContainerPassive"></div>
+                                </div>
+                                <div>
+                                    <h5>Active Ability</h5>
+                                    <div class="statChipContainer statChipContainerActive2"></div>
+                                </div>
+                            </div>
                         </section>
                     </template>
                     <template id="towerCardTemplate">
@@ -90,6 +101,17 @@
                                 </div>
                             </div>
                             <p class="statChipStatName"></p>
+                        </div>
+                    </template>
+                    <template id="reverseStatChipTemplate">
+                        <div class="statChip">
+                            <p class="statChipStatName"></p>
+                            <div class="statChipValueContainer">
+                                <h3 class="statChipValue"></h3>
+                                <div class="statChipImage">
+    
+                                </div>
+                            </div>
                         </div>
                     </template>
                     <template id="heroAbilityChipTemplate">

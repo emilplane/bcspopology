@@ -420,6 +420,13 @@
     };
     border-radius: 8px;
     padding: 4px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.linkedStatChip {
+    cursor: pointer;
 }
 
 .statChipValueContainer {
@@ -456,4 +463,37 @@
 .effectContainer {
     display: flex;
     align-items: center;
+}
+
+.heroAbilityContainer {
+    display: grid;
+    gap: 8px;
+    margin-top: 8px;
+    @media screen and (min-width: 700px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.statChipContainerActive1, 
+.statChipContainerPassive, 
+.statChipContainerActive2 {
+    flex-wrap: nowrap;
+    @media screen and (max-width: 300px) {
+        flex-wrap: wrap;
+    }
+}
+
+.smallValue {
+    font-size: 16pt;
+}
+
+.withHeroStyle {
+    font-size: 18pt;
+}
+
+.heroHighlighted {
+    background-color: var(--primaryLight3);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--primaryDark3);
+    };
 }
