@@ -140,7 +140,7 @@ const bloons = [
         "name": "bfb", "displayName": "BFB",
         "bloon": "bfb",
 
-        "cost": 7, "quantity": 1, "hp": 550, "turns": 3
+        "cost": 7, "quantity": 1, "hp": 550, "turns": 4
     },
 ]
 const towers = [
@@ -185,7 +185,7 @@ const towers = [
     {
         "name": "supermonkey", "displayName": "Supermonkey",
 
-        "cost": 5, "damage": 30, "shots": 2, "reloadTime": 2,
+        "cost": 8, "damage": 60, "shots": 3, "reloadTime": 4,
     },
     {
         "name": "sharpshooter", "displayName": "Sharpshooter",
