@@ -15,7 +15,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="styles/style.css"/>
-        <link rel="stylesheet" href="styles/popology.css"/>
+        <link rel="stylesheet" href="styles/newpopology.css"/>
     </head>
     <body>
         <main id="main">
@@ -33,23 +33,32 @@
                             <span class="material-symbols-outlined menuIcon">menu</span>
                         </div>
                     </div>
-                    <div class="categoryButtonContainer">
-                        <div class="categoryButton heroesCategoryButton">
-                            <h4>Heroes</h4>
-                        </div>
-                        <div class="categoryButton bloonsCategoryButton">
-                            <h4>Bloons</h4>
-                        </div>
-                        <div class="categoryButton towersCategoryButton">
-                            <h4>Towers</h4>
-                        </div>
-                        <div class="categoryButton powersCategoryButton">
-                            <h4>Powers</h4>
-                        </div>
+                    <div id="content">
                     </div>
-                    <section class="cardContainer" id="cardContainer">
-
-                    </section>
+                    <template id="cardContainerTemplate">
+                        <section class="cardContainer"></section>
+                    </template>
+                    <template id="cardTypeTitleTemplate">
+                        <section>
+                            <h2 class="cardTypeTitle"></h2>
+                        </section>
+                    </template>
+                    <template id="cardTemplate">
+                        <div class="cardGrid">
+                            <section class="blankSection">
+                                <h1 class="cardName"></h1>
+                                <h4 class="cardDescription"></h4>
+                                <div class="backButtonContainer">
+                                    <div class="material-symbols-outlined backButtonIcon">arrow_back</div>
+                                    <h4 class="backButtonText">Back</h4>
+                                </div>
+                                <section class="roundedBoxSection cardStatsContainer">
+                                    <section class="statChipContainer"></section>
+                                </section>
+                            </section>
+                            <div class="pageCardImageContainer"></div>
+                        </div>
+                    </template>
                     <template id="heroCardTemplate">
                         <section class="roundedBoxSection">
                             <h4 class="towerCardTemplateName"></h4>
@@ -121,18 +130,10 @@
                             </div>
                         </div>
                     </template>
-                    <template id="heroAbilityChipTemplate">
-                        <div class="statChip">
-                            <div class="statChipValueContainer">
-                                <h3 class="statChipValue"></h3>
-                                <div class="statChipImage">
-    
-                                </div>
-                            </div>
-                            <p class="statChipStatName"></p>
-                        </div>
-                        <div class="effectContainer statChip">
-                            <div class="effectSubContainer"></div>
+                    <template id="specialContainerTemplate">
+                        <div class="special">
+                            <h4 class="specialName"></h4>
+                            <p class="specialValue"></p>
                         </div>
                     </template>
                 </div>
@@ -157,5 +158,5 @@
         }
     </style>
     <script type="module" src="scripts/home.js"></script>
-    <script type="module" src="scripts/popology.js"></script>
+    <script type="module" src="scripts/newpopology.js"></script>
 </html>

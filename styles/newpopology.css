@@ -1,6 +1,18 @@
 .cardContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    @media screen and (max-width: 625px) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    @media screen and (max-width: 500px) {
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    }
+    @media screen and (max-width: 425px) {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    @media screen and (max-width: 350px) {
+        grid-template-columns: 1fr
+    }
 }
 
 .cardImageContainer {
@@ -9,8 +21,21 @@
     justify-content: center;
 }
 
+.pageCardImageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .cardImage {
     height: 300px;
+    @media screen and (max-width: 500px) {
+        height: 200px;
+    }
+    @media screen and (max-width: 350px) {
+        height: auto;
+        width: 100%;
+    }
     padding: 16px; 
     transition: 0.25s;
 }
@@ -21,6 +46,17 @@
 
 .cardPageImage {
     height: 500px;
+    @media screen and (max-width: 1100px) {
+        height: 300px;
+    }
+    @media screen and (max-width: 700px) {
+        height: 200px;
+    }
+    @media screen and (max-width: 500px) {
+        height: auto;
+        width: 100%;
+        max-width: 300px;
+    }
 }
 
 .cardPageImage:hover {
@@ -36,6 +72,9 @@
 .cardGrid {
     display: grid;
     grid-template-columns: 1fr auto;
+    @media screen and (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .cardStatsContainer {

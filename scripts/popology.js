@@ -335,7 +335,7 @@ function populateBloons() {
         costChip.querySelector(".statChipValue").innerText = bloon.cost
         costChip.querySelector(".statChipImage").innerHTML = `
             <img src="media/coin.png"></img>
-        `
+        `   
         clone.querySelector(".statChipContainer").appendChild(costChip)
     
         const quantityChip = statChipTemplate.content.cloneNode(true);
