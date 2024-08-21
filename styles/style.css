@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'BCS Font';
+    src: url('/bcsfont.ttf') format('truetype');
+}
+
 :root {
     --primaryLight3: hsl(249, 78%, 90%);
     --primaryLight2: hsl(249, 78%, 80%);
@@ -189,6 +194,11 @@ td {
 
 .luckiestGuy {
     font-family: "Luckiest Guy";
+    font-weight: 400;
+}
+
+.bcsfont {
+    font-family: "BCS Font";
     font-weight: 400;
 }
 
