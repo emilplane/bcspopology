@@ -1,526 +1,150 @@
-.categoryButtonContainer {
+.sectionTitleContainer > h3 {
+    margin: 0 4px;
+}
+
+.cardGrid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    @media screen and (max-width: 1000px) {
-        grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 8px;
+    @media screen and (max-width: 900px) {
+        grid-template-columns: repeat(3, 1fr);
     }
     @media screen and (max-width: 700px) {
         grid-template-columns: repeat(2, 1fr);
     }
-    grid-gap: 16px;
-    margin-top: 8px;
-}
 
-.categoryButton {
-    background-color: var(--shade2);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--shade7);
-    }
-    border-radius: 8px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.5s;
-}
-.categoryButton:hover, .categoryButtonSelected {
-    background-color: var(--shade4);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--shade5);
-    }
-    transition: 0.5s;
-}
-.categoryButton > * {
-    transition: 0.5s;
-}
-.categoryButton:hover > *, .categoryButtonSelected > * {
-    color: var(--shade8);
-    @media (prefers-color-scheme: dark) {
-        color: var(--shade1);
-    }
-    transition: 0.5s;
-}
-
-.bloonsCategoryButton {
-    background-color: var(--bloons3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--bloons7);
-    }
-}
-.bloonsCategoryButton:hover, .bloonsCategoryButtonSelected {
-    background-color: var(--bloons5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--bloons5);
-    }
-}
-
-.towersCategoryButton {
-    background-color: var(--towers3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--towers7);
-    }
-}
-.towersCategoryButton:hover, .towersCategoryButtonSelected {
-    background-color: var(--towers5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--towers5);
-    }
-}
-
-.powersCategoryButton {
-    background-color: var(--powers3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--powers7);
-    }
-}
-.powersCategoryButton:hover, .powersCategoryButtonSelected {
-    background-color: var(--powers5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--powers5);
-    }
-}
-
-.heroesCategoryButton {
-    background-color: var(--heroes3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--heroes7);
-    }
-}
-.heroesCategoryButton:hover, .heroesCategoryButtonSelected {
-    background-color: var(--heroes5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--heroes5);
-    }
-}
-
-.magicCategoryButton:hover > *, .magicCategoryButtonSelected > *
-{
-    color: var(--shade1)
-}
-
-.bloonsCategoryButton:hover > *, .bloonsCategoryButtonSelected > *,
-.towersCategoryButton:hover > *, .towersCategoryButtonSelected > *,
-.heroesCategoryButton:hover > *, .heroesCategoryButtonSelected > * 
-{
-    @media (prefers-color-scheme: dark) {
-        color: var(--shade8)
-    }
-}
-
-.pageButtonContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    /* height: 100px; */
-    align-items: center;
-    width: calc(100%);
-}
-
-.pageButton {
-    background-color: var(--shade2_5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--shade6_5);
-    }
-    height: 75px; aspect-ratio: 1;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5s;
-    cursor: pointer;
-}
-.pageButton:hover, .pageButtonSelected {
-    background-color: var(--shade4);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--shade5);
-    }
-    transition: 0.5s;
-}
-.pageButton:hover > .pageButtonImage, .pageButtonSelected > .pageButtonImage {
-    height: 85px;
-}
-
-.contentSubconatiner {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* .primaryTowerPageButton {
-    background-color: var(--primaryTower3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryTower7);
-    }
-}
-.primaryTowerPageButton:hover, .primaryTowerPageButtonSelected {
-    background-color: var(--primaryTower5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryTower5);
-    }
-} */
-
-.militaryTowerPageButton {
-    background-color: var(--militaryTower3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--militaryTower7);
-    }
-}
-.militaryTowerPageButton:hover, .militaryTowerPageButtonSelected {
-    background-color: var(--militaryTower5);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--militaryTower5);
-    }
-}
-
-.pageButtonImage {
-    height: 60px;
-    aspect-ratio: auto;
-    transition: 0.5s;
-}
-
-.pathName {
-    margin: 20px 0 4px 0 
-}
-
-.upgradeName {
-    margin: 12px 0 4px 0 
-}
-
-.baseTowerName {
-    margin: 0 0 4px 0 
-}
-
-.statsContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-}
-
-.compareStats {
-    display: none;
-}
-
-.compareButtonDialog {
-    background-color: var(--primaryLight3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark3);
-    }
-    top: calc(100vh - 70px);
-    left: calc(100vw - 220px);;
-    width: 140px; height: 20px;
-    /* display: flex; */
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5s;
-    cursor: pointer;
-}
-
-.compareButtonDialog:hover {
-    background-color: var(--primaryLight2);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark2);
-    }
-    transition: 0.5s;
-}
-
-.titleBar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
-}
-
-.towerCostButton {
-    margin-left: auto;
-}
-
-.towerCostSection {
-    display: none;
-    background-color: var(--primaryLight3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark3);
-    }
-    gap: 80px;
-    @media screen and (max-width: 1100px) {
-        gap: 24px;
-    }
-    align-items: center;
-    justify-content: center;
-    @media screen and (max-width: 900px) {
-        flex-direction: column;
-    }
-}
-
-.showCost {
-    display: flex;
-}
-
-.configurationBarTextSelectorWrapper {
-    display: flex; flex-direction: column; 
-    gap: 4px; align-items: flex-start;
-}
-.configPathContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 8px
-}
-.configSinglePathContainer {
-    display: flex;
-    align-items: center;
-}
-.configSinglePathContainer > * {
-    padding: 2px 4px;
-    border-radius: 0;
-}
-.configSinglePathContainer > * > * {
-    color: var(--shade5_5);
-    @media (prefers-color-scheme: dark) {
-        color: var(--shade2_5);
-    }
-    width: 12px;
-}
-.configBarPush {
-    margin-left: auto;
-}
-.pathStart {
-    border-radius: 8px 0 0 8px;
-}
-.pathEnd {
-    border-radius: 0 8px 8px 0;
-}
-.selected {
-    background-color: var(--primaryLight1);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark1);
-    };
-    height: 32px;
-}
-.selected > * {
-    color: var(--shade8);
-    @media (prefers-color-scheme: dark) {
-        color: var(--shade1);
-    };
-    font-size: 15pt;
-}
-
-.sellLossText {
-    font-size: 24pt;
-    color: var(--lossColorDark);
-    @media (prefers-color-scheme: dark) {
-        color: var(--lossColorLight)
-    };
-}
-
-.hide {
-    display: none;
-}
-
-.buffText {
-    margin-bottom: 4px;
-}
-
-.buffIconContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.buffIconRow {
-    display: flex;
-    gap: 4px;
-}
-
-.buffIcon {
-    background-color: var(--shade4);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--shade4);
-    };
-    border-radius: 8px;
-    height: 40px; width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.buffIconSelected {
-    background-color: var(--primaryLight2);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark2);
-    };
-}
-
-.buffIconImage {
-    height: 35px;
-}
-
-.requiredBuffs > * {
-    background-color: var(--primaryTower3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryTower7);
-    };
-}
-
-.compareButton {
-    position: fixed;
-    width: 180px; height: 40px;
-    background-color: var(--primaryDark1);
-    left: calc(100% - 200px);
-    top: calc(100% - 60px);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    @media screen and (max-width: 700px) {
-        display: none;
-    }
-}
-
-.costsContainer {
-    display: flex;
-    gap: 36px;
-    @media screen and (max-width: 1100px) {
-        gap: 24px;
-    }
-    @media screen and (max-width: 700px) {
-        flex-direction: column;
-        gap: 8px;
-    }
-}
-
-.costsContainer > div {
-    @media screen and (max-width: 700px) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-.categoryButtonContainer {
-    margin-bottom: 24px;
 }
 
 .cardContainer {
+    transition: 0.25s ease-in-out;
+}
+
+.cardContainer:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.25s ease-in-out;
+}
+
+.cardPopupWrapper {
+    position: fixed;
+    top: 0; left: 0;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    width: 100vw;
+    height: 100vh;
+    padding: 24px;
+    margin: 0 auto;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.cardPopup {
+    /* background-color: red; */
     display: grid;
-    gap: 8px;
+    gap: 12px;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+    max-width: 800px;
+}
+
+.cardPopupCardContainer {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.cardPopupInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cardPopupInfoContainer {
+    background-image: linear-gradient(hsl(207, 100%, 50%), hsl(207, 100%, 40%));
+    border-radius: 8px;
+    padding: 8px;
+    height: calc(100% - 100px);
+}
+.popupDividingLine {
+    margin: 2px 0 4px 0;
+}
+
+.detailedStatsBody {
+    display: flex;
+    flex-direction: column;
+    gap: 4px
 }
 
 .statChipContainer {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 8px
 }
 
-.statChip, .maxPoints {
-    background-color: var(--primaryLight2);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark2);
-    };
-    border-radius: 8px;
-    padding: 4px 8px;
+.statChip {
+    background-color: hsla(0, 0%, 0%, 0.2);
+    border-radius: 4px;
+    padding: 4px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: end;
+    gap: 8px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
+    position: relative;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
 }
 
-.linkedStatChip {
+.statChip:hover {
+    transition: 0.25s ease-in-out;
+}
+
+.statChipTitle {
+    color: hsl(0, 0%, 95%);
+    margin-bottom: 2px;
+}
+
+.statTooltipWrapper {
+    /* min-width: 100%; */
+    width: 300px;
+    height: 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    justify-content: end;
+    align-items: end;
+    opacity: 0;
+    transition: 0.25s ease-in-out;
+}
+
+.statChip:hover .statTooltipWrapper {
+    opacity: 1;
+    display: flex;
+    transition: 0.25s ease-in-out;
+}
+
+.statTooltip {
+    background-color: hsla(0, 0%, 0%, 0.8);
+    border-radius: 8px;
+    padding: 8px;
+    top: 0;
+    left: 0;
+    /* width: 50px; */
+    /* height: 50px; */
+    max-width: 200px;
+    margin-bottom: 8px;
+}
+
+.detailedStatsTitleContainer {
+    display: flex;
+}
+
+.closePopupButton {
+    margin-left: auto;
+    text-decoration: underline;
     cursor: pointer;
 }
 
-.statChipValueContainer {
-    display: flex;
-    gap: 6px;
-}
-
-.statChipImage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.statChipImage > img {
-    height: 24px;
-}
-
-.specialStatChip {
-    margin-top: 8px;
-}
-
-.contentContainer {
-    display: flex;
-    align-items: stretch;
-    gap: 8px;
-}
-
-.maxPointsContainer {
-    width: min-content;
-    margin-bottom: 8px;
-    white-space: nowrap;
-}
-
-.effectContainer {
-    display: flex;
-    align-items: center;
-}
-
-.heroAbilityContainer {
-    display: grid;
-    gap: 8px;
-    margin-top: 8px;
-    @media screen and (min-width: 700px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.statChipContainerActive1, 
-.statChipContainerPassive, 
-.statChipContainerActive2 {
-    flex-wrap: nowrap;
-    @media screen and (max-width: 300px) {
-        flex-wrap: wrap;
-    }
-}
-
-.smallValue {
-    font-size: 16pt;
-}
-
-.withHeroStyle {
-    font-size: 18pt;
-}
-
-.heroHighlighted {
-    background-color: var(--primaryLight3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark3);
-    };
-}
-
-.heroPowerCardBackground {
-    background-color: var(--primaryLight3);
-    @media (prefers-color-scheme: dark) {
-        background-color: var(--primaryDark3);
-    };
-    width: max-content;
-}
-
-.towerCardContainer {
-    display: grid;
-    grid-template-columns: 1fr auto;
-}
-
-.towerImage {
-    margin-left: 16px;
-}
-
-.towerImage {
-    width: 64px;
-    @media screen and (max-width: 700px) {
-        width: 48px;
-    }
-    @media screen and (max-width: 450px) {
-        width: 24px;
-    }
+.closePopupButton:hover {
+    text-decoration: none;
 }

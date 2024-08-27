@@ -1,0 +1,144 @@
+.generatedCard {
+    width: 100%;
+    position: relative;
+    /* max-width: 700px; */
+}
+
+.cardSvg {
+    height: auto;
+    width: 100%;
+}
+
+.svgOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
+.overlayWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.cardTextContainer {
+    overflow: hidden;
+    padding: 74% 12% 12%;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTitleContainer {
+    overflow: hidden;
+    height: auto;
+    min-height: 35%;
+    flex: 0.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin-bottom: 5%; */
+    max-height: fit-content;
+}
+
+.cardTitle {
+    text-align: center;
+    color: white;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 1.1em;
+}
+
+.cardDescriptionContainer {
+    overflow: hidden;
+    height: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+
+.cardDescription {
+    text-align: center;
+    color: white;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.cardImage {
+    border-radius: 50%;
+}
+
+.bloonCardBackground {
+    fill: hsl(207, 100%, 60%);
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
+
+.powerCardBackground {
+    fill: hsl(283, 100%, 60%);
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
+
+.imageBorder {
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
+
+.bloonImageBorderTextPath {
+    fill: hsl(207, 100%, 35%);
+}
+
+.powerImageBorderTextPath {
+    fill: hsl(283, 100%, 35%);
+}
+
+.cardBackgroundText {
+    font-size: 15px;
+    transform: rotate(-30deg);
+    transform-origin: 100px 100px;
+}
+
+.bloonCardBackgroundText {
+    fill: hsl(207, 100%, 65%);
+}
+
+.powerCardBackgroundText {
+    fill: hsl(283, 100%, 65%);
+}
+
+.textContainer {
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
+
+.unselectable {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */
+}
+
+.cardStatText {
+    font-size: 40px;
+    fill: white;
+    text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+    2px 3px 0 #000;
+}
+
+.delayText {
+    font-size: 32px;
+}
+
+.bcsPopologyText {
+    fill: hsla(0, 0%, 100%, 0.6);
+    font-size: 6px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
