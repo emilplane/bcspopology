@@ -1,6 +1,7 @@
 import Element from "./element.js";
-import { BLOONS, POWERS } from "/stats.js";
+import { BLOONS, POWERS } from "/stats/stats.js";
 import { generateCard } from "./cardGenerator.js";
+import { attributes } from "/stats/attributes.js";
 
 const cardSectionContainer = new Element("div").class("cardSectionContainer")
     .children(
@@ -32,7 +33,9 @@ function popupCard(card) {
     document.querySelector(".cardPopupWrapper").style.display = "flex";
     document.querySelector(".cardPopup").classList.add("bloonCardPopup");
     document.querySelector(".cardPopup").innerHTML = `
-        <div class="cardPopupCardContainer"></div>
+        <div class="cardPopupCardWrapper">
+            <div class="cardPopupCardContainer"></div>
+        </div>
         <div class="cardPopupInfoWrapper"></div>
     `
     console.log(card)
@@ -47,7 +50,6 @@ function popupCard(card) {
         "copies": `Number of times this card can be played when drawn. Each play costs ${card.cost} gold (the cost of this card).`
     }
     propertiesAsStatChips.forEach(property => {
-        console.log(card[property])
         if (card[property] != undefined) {
             statChipContainer.children(
                 new Element("div").class("statChip").children(
@@ -63,8 +65,22 @@ function popupCard(card) {
         }
     })
 
+    const cardAttributes = []
+
+    if (card.attributes != undefined) {
+        card.attributes.forEach(attribute => {
+            console.log(attributes[attribute].description(card))
+            cardAttributes.push(new Element("div").class("attributeCard").children(
+                new Element("h5").text(attributes[attribute].displayName).class("bcsfont"),
+                new Element("p").text(attributes[attribute].description(card)),
+            ))
+        })
+    }
+
+    console.log(cardAttributes)
+
     const detailedStatsBody = new Element("div").class("detailedStatsBody")
-        .children(statChipContainer)
+        .children(statChipContainer, ...cardAttributes)
 
     document.querySelector(".cardPopupInfoWrapper").insertAdjacentElement("beforeend", 
         new Element("div").class("cardPopupInfoContainer").children(

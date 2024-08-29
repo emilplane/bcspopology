@@ -1,3 +1,4 @@
+import { attributes } from "../stats/attributes.js";
 import Element from "./element.js";
 
 const IMAGE = {
@@ -188,14 +189,26 @@ export function generateCard(blueprint, outputContainer) {
         )
     )
 
+    /**
+     * Generates the description text for a bloon based on its description and
+     * events.
+     * @param {BloonBlueprint} blueprint - The blueprint of the bloon to generate
+     * the description for.
+     * @returns {string} The generated description text.
+     */
     function generateDescriptionText() {
-        let description = blueprint.description.join("\n");
+        const descriptionLines = [...blueprint.description];
         blueprint.events.forEach(event => {
-            if (description.length > 0) description += "\n"
-            description += `${event[0]}: ${event[1]}`
-        })
-        return description
+            descriptionLines.push(`${event[0]}: ${event[1]}`);
+        });
+        if (blueprint.attributes) {
+            blueprint.attributes.forEach(attribute => {
+                descriptionLines.push(attributes[attribute].displayName);
+            });
+        }
+        return descriptionLines.join("\n");
     }
+
 
         
     cardOutput.appendChild(container.element)
