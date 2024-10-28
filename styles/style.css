@@ -309,6 +309,17 @@ a {
     text-decoration: none;
     color: var(--primary);
 }
+
+.openCardLink {
+    /* text-decoration: underline 2px var(--primary);
+    color: var(--primary); */
+    /* @media (prefers-color-scheme: dark) { */
+        text-decoration: underline 2px var(--primaryLight2);
+        color: var(--primaryLight2);
+    /* }; */
+    cursor: pointer;
+}
+
 .linkUnderline {
     text-decoration: underline 2px var(--primaryDark2);
     color: var(--primaryDark2);

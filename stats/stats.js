@@ -6,6 +6,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 0, "damage": 40, "delay": 1, "copies": 2,
     },
     {
@@ -14,6 +15,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 0, "damage": 20, "delay": 1, "copies": 3,
     },
     {
@@ -22,7 +24,8 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 2, "damage": 30, "delay": 1, "copies": 2,
+        "type": "basic",
+        "cost": 2, "damage": 40, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
     // Blue
@@ -32,16 +35,18 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 1, "damage": 60, "delay": 1, "copies": 2,
     },
     {
         "name": "nestedBlue", "displayName": "Nested Blue",
         "description": [],
         "events": [
-            ["On Popped", "Spawns a Red Bloon"]
+            ["onPopped", {"type": "spawn", "name": "redBloon"}]
         ],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 1, "damage": 60, "delay": 1, "copies": 1,
     },
     {
@@ -50,6 +55,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 1, "damage": 50, "delay": 1, "copies": 3,
     },
     {
@@ -58,7 +64,8 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 3, "damage": 45, "delay": 1, "copies": 3,
+        "type": "basic",
+        "cost": 3, "damage": 60, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
     // Green
@@ -68,17 +75,19 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 2, "damage": 100, "delay": 1, "copies": 2,
     },
     {
         "name": "nestedGreen", "displayName": "Nested Green",
         "description": [],
         "events": [
-            ["On Popped", "Spawns a Nested Blue"]
+            ["onPopped", {"type": "spawn", "name": "nestedBlue"}]
         ],
     
         "cardType": "bloon",
-        "cost": 1, "damage": 60, "delay": 1, "copies": 1,
+        "type": "basic",
+        "cost": 2, "damage": 100, "delay": 1, "copies": 1,
     },
     {
         "name": "swarmGreenBloon", "displayName": "Swarm Green Bloon",
@@ -86,7 +95,8 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 1, "damage": 50, "delay": 1, "copies": 3,
+        "type": "basic",
+        "cost": 2, "damage": 80, "delay": 1, "copies": 3,
     },
     {
         "name": "doubleGreenBloon", "displayName": "Double Green Bloon",
@@ -94,7 +104,8 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 3, "damage": 45, "delay": 1, "copies": 3,
+        "type": "basic",
+        "cost": 4, "damage": 80, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
     // Yellow
@@ -104,17 +115,19 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 3, "damage": 150, "delay": 1, "copies": 2,
+        "type": "basic",
+        "cost": 3, "damage": 140, "delay": 1, "copies": 2,
     },
     {
         "name": "nestedYellow", "displayName": "Nested Yellow",
         "description": [],
         "events": [
-            ["On Popped", "Spawns a Nested Green"]
+            ["onPopped", {"type": "spawn", "name": "nestedGreen"}]
         ],
     
         "cardType": "bloon",
-        "cost": 3, "damage": 130, "delay": 1, "copies": 1,
+        "type": "basic",
+        "cost": 3, "damage": 140, "delay": 1, "copies": 1,
     },
     {
         "name": "swarmYellowBloon", "displayName": "Swarm Yellow Bloon",
@@ -122,6 +135,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 3, "damage": 115, "delay": 1, "copies": 3,
     },
     {
@@ -130,6 +144,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 5, "damage": 110, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
@@ -140,6 +155,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "basic",
         "cost": 4, "damage": 100, "delay": 0, "copies": 1,
     },
     // White
@@ -147,10 +163,11 @@ export const BLOONS = [
         "name": "whiteBloon", "displayName": "White Bloon",
         "description": [],
         "events": [
-            ["On Play", "Draw a card"],
+            ["onPlay", {"type": "drawCards", "value": 1}]
         ],
     
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 5, "damage": 100, "delay": 1, "copies": 2,
     },
     // Black
@@ -158,10 +175,11 @@ export const BLOONS = [
         "name": "blackBloon", "displayName": "Black Bloon",
         "description": [],
         "events": [
-            ["On Destroyed", "Draw a card"],
+            ["onDestroyed", {"type": "drawCards", "value": 1}]
         ],
 
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 5, "damage": 130, "delay": 1, "copies": 2,
     },
     // Golden
@@ -169,10 +187,11 @@ export const BLOONS = [
         "name": "goldenBloon", "displayName": "Golden Bloon",
         "description": [],
         "events": [
-            ["On Damaged", "+1 gold"],
+            ["onDamaged", {"type": "gainGold", "value": 1}],
         ],
 
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 2, "damage": 70, "delay": 2, "copies": 2,
     },
     // Special
@@ -180,20 +199,22 @@ export const BLOONS = [
         "name": "auraOfStrength", "displayName": "Aura of Strength Bloon",
         "description": [],
         "events": [
-            ["On Turn Start", "Increase delay by 1. Gives another random friendly bloon +50HP"],
+            ["onTurnStart", "Increase delay by 1. Gives another random friendly bloon +50HP."],
         ],
 
         "cardType": "bloon",
+        "type": "basic",
         "cost": 2, "damage": 70, "delay": 2, "copies": 2,
     },
     {
         "name": "steadyGrowthBloon", "displayName": "Steady Growth Bloon",
         "description": [],
         "events": [
-            ["On Turn Start", "Gains +50HP"],
+            ["onTurnStart", {"type": "gainHP", "value": 50}],
         ],
     
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 3, "damage": 100, "delay": 3, "copies": 2,
     },
     {
@@ -202,18 +223,174 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 8, "damage": 300, "delay": 3, "copies": 2,
+        "type": "large",
+        "cost": 8, "damage": 300, "delay": 3, "copies": 1,
+    },
+    {
+        "name": "setupBloon", "displayName": "Setup Bloon",
+        "description": [],
+        "events": [
+            ["onLeaked", "Reduce cost of a random bloon in your hand by 1."]
+        ],
+    
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 2, "damage": 20, "delay": 3, "copies": 1,
+    },
+    {
+        "name": "stunGasBloon", "displayName": "Stun Gas Bloon",
+        "description": [],
+        "events": [
+            ["onDamaged", "Stun attacking monkey for 1 turn."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 100, "delay": 2, "copies": 2,
+    },
+    {
+        "name": "shieldGasBloon", "displayName": "Shield Gas Bloon",
+        "description": [],
+        "events": [
+            ["onDamaged", "Random friendly bloon gains 30 shield."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 4, "damage": 150, "delay": 3, "copies": 2,
+    },
+    {
+        "name": "bloontoniumGasBloon", "displayName": "Bloontonium Gas Bloon",
+        "description": [],
+        "events": [
+            ["onDamaged", {"type": "gainBloontonium", "value": 1}],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 3, "damage": 150, "delay": 2, "copies": 2,
+    },
+    {
+        "name": "weakeningGasBloon", "displayName": "Weakening Gas Bloon",
+        "description": [],
+        "events": [
+            ["onDamaged", "Lower attacking monkey's attack power by 5."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 7, "damage": 300, "delay": 4, "copies": 1,
+    },
+    {
+        "name": "volatileBloon", "displayName": "Volatile Bloon",
+        "description": [],
+        "events": [
+            ["onPopped", "Deal 100 damage to all Bloons."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 3, "damage": 200, "delay": 2, "copies": 1,
+    },
+    {
+        "name": "bolsteredBloon", "displayName": "Bolstered Bloon",
+        "description": [],
+        "events": [
+            ["onBloonPlayed", {"type": "gainHP", "value": 30}],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 3, "damage": 200, "delay": 2, "copies": 1, "shield": 100,
+    },
+    {
+        "name": "buddyBloon", "displayName": "Buddy Bloon",
+        "description": [],
+        "events": [
+            ["whileOnBoard", "Reduces enemy Attack Power to 0."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 4, "damage": 50, "delay": 2, "copies": 1, "shield": 150,
+    },
+    {
+        "name": "toxicBloon", "displayName": "Toxic Bloon",
+        "description": [],
+        "events": [
+            ["onPopped", "Remove attacking Monkey."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 4, "damage": 50, "delay": 2, "copies": 1,
+    },
+    {
+        "name": "discountBloon", "displayName": "Discount Bloon",
+        "description": [],
+        "events": [
+            ["onPlay", "Reduces cost of Discount Bloons in hand by 1."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 5, "damage": 100, "delay": 2, "copies": 3,
+    },
+    {
+        "name": "drainingBloon", "displayName": "Draining Bloon",
+        "description": [],
+        "events": [
+            ["onPlay", "Drains all Bloontonium, gains 30 shield per Bloontonium drained"],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 5, "damage": 200, "delay": 3, "copies": 1,
+    },
+    {
+        "name": "hasteningBloon", "displayName": "Hastening Bloon",
+        "description": [],
+        "events": [
+            ["onPlay", "Reduces the delay of a random friendly bloon by 1."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 6, "damage": 150, "delay": 2, "copies": 1,
+    },
+    {
+        "name": "healingBloon", "displayName": "Healing Bloon",
+        "description": [],
+        "events": [
+            ["onPlay", "Gives all friendly Bloons +50HP."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 6, "damage": 200, "delay": 2, "copies": 2,
+    },
+    {
+        "name": "strengthenator", "displayName": "Strengthenator",
+        "description": [],
+        "events": [
+            ["onTurnStart", "Increase delay by 1. Gives all friendly Bloons besides self +20HP."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 2, "damage": 150, "delay": 7, "copies": 1,
     },
     // Zebra
     {
         "name": "zebraBloon", "displayName": "Zebra Bloon",
         "description": [],
         "events": [
-            ["On Play", "Draw a card"],
-            ["On Destroyed", "Draw a card"],
+            ["onPlay", {"type": "drawCards", "value": 1}],
+            ["onDestroyed", {"type": "drawCards", "value": 1}],
         ],
 
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 8, "damage": 150, "delay": 2, "copies": 2,
     },
     // Rainbow
@@ -223,6 +400,7 @@ export const BLOONS = [
         "events": [],
 
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 8, "damage": 400, "delay": 3, "copies": 2,
     },
     {
@@ -231,6 +409,7 @@ export const BLOONS = [
         "events": [],
 
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 10, "damage": 350, "delay": 3, "copies": 2,
         "attributes": ["double"]
     },
@@ -241,7 +420,8 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
-        "cost": 5, "damage": 250, "delay": 2, "copies": 3,
+        "type": "advanced",
+        "cost": 5, "damage": 250, "delay": 2, "copies": 2,
     },
     {
         "name": "doubleCeramicBloon", "displayName": "Double Ceramic Bloon",
@@ -249,16 +429,29 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "advanced",
         "cost": 7, "damage": 220, "delay": 2, "copies": 2,
         "attributes": ["double"]
     },
     // MOAB-Class
+    {
+        "name": "damagedMoab", "displayName": "Damaged MOAB",
+        "description": [],
+        "events": [
+            ["onPlay", "Deal 150 damage to this bloon."],
+        ],
+    
+        "cardType": "bloon",
+        "type": "large",
+        "cost": 6, "damage": 500, "delay": 4, "copies": 2,
+    },
     {
         "name": "moab", "displayName": "MOAB",
         "description": [],
         "events": [],
     
         "cardType": "bloon",
+        "type": "large",
         "cost": 6, "damage": 500, "delay": 4, "copies": 2,
     },
     {
@@ -267,6 +460,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "large",
         "cost": 7, "damage": 600, "delay": 4, "copies": 2,
     },
     {
@@ -275,6 +469,7 @@ export const BLOONS = [
         "events": [],
     
         "cardType": "bloon",
+        "type": "large",
         "cost": 10, "damage": 800, "delay": 5, "copies": 1,
     }
 ]

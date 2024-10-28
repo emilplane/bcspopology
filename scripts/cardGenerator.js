@@ -1,4 +1,5 @@
 import { attributes } from "../stats/attributes.js";
+import { CardEvent } from "./classes/cardEvent.js";
 import Element from "./element.js";
 
 const IMAGE = {
@@ -97,6 +98,14 @@ export function generateCard(blueprint, outputContainer) {
     const svgOutput = `<svg class="cardSvg" width="300" height="400" viewBox="0 0 300 400" 
         preserveAspectRatio="xMidYMid meet">
         <defs>
+            <filter id="bwFilter">
+                <feColorMatrix type="matrix"
+                    values="0.33 0.33 0.33 0 0
+                            0.33 0.33 0.33 0 0
+                            0.33 0.33 0.33 0 0
+                            0    0    0    1 0"
+                />
+            </filter>
             <clipPath id="imageClip">
                 <circle cx="${IMAGE.X}" cy="${IMAGE.Y}" r="${IMAGE.RADIUS - IMAGE.BORDER_WIDTH}" />
             </clipPath>
@@ -143,6 +152,14 @@ export function generateCard(blueprint, outputContainer) {
 
         <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
             fill="url(#${blueprint.name}_borderGradient)"/>
+        <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
+            y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
+            width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
+            href="media/cardArt/redBloon.png"
+            class="cardImage" 
+            clip-path="url(#imageClip)"
+            filter="url(#bwFilter)"
+        />
         <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
             y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
             width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
@@ -199,7 +216,9 @@ export function generateCard(blueprint, outputContainer) {
     function generateDescriptionText() {
         const descriptionLines = [...blueprint.description];
         blueprint.events.forEach(event => {
-            descriptionLines.push(`${event[0]}: ${event[1]}`);
+            const cardEvent = new CardEvent(event);
+            console.log(cardEvent);
+            descriptionLines.push(`${cardEvent.trigger.displayName}: ${cardEvent.actionText}`);
         });
         if (blueprint.attributes) {
             blueprint.attributes.forEach(attribute => {

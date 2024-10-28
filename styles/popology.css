@@ -124,7 +124,8 @@
 
 .statChipContainer {
     display: flex;
-    gap: 8px
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .statChip {
@@ -169,7 +170,7 @@
     transition: 0.25s ease-in-out;
 }
 
-.attributeCard {
+.attributeCard, .eventCard {
     background-color: hsla(0, 0%, 0%, 0.2);
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
     border-radius: 8px;

@@ -39,8 +39,8 @@ export default class Element {
         return this;
     }
 
-    setAttribute(key, value) {
-        this.element.setAttribute(key, value);
+    onclick(callback) {
+        this.element.onclick = callback;
         return this;
     }
 
