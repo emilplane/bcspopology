@@ -1,4 +1,5 @@
 import { attributes } from "../stats/attributes.js";
+import Card from "./classes/card.js";
 import { CardEvent } from "./classes/cardEvent.js";
 import Element from "./element.js";
 
@@ -52,20 +53,19 @@ const DELAY = {
     "TEXT_Y": 110
 }
 
-// generateCard(swarmRedBloon);
 
-export function generateCard(blueprint, outputContainer) {
+export function generateCard(card, outputContainer) {
     const cardOutput = outputContainer
 
     let delayInfo = "", damageInfo = "";
-    if (blueprint.cardType === "monkey" || blueprint.cardType === "bloon") {
+    if (card.cardType === "monkey" || card.cardType === "bloon") {
         delayInfo = `
             <image x=${DELAY.X} y=${DELAY.Y} width=${DELAY.WIDTH}
                 href="media/delay.png"
             />
 
             <text x=${DELAY.TEXT_X} y=${DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
-                text-anchor="middle">${blueprint.delay}</text>
+                text-anchor="middle">${card.delay}</text>
         `
         damageInfo = `
             <image x=${DAMAGE.X} y=${DAMAGE.Y} width=${DAMAGE.WIDTH}
@@ -73,7 +73,7 @@ export function generateCard(blueprint, outputContainer) {
             />
 
             <text x=${DAMAGE.TEXT_X} y=${DAMAGE.TEXT_Y} class="bcsfont cardStatText" 
-                text-anchor="middle">${blueprint.damage}</text>
+                text-anchor="middle">${card.damage}</text>
             />
         `
     }
@@ -82,7 +82,7 @@ export function generateCard(blueprint, outputContainer) {
         "borderGradient": undefined,
         "textContainerGradient": undefined
     }
-    switch (blueprint.cardType) {
+    switch (card.cardType) {
         case "bloon":
             gradients.borderGradient = ["hsl(207, 100%, 60%)", "hsl(207, 100%, 45%)"]
             gradients.textContainerGradient = ["hsl(207, 100%, 50%)", "hsl(207, 100%, 40%)"]
@@ -113,11 +113,11 @@ export function generateCard(blueprint, outputContainer) {
                 <rect x="20" y="20" rx=${BACKGROUND.BORDER_RADIUS} width="260" height="360" 
                     transform="rotate(30 100 100)"/>
             </clipPath>
-            <linearGradient id="${blueprint.name}_borderGradient" gradientTransform="rotate(90)">
+            <linearGradient id="${card.name}_borderGradient" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.borderGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.borderGradient[1]}" />
             </linearGradient>
-            <linearGradient id="${blueprint.name}_textContainerGradient" gradientTransform="rotate(90)">
+            <linearGradient id="${card.name}_textContainerGradient" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.textContainerGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.textContainerGradient[1]}" />
             </linearGradient>
@@ -136,10 +136,10 @@ export function generateCard(blueprint, outputContainer) {
         <rect width="100%" height="100%" fill="hsla(0, 0%, 80%, 0.0)" />
 
         <rect x="20px" y="20px" rx=${BACKGROUND.BORDER_RADIUS} width="260" height="360" 
-            fill="blue" class="${blueprint.cardType}CardBackground"/>
+            fill="blue" class="${card.cardType}CardBackground"/>
         
         <text x="0" y="0" lengthAdjust="spacingAndGlyphs" text-anchor="left"
-            class="bcsfont cardBackgroundText ${blueprint.cardType}CardBackgroundText unselectable"
+            class="bcsfont cardBackgroundText ${card.cardType}CardBackgroundText unselectable"
             clip-path="url(#backgroundTextClip)">
             ${generateBackgroundText()}
         </text>
@@ -147,11 +147,11 @@ export function generateCard(blueprint, outputContainer) {
         <rect x="${TEXT.CONTAINER_X}" y="${TEXT.CONTAINER_Y}"
             width="${TEXT.CONTAINER_WIDTH}" height="${TEXT.CONTAINER_HEIGHT}"
             rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-            class="textContainer" fill="url(#${blueprint.name}_textContainerGradient)"
+            class="textContainer" fill="url(#${card.name}_textContainerGradient)"
         />
 
         <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
-            fill="url(#${blueprint.name}_borderGradient)"/>
+            fill="url(#${card.name}_borderGradient)"/>
         <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
             y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
             width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
@@ -163,11 +163,12 @@ export function generateCard(blueprint, outputContainer) {
         <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
             y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
             width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
-            href="media/cardArt/${blueprint.name}.png"
+            href="media/cardArt/${card.name}.png"
             class="cardImage" 
             clip-path="url(#imageClip)"
         />
-        <text font-size="8" fill="black" class="bcsfont ${blueprint.cardType}ImageBorderTextPath" lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
+        <text font-size="8" fill="black" class="bcsfont ${card.cardType}ImageBorderTextPath"
+            lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
             <textPath href="#circlePath" startOffset="0%">
                 BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226;
                 BCS Popology &#8226; BCS Popology &#8226;
@@ -176,10 +177,10 @@ export function generateCard(blueprint, outputContainer) {
 
         
 
-        ${generateCoinCopies(blueprint.copies)}
+        ${generateCoinCopies(card.copies)}
 
         <text x=${COST.TEXT_X} y=${COST.TEXT_Y} class="bcsfont cardStatText" 
-            text-anchor="middle">${blueprint.cost}</text>
+            text-anchor="middle">${card.cost}</text>
 
         ${damageInfo}
 
@@ -197,39 +198,15 @@ export function generateCard(blueprint, outputContainer) {
         new Element("div").class("cardTextContainer").children(
             new Element("div").class("cardTitleContainer").children(
                 new Element("h4").class("bcsfont", "cardTitle")
-                    .text(blueprint.displayName)
+                    .text(card.displayName)
             ),
             new Element("div").class("cardDescriptionContainer").children(
                 new Element("h4").class("cardDescription")
-                    .text(generateDescriptionText())
+                    .text(card.descriptionText)
             )
         )
     )
 
-    /**
-     * Generates the description text for a bloon based on its description and
-     * events.
-     * @param {BloonBlueprint} blueprint - The blueprint of the bloon to generate
-     * the description for.
-     * @returns {string} The generated description text.
-     */
-    function generateDescriptionText() {
-        const descriptionLines = [...blueprint.description];
-        blueprint.events.forEach(event => {
-            const cardEvent = new CardEvent(event);
-            console.log(cardEvent);
-            descriptionLines.push(`${cardEvent.trigger.displayName}: ${cardEvent.actionText}`);
-        });
-        if (blueprint.attributes) {
-            blueprint.attributes.forEach(attribute => {
-                descriptionLines.push(attributes[attribute].displayName);
-            });
-        }
-        return descriptionLines.join("\n");
-    }
-
-
-        
     cardOutput.appendChild(container.element)
     cardOutput.insertAdjacentHTML("afterbegin", svgOutput)
     cardOutput.classList.add("generatedCard")

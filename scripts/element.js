@@ -48,4 +48,9 @@ export default class Element {
         this.element.innerHTML = "";
         return this;
     }
+
+    insertAdjacentHTML(position, html) {
+        this.element.insertAdjacentHTML(position, html);
+        return this;
+    }
 }

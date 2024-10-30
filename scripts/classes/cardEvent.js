@@ -2,10 +2,16 @@ import { events } from "../../stats/events.js"
 import { BLOONS } from "../../stats/stats.js"
 import Element from "../element.js"
 import { popupCard } from "../popology.js"
+import Card from "./card.js"
 
 export class CardEvent {
     constructor(data) {
+        if (data instanceof CardEvent) {
+            throw new Error("Cannot create CardEvent from CardEvent")
+        }
+
         this.data = data
+
         this.trigger = events[data[0]]
         if (this.trigger === undefined) {
             this.trigger = { displayName: data[0], description: "" }
@@ -56,7 +62,7 @@ export class CardEvent {
                     .class("openCardLink")
                     .text(name)
 
-                toCardLink.onclick(() => popupCard(bloon))
+                toCardLink.onclick(() => popupCard(new Card(bloon)))
                 
                 const element = new Element("p").children(
                     new Element("span").text("Spawns a "),

@@ -193,6 +193,12 @@
     display: flex;
 }
 
+.calculationsTitleContainer {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+}
+
 .closePopupButton {
     margin-left: auto;
     text-decoration: underline;

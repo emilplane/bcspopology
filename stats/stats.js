@@ -163,7 +163,7 @@ export const BLOONS = [
         "name": "whiteBloon", "displayName": "White Bloon",
         "description": [],
         "events": [
-            ["onPlay", {"type": "drawCards", "value": 1}]
+            {"type": "drawCards", "value": 1}
         ],
     
         "cardType": "bloon",
@@ -488,10 +488,15 @@ export const MONKEYS = [
 export const POWERS = [
     {
         "name": "bloontoniumCache", "displayName": "Bloontonium Cache",
-        "description": ["Gain 5 Bloontonium."],
+        "description": [],
         "events": [],
     
         "cardType": "power",
+        "type": "basic",
         "cost": 0, "copies": 1,
+    },
+    {
+        "name": "cashDrop", "displayName": "Cash Drop",
+
     }
 ]
