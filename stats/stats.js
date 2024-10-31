@@ -204,7 +204,7 @@ export const BLOONS = [
 
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 70, "delay": 2, "copies": 2,
+        "cost": 3, "damage": 100, "delay": 4, "copies": 2,
     },
     {
         "name": "steadyGrowthBloon", "displayName": "Steady Growth Bloon",
@@ -235,7 +235,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 20, "delay": 3, "copies": 1,
+        "cost": 2, "damage": 20, "delay": 0, "copies": 1,
     },
     {
         "name": "stunGasBloon", "displayName": "Stun Gas Bloon",
@@ -301,7 +301,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 3, "damage": 200, "delay": 2, "copies": 1, "shield": 100,
+        "cost": 4, "damage": 200, "delay": 2, "copies": 1, "shield": 100,
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
@@ -323,7 +323,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 4, "damage": 50, "delay": 2, "copies": 1,
+        "cost": 4, "damage": 100, "delay": 2, "copies": 1,
     },
     {
         "name": "discountBloon", "displayName": "Discount Bloon",
@@ -443,7 +443,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "large",
-        "cost": 6, "damage": 500, "delay": 4, "copies": 2,
+        "cost": 4, "damage": 500, "delay": 4, "copies": 1,
     },
     {
         "name": "moab", "displayName": "MOAB",
