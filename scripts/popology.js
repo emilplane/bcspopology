@@ -24,7 +24,7 @@ import Card from "./classes/card.js";
 generateCardCategorySection("Bloon Cards", BLOONS)
 const cardSectionContainer = new Element("div").class("cardSectionContainer")
     .children(
-        // generateCardCategorySection("Power Cards", POWERS),
+        generateCardCategorySection("Power Cards", POWERS),
         generateCardCategorySection("Bloon Cards", BLOONS)
     )
 
@@ -77,7 +77,7 @@ export function popupCard(card) {
         "shield": `Blocks up to ${card.shield} damage.`
     }
     propertiesAsStatChips.forEach(property => {
-        if (card[property] != undefined) {
+        if (card[property] !== undefined) {
             statChipContainer.children(
                 new Element("div").class("statChip").children(
                     new Element("h6").text(property.charAt(0).toUpperCase() + property.slice(1))
@@ -94,7 +94,7 @@ export function popupCard(card) {
 
     const cardAttributes = [];
 
-    if (card.attributes != undefined) {
+    if (card.attributes !== undefined) {
         card.attributes.forEach(attribute => {
             cardAttributes.push(new Element("div").class("attributeCard").children(
                 new Element("h5").text(attribute.displayName).class("bcsfont"),
@@ -105,7 +105,7 @@ export function popupCard(card) {
     
     const cardEvents = [];
     
-    if (card.events != undefined) {
+    if (card.events !== undefined) {
         card.events.forEach(event => {
             const cardEvent = event;
 
@@ -201,7 +201,7 @@ export function popupCard(card) {
     document.querySelector(".closePopupButton").addEventListener("click", () => {
         document.querySelector(".cardPopupWrapper").style.display = "none";
     });
-};
+}
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "m") {

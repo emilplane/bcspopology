@@ -1,7 +1,7 @@
-import { events } from "../../stats/events.js"
-import { BLOONS } from "../../stats/stats.js"
+import {events} from "../../stats/events.js"
+import {BLOONS} from "../../stats/stats.js"
 import Element from "../element.js"
-import { popupCard } from "../popology.js"
+import {popupCard} from "../popology.js"
 import Card from "./card.js"
 
 export class CardEvent {
@@ -63,14 +63,12 @@ export class CardEvent {
                     .text(name)
 
                 toCardLink.onclick(() => popupCard(new Card(bloon)))
-                
-                const element = new Element("p").children(
+
+                return new Element("p").children(
                     new Element("span").text("Spawns a "),
                     toCardLink,
                     new Element("span").text(".")
                 )
-
-                return element
             case "drawCards":
                 return new Element("p").children(
                     new Element("span").text("Draw "),

@@ -488,8 +488,9 @@ export const MONKEYS = [
 export const POWERS = [
     {
         "name": "bloontoniumCache", "displayName": "Bloontonium Cache",
-        "description": [],
-        "events": [],
+        "events": [
+            ["onPlay", {"type": "gainBloontonium", "value": 5}]
+        ],
     
         "cardType": "power",
         "type": "basic",
@@ -497,6 +498,22 @@ export const POWERS = [
     },
     {
         "name": "cashDrop", "displayName": "Cash Drop",
+        "events": [
+            ["onPlay", {"type": "gainGold", "value": 2}]
+        ],
 
+        "cardType": "power",
+        "type": "basic",
+        "cost": 0, "copies": 1,
+    },
+    {
+        "name": "favoredTrade", "displayName": "Favored Trade",
+        "events": [
+            ["onPlay", "Remove friendly monkey and gain half its gold cost."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 0, "copies": 1,
     }
 ]

@@ -54,7 +54,11 @@ export default class Card {
         }
 
         this.events.forEach(event => {
-            lines.push(`${event.trigger.displayName}: ${event.actionText}`);
+            if (this.cardType === "power" && event.trigger.displayName === "On Play") {
+                lines.push(event.actionText);
+            } else {
+                lines.push(`${event.trigger.displayName}: ${event.actionText}`);
+            }
         });
 
         this.attributes.forEach(attribute => {
