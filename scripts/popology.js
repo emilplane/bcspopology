@@ -1,5 +1,5 @@
 import Element from "./element.js";
-import { BLOONS, POWERS } from "/stats/stats.js";
+import {BLOONS, MONKEYS, POWERS} from "/stats/stats.js";
 import { generateCard } from "./cardGenerator.js";
 import { attributes } from "/stats/attributes.js";
 import { events } from "/stats/events.js";
@@ -24,6 +24,7 @@ import Card from "./classes/card.js";
 generateCardCategorySection("Bloon Cards", BLOONS)
 const cardSectionContainer = new Element("div").class("cardSectionContainer")
     .children(
+        generateCardCategorySection("Monkey Cards", MONKEYS),
         generateCardCategorySection("Power Cards", POWERS),
         generateCardCategorySection("Bloon Cards", BLOONS)
     )
@@ -71,18 +72,44 @@ export function popupCard(card) {
     const propertiesAsStatChips = ["cost", "damage", "delay", "copies", "shield"];
     const propertyDescriptions = {
         "cost": "How much gold each copy of the card costs.",
-        "damage": "Amount of HP this Bloon has, and the amount of damage it deals to the opponent's hero.",
-        "delay": "The amount of turns it takes for this Bloon to damage the opponent's hero.",
-        "copies": `Number of times this card can be played when drawn. Each play costs ${card.cost} gold (the cost of this card).`,
+        "damage": `Amount of ${card.cardType === "monkey" ? "damage each attack does." : "HP this Bloon has, and the amount of damage it deals to the opponent's hero."}`,
+        "delay": `The amount of turns it takes for this ${card.cardType === "monkey" ? "tower to reload its ammo." : "Bloon to damage the opponent's hero."}`,
         "shield": `Blocks up to ${card.shield} damage.`
     }
+
+    // Modify description if this card does adjacent damage
+    if (Array.isArray(card.blueprint.damage)) {
+        propertyDescriptions.damage = `This card's main attack does ${card.blueprint.damage[1]} damage. Additionally, this card does ${
+            card.blueprint.damage[0] !== 0 ? `${card.blueprint.damage[0]} damage to the previous Bloon` : ""} ${
+            card.blueprint.damage[0] !== 0 && card.blueprint.damage[2] !== 0 ? `and` : ""} ${
+            card.blueprint.damage[2] !== 0 ? `${card.blueprint.damage[2]} damage to the next Bloon` : ""}. Damage to adjacent bloons can't be buffed.`
+    }
+
+    // Add card copies if this card is a bloon card
+    if (card.cardType === "bloon") {
+        propertyDescriptions.copies =
+            `Number of times this card can be played when drawn. Each play costs ${card.cost} gold (the cost of this card).`
+    } else {
+        delete propertiesAsStatChips[3]
+    }
+
+    if (card.defender) {
+        propertiesAsStatChips.push("defender")
+        propertyDescriptions.defender =
+            `This tower can attack a bloon about to hit your hero, with +${card.defender} (${card.damage + card.defender}) damage when doing so.`
+    }
+
     propertiesAsStatChips.forEach(property => {
         if (card[property] !== undefined) {
             statChipContainer.children(
                 new Element("div").class("statChip").children(
                     new Element("h6").text(property.charAt(0).toUpperCase() + property.slice(1))
                         .class("statChipTitle"),
-                    new Element("h5").text(card[property]),
+                    new Element("h5").text(
+                        Array.isArray(card.blueprint.damage) && property === "damage"
+                            ? `${card.blueprint.damage[0]} | ${card.blueprint.damage[1]} | ${card.blueprint.damage[2]}`
+                            : card[property]
+                    ),
                     new Element("div").class("statTooltipWrapper")
                         .children(new Element("div").class("statTooltip")
                         .children(new Element("p").text(propertyDescriptions[property]))
@@ -134,40 +161,46 @@ export function popupCard(card) {
         )
     }
 
+    let atLeastOneStatExists = false
     const statChipCalculator = (propertyName, propertyValue, hoverText, conditions) => {
         if (conditions.every(condition => card[condition] !== undefined)) {
+            atLeastOneStatExists = true
             calculationsStatChipContainer.children(statChipElement(
-                propertyName,
+                card.isOnFire ? propertyName + " + burn" : propertyName,
                 propertyValue(card).toFixed(2),
                 hoverText
             ));
         }
     }
 
+    const dmg = Array.isArray(card.blueprint.damage) ? card.blueprint.damage.reduce((a, b) => a + b, 0) : card.damage
+
     statChipCalculator(
-        "HP/$",
-        card => card.damage / card.cost,
+        card.cardType === "monkey" ? "dmg/$" : "HP/$",
+        card => dmg / card.cost,
         "This card's raw cost efficiency: damage divided by cost.",
         ["damage", "cost"]
     );
 
     statChipCalculator(
         "(HP+Shield)/$",
-        card => (card.damage + card.shield) / card.cost,
+        card => (dmg + card.shield) / card.cost,
         "This card's raw cost efficiency including shield: HP plus shield divided by cost.",
         ["damage", "cost", "shield"]
     );
 
     statChipCalculator(
-        "HP/round",
-        card => card.damage / card.delay,
-        "This card's HP per delay. This is the average amount of damage your opponent needs to do per turn to kill this card, excluding shield.",
+        card.cardType === "monkey" ? "dmg/round" : "HP/round",
+        card => dmg / card.delay,
+        card.cardType === "monkey"
+            ? "This card's damage per delay."
+            : "This card's HP per delay. This is the average amount of damage your opponent needs to do per turn to kill this card, excluding shield.",
         ["damage", "delay"]
     );
 
     statChipCalculator(
         "(HP+Shield)/delay",
-        card => (card.damage + card.shield) / card.delay,
+        card => (dmg + card.shield) / card.delay,
         "This card's HP per delay, including shield. This is the average amount of damage your opponent needs to do per turn to kill this card, including the shield.",
         ["damage", "delay", "shield"]
     );
@@ -176,7 +209,18 @@ export function popupCard(card) {
         .children(statChipContainer, ...cardAttributes, ...cardEvents);
 
     const calculationsBody = new Element("div").class("detailedStatsBody")
-        .children(calculationsStatChipContainer);
+        .children(calculationsStatChipContainer)
+
+    const calculationElements = atLeastOneStatExists ? [
+        new Element("div").class("calculationsTitleContainer")
+            .children(
+                new Element("h5").text("Card Calculations")
+            ),
+        new Element("hr").class("popupDividingLine"),
+        new Element("p")
+            .text("Warning: these calculations do not yet take into account all special card properties."),
+        calculationsBody
+    ] : []
 
     document.querySelector(".cardPopupInfoWrapper").insertAdjacentElement("beforeend",
         new Element("div").class("cardPopupInfoContainer").children(
@@ -187,13 +231,7 @@ export function popupCard(card) {
                 ),
             new Element("hr").class("popupDividingLine"),
             detailedStatsBody,
-            new Element("div").class("calculationsTitleContainer")
-                .children(
-                    new Element("h5").text("Card Calculations")
-                ),
-            new Element("hr").class("popupDividingLine"),
-            new Element("p").text("Warning: these calculations do not yet take into account special card properties, besides shield."),
-            calculationsBody
+            ...calculationElements
         )
         .element
     );

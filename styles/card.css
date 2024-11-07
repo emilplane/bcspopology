@@ -36,6 +36,10 @@
     flex-direction: column;
 }
 
+.cardTextContainer.monkeyTextConainer {
+    padding: 55% 12% 18%;
+}
+
 .cardTitleContainer {
     overflow: hidden;
     height: auto;
@@ -85,6 +89,11 @@
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
 }
 
+.monkeyCardBackground {
+    fill: hsl(8, 100%, 60%);
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
+}
+
 .imageBorder {
     filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.4))
 }
@@ -97,6 +106,10 @@
     fill: hsl(283, 100%, 35%);
 }
 
+.monkeyImageBorderTextPath {
+    fill: hsl(8, 100%, 35%);
+}
+
 .cardBackgroundText {
     font-size: 15px;
     transform: rotate(-30deg);
@@ -104,11 +117,15 @@
 }
 
 .bloonCardBackgroundText {
-    fill: hsl(207, 100%, 65%);
+    fill: hsl(207, 100%, 68%);
 }
 
 .powerCardBackgroundText {
-    fill: hsl(283, 100%, 65%);
+    fill: hsl(283, 100%, 68%);
+}
+
+.monkeyCardBackgroundText {
+    fill: hsl(8, 100%, 70%);
 }
 
 .textContainer {
@@ -133,8 +150,17 @@
     2px 3px 0 #000;
 }
 
+.ammoText {
+    font-size: 36px;
+}
+
 .delayText {
     font-size: 32px;
+}
+
+.defenderText {
+    font-size: 32px;
+    fill: lightgreen;
 }
 
 .bcsPopologyText {

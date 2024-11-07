@@ -64,6 +64,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    align-self: start;
 }
 
 .cardPopupCardContainer {
@@ -90,7 +91,7 @@
     background-image: linear-gradient(hsl(207, 100%, 50%), hsl(207, 100%, 40%));
     border-radius: 8px;
     padding: 8px;
-    height: calc(100% - 100px);
+    min-height: calc(100% - 100px);
     display: flex;
     flex-direction: column;
 }

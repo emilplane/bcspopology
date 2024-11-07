@@ -230,7 +230,7 @@ export const BLOONS = [
         "name": "setupBloon", "displayName": "Setup Bloon",
         "description": [],
         "events": [
-            ["onLeaked", "Reduce cost of a random bloon in your hand by 1."]
+            ["onLeak", "Reduce cost of a random bloon in your hand by 1."]
         ],
     
         "cardType": "bloon",
@@ -479,10 +479,414 @@ export const MONKEYS = [
         "name": "dartMonkey", "displayName": "Dart Monkey",
         "description": [],
         "events": [],
-    
-        "cardType": "bloon",
-        "cost": 0, "damage": 40, "delay": 1, "copies": 2,
-    }
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 0, "damage": 20, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "mortarMonkey", "displayName": "Mortar Monkey",
+        "description": [],
+        "events": [
+            ["onTurnEnd", "Randomly attacks an enemy Bloon."],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "mortar",
+        "cost": 2, "damage": 40, "ammo": 1, "delay": 1,
+        "attributes": ["normalAttacksDisabled"]
+    },
+    {
+        "name": "tackShooter", "displayName": "Tack Shooter",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "tack",
+        "cost": 2, "damage": 25, "ammo": 2, "delay": 2, "defender": 10,
+    },
+    {
+        "name": "sniperMonkey", "displayName": "Sniper Monkey",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "sniper",
+        "cost": 3, "damage": 75, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "bananaFarm", "displayName": "Banana Farm",
+        "description": [],
+        "events": [
+            ["onTurnStart", {"type": "gainGold", "value": 2}],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "farm",
+        "cost": 3,
+    },
+    {
+        "name": "druid", "displayName": "Druid",
+        "description": [],
+        "events": [
+            ["onPlay", {"type": "gainHeroHP", "value": 50}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "druid",
+        "cost": 4, "damage": 50, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "boomerangMonkey", "displayName": "Boomerang Monkey",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "boomerang",
+        "cost": 3, "damage": [0, 25, 15], "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "tripleShot", "displayName": "Triple Shot",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 3, "damage": [20, 20, 20], "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "burnyStuffMortar", "displayName": "Burny Stuff Mortar",
+        "description": [],
+        "events": [
+            ["onTurnEnd", "Randomly attacks an enemy Bloon."],
+        ],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "mortar",
+        "cost": 3, "damage": 40, "ammo": 1, "delay": 1, "fire": 30
+    },
+    {
+        "name": "crossbow", "displayName": "Crossbow",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 4, "damage": 35, "ammo": 2, "delay": 2,
+    },
+    {
+        "name": "monkeyVillage", "displayName": "Monkey Village",
+        "description": ["Adjacent monkeys have +15 Attack Power"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "village",
+        "cost": 4,
+    },
+    {
+        "name": "wizardMonkey", "displayName": "Wizard Monkey",
+        "description": [],
+        "events": [
+            ["onTurnStart", {"type": "gainAttackPower", "value": 5}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "magic",
+        "cost": 4, "damage": 25, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "cashDropSniper", "displayName": "Cash Drop Sniper",
+        "description": [],
+        "events": [
+            ["onReload", {"type": "gainGold", "value": 3}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "magic",
+        "cost": 5, "damage": 65, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "wallOfFireMonkey", "displayName": "Wall of Fire Monkey",
+        "description": [],
+        "events": [
+            ["onPlay", "First enemy bloon is set on fire."],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "wizard",
+        "cost": 5, "damage": 40, "ammo": 1, "delay": 1, "defender": 5, "fire": 30
+    },
+    {
+        "name": "superMonkeyFanClub", "displayName": "Super Monkey Fan Club",
+        "description": [],
+        "events": [
+            ["duringTurn", "All Dart Monkeys gain +10 Attack Power."],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 6, "damage": 30, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "bananaPlantation", "displayName": "Banana Plantation",
+        "description": [],
+        "events": [
+            ["onOpponentDraw", {"type": "gainGold", "value": 1}],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "farm",
+        "cost": 3,
+    },
+    {
+        "name": "spikeOPult", "displayName": "Spike-o-Pult",
+        "description": [],
+        "events": [
+            ["onPop", {"type": "gainAttackPower", "value": 20}],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 4, "damage": 50, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "tackSprayer", "displayName": "Tack Sprayer",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "tack",
+        "cost": 4, "damage": 20, "ammo": 4, "delay": 3, "defender": 10,
+    },
+    {
+        "name": "heartOfVengeanceDruid", "displayName": "Heart of Vengeance Druid",
+        "description": [],
+        "events": [
+            ["onLeak", {"type": "gainAttackPower", "value": 5}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "druid",
+        "cost": 5, "damage": 15, "ammo": 2, "delay": 2,
+    },
+    {
+        "name": "junglesBountyDruid", "displayName": "Jungle's Bounty Druid",
+        "description": [],
+        "events": [
+            ["perGoldGained", {"type": "gainHeroHP", "value": 10}]
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "druid",
+        "cost": 5, "damage": 15, "ammo": 2, "delay": 1,
+    },
+    {
+        "name": "bionicBoomerang", "displayName": "Bionic Boomerang",
+        "description": [],
+        "events": [
+            ["onPlay", {"type": "gainAmmo", "value": 2}],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "boomerang",
+        "cost": 6, "damage": 40, "ammo": 2, "delay": 2,
+    },
+    {
+        "name": "eliteDefender", "displayName": "Elite Defender",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "sniper",
+        "cost": 7, "damage": 50, "ammo": 3, "delay": 3, "defender": 15,
+    },
+    {
+        "name": "necromancer", "displayName": "Necromancer",
+        "description": [],
+        "events": [
+            ["onTurnStart", "Heal a random friendly bloon +25 HP."],
+            ["onTurnEnd", "Summon an Undead Bloon."],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "wizard",
+        "cost": 7,
+    },
+    {
+        "name": "thunderDruid", "displayName": "Thunder Druid",
+        "description": [],
+        "events": [
+            ["onPlay", "Deal 100 damage to all enemy Bloons"],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "druid",
+        "cost": 7, "damage": 25, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "superMonkey", "displayName": "Super Monkey",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "super",
+        "cost": 8, "damage": 90, "ammo": 3, "delay": 3,
+    },
+    {
+        "name": "arcaneMaster", "displayName": "Arcane Master",
+        "description": [],
+        "events": [
+            ["onReload", {"type": "drawCard", "name": "yellowBloon"}]
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "super",
+        "cost": 9, "damage": [50, 50, 50], "ammo": 2, "delay": 3,
+    },
+    {
+        "name": "marketplace", "displayName": "Marketplace",
+        "description": [],
+        "events": [
+            ["onTurnStart", "Gain 1 gold per friendly monkey"],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "farm",
+        "cost": 6,
+    },
+    {
+        "name": "cripplingSniper", "displayName": "Crippling Sniper",
+        "description": ["Targeted Large Bloons have their Delay increased by 1."],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "sniper",
+        "cost": 3, "damage": 75, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "bladeMaelstrom", "displayName": "Blade Maelstrom",
+        "description": [],
+        "events": [
+            ["onTurnEnd", "Deal 15 damage to all enemy Bloons"],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "tack",
+        "cost": 8, "damage": 20, "ammo": 3, "delay": 4, "defender": 10,
+    },
+    {
+        "name": "bouncingBullet", "displayName": "Bouncing Bullet",
+        "description": [],
+        "events": [
+            ["onAttack", "Deal 30 damage to a different random Bloon 3 times"],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "tack",
+        "cost": 8, "damage": 65, "ammo": 1, "delay": 2,
+    },
+    {
+        "name": "sharpShooter", "displayName": "Sharp Shooter",
+        "description": ["Double attack power while at full Ammo."],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 9, "damage": 40, "ammo": 3, "delay": 2,
+    },
+    {
+        "name": "princeOfDarkness", "displayName": "Prince of Darkness",
+        "description": [],
+        "events": [
+            ["onPlay", "Summon an Undead MOAB."],
+            ["onTurnStart", "Heal all friendly Bloons +25 HP."],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "wizard",
+        "cost": 7,
+    },
+    {
+        "name": "theBigOne", "displayName": "The Big One",
+        "description": [],
+        "events": [
+            ["onTurnEnd", "Randomly attacks an enemy Bloon."],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "mortar",
+        "cost": 11, "damage": 140, "ammo": 1, "delay": 1,
+        "attributes": ["normalAttacksDisabled"]
+    },
+    {
+        "name": "darkChampion", "displayName": "Dark Champion",
+        "description": [],
+        "events": [
+            ["duringOpponentTurn", "All of your defenders gain +10 Attack Power."],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "super",
+        "cost": 12, "damage": 90, "ammo": 3, "delay": 3,
+    },
+    {
+        "name": "glaiveRicochet", "displayName": "Glaive Ricochet",
+        "description": [],
+        "events": [
+            ["onAttack", "Deal 10 damage to all of the bloons next in line"],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "boomerang",
+        "cost": 12, "damage": 30, "ammo": 4, "delay": 2,
+    },
+    {
+        "name": "sunTemple", "displayName": "Sun Temple",
+        "description": [],
+        "events": [
+            ["onPlay", "Sacrifice all friendly Monkeys for +25 Attack Power per Monkey"],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "super",
+        "cost": 18, "damage": 100, "ammo": 3, "delay": 1,
+    },
 ]
 
 export const POWERS = [

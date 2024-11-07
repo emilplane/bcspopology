@@ -177,7 +177,7 @@ ul {
 }
 
 .chartCanvas {
-    font-family: "Gabarito";
+    font-family: "Gabarito", serif;
 }
 
 table {
@@ -193,12 +193,12 @@ td {
 }
 
 .luckiestGuy {
-    font-family: "Luckiest Guy";
+    font-family: "Luckiest Guy", serif;
     font-weight: 400;
 }
 
 .bcsfont {
-    font-family: "BCS Font";
+    font-family: "BCS Font", "Gabarito", serif;
     font-weight: 400;
 }
 

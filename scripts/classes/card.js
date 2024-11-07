@@ -24,12 +24,14 @@ export default class Card {
             throw Error("Card has no cost!")
         }
         this.cost = this.blueprint.cost
-        
-        if (this.blueprint.copies === undefined) {
+
+        if (["monkey", "power"].includes(this.cardType)) {
+            this.copies = 1
+        } else if (this.blueprint.copies === undefined) {
             throw Error("Card has no specified number of copies!")
+        } else {
+            this.copies = this.blueprint.copies
         }
-        this.copies = this.blueprint.copies
-        
     }
 
     /**
@@ -62,9 +64,23 @@ export default class Card {
         });
 
         this.attributes.forEach(attribute => {
-            // console.log(this.attributes)
             lines.push(attribute.displayName);
         });
+
+        if (Array.isArray(this.blueprint.damage)) {
+            if (this.blueprint.damage[0] !== 0 && this.blueprint.damage[2] !== 0) {
+                lines.push(`Does ${this.blueprint.damage[0]} damage to adjacent bloons.`);
+            } else {
+                if (this.blueprint.damage[0] !== 0) {
+                    lines.push(`Does ${this.blueprint.damage[0]} damage to the previous bloon.`);
+                }
+                if (this.blueprint.damage[2] !== 0) {
+                    lines.push(`Does ${this.blueprint.damage[2]} damage to the next bloon.`);
+                }
+            }
+        }
+
+        if (this.isOnFire) lines.push(`Applies fire: ${this.fire} damage per turn`)
 
         return lines
     }
@@ -97,7 +113,7 @@ export default class Card {
             }
         }
 
-        return eventArray
+        return eventArray;
     }
 
     /**
@@ -105,7 +121,16 @@ export default class Card {
      * @returns {number}
      */
     get damage() {
-        return this.blueprint.damage
+        if (Array.isArray(this.blueprint.damage)) return this.blueprint.damage[1];
+        return this.blueprint.damage;
+    }
+
+    /**
+     * Returns the ammo of the card.
+     * @returns {number}
+     */
+    get ammo() {
+        return this.blueprint.ammo;
     }
 
     /**
@@ -113,7 +138,7 @@ export default class Card {
      * @returns {number}
      */
     get delay() {
-        return this.blueprint.delay
+        return this.blueprint.delay;
     }
 
     /**
@@ -121,7 +146,31 @@ export default class Card {
      * @returns {number}
      */
     get shield() {
-        return this.blueprint.shield
+        return this.blueprint.shield;
+    }
+
+    /**
+     * Returns the defender bonus damage of the card.
+     * @returns {number}
+     */
+    get defender() {
+        return this.blueprint.defender;
+    }
+
+    /**
+     * Whether this card has the fire property.
+     * @returns {boolean}
+     */
+    get isOnFire() {
+        return !!this.blueprint.fire;
+    }
+
+    /**
+     * Returns the burn damage of this card.
+     * @returns {number}
+     */
+    get fire() {
+        return this.blueprint.fire;
     }
 
     /**

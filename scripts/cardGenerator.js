@@ -11,6 +11,13 @@ const IMAGE = {
     "BORDER_TEXT_OFFSET": 2
 }
 
+const FULL_HEIGHT_IMAGE = {
+    "X": -20,
+    "Y": 30,
+    "WIDTH": 340,
+    "HEIGHT": 200,
+}
+
 const BACKGROUND = {
     "TEXT_X_OFFSET": -100,
     "TEXT_Y_OFFSET_PER_LINE": -20,
@@ -38,11 +45,22 @@ const COST = {
 }
 
 const DAMAGE = {
-    "X": 225,
-    "Y": 6,
-    "WIDTH": 75,
+    "BLOON_X": 225,
+    "BLOON_Y": 6,
+    "BLOON_WIDTH": 75,
+    "MONKEY_X": 229,
+    "MONKEY_Y": 0,
+    "MONKEY_WIDTH": 70,
     "TEXT_X": 264,
-    "TEXT_Y": 48
+    "TEXT_Y": 48,
+}
+
+const AMMO = {
+    "X": 220,
+    "Y": 58,
+    "WIDTH": 85,
+    "TEXT_X": 263,
+    "TEXT_Y": 110
 }
 
 const DELAY = {
@@ -50,32 +68,62 @@ const DELAY = {
     "Y": 70,
     "WIDTH": 60,
     "TEXT_X": 270,
-    "TEXT_Y": 110
+    "TEXT_Y": 110,
+    "MONKEY_Y_OFFSET": 60
 }
 
+const DEFENDER = {
+    "X": 155,
+    "Y": -3,
+    "WIDTH": 75,
+    "TEXT_X": 190,
+    "TEXT_Y": 45
+}
 
 export function generateCard(card, outputContainer) {
     const cardOutput = outputContainer
 
-    let delayInfo = "", damageInfo = "";
-    if (card.cardType === "monkey" || card.cardType === "bloon") {
-        delayInfo = `
-            <image x=${DELAY.X} y=${DELAY.Y} width=${DELAY.WIDTH}
+    let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = ""
+    if (["monkey", "bloon"].includes(card.cardType)) {
+        card.delay ? delayInfo = `
+            <image x=${DELAY.X}
+                y=${card.cardType === "monkey" ? DELAY.Y + DELAY.MONKEY_Y_OFFSET : DELAY.Y}
+                width=${DELAY.WIDTH}
                 href="media/delay.png"
             />
 
-            <text x=${DELAY.TEXT_X} y=${DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
+            <text x=${DELAY.TEXT_X} y=${card.cardType === "monkey" ? DELAY.TEXT_Y + DELAY.MONKEY_Y_OFFSET : DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
                 text-anchor="middle">${card.delay}</text>
-        `
-        damageInfo = `
-            <image x=${DAMAGE.X} y=${DAMAGE.Y} width=${DAMAGE.WIDTH}
-                href="media/bloonDamage.png"
+        ` : ""
+        card.damage ? damageInfo = `
+            <image x=${DAMAGE[`${card.cardType.toUpperCase()}_X`]}
+                   y=${DAMAGE[`${card.cardType.toUpperCase()}_Y`]}
+                   width=${DAMAGE[`${card.cardType.toUpperCase()}_WIDTH`]}
+                   href="media/${card.cardType}Damage.png"
             />
 
             <text x=${DAMAGE.TEXT_X} y=${DAMAGE.TEXT_Y} class="bcsfont cardStatText" 
                 text-anchor="middle">${card.damage}</text>
             />
-        `
+        ` : ""
+        if (card.cardType === "monkey") {
+            card.ammo ? ammoInfo = `
+                <image x=${AMMO.X} y=${AMMO.Y} width=${AMMO.WIDTH}
+                    href="media/ammo.png"
+                />
+    
+                <text x=${AMMO.TEXT_X} y=${AMMO.TEXT_Y} class="bcsfont cardStatText ammoText" 
+                    text-anchor="middle">${card.ammo}</text>
+            ` : ""
+            card.defender ? defenderInfo = `
+                <image x=${DEFENDER.X} y=${DEFENDER.Y} width=${DEFENDER.WIDTH}
+                    href="media/defender.png"
+                />
+    
+                <text x=${DEFENDER.TEXT_X} y=${DEFENDER.TEXT_Y} class="bcsfont cardStatText defenderText" 
+                    text-anchor="middle">+${card.defender}</text>
+            ` : ""
+        }
     }
 
     let gradients = {
@@ -88,10 +136,12 @@ export function generateCard(card, outputContainer) {
             gradients.textContainerGradient = ["hsl(207, 100%, 50%)", "hsl(207, 100%, 40%)"]
             break;
         case "monkey":
+            gradients.borderGradient = ["hsl(8, 100%, 60%)", "hsl(8, 100%, 45%)"]
+            gradients.textContainerGradient = ["hsl(8, 100%, 50%)", "hsl(8, 100%, 40%)"]
             break;
         case "power":
             gradients.borderGradient = ["hsl(283, 100%, 60%)", "hsl(283, 100%, 45%)"]
-            gradients.textContainerGradient = ["hsl(283, 100%, 50%)", "hsl(283, 100%, 40%)"]
+            gradients.textContainerGradient = ["hsl(283,100%,50%)", "hsl(283, 100%, 40%)"]
             break;
     }
 
@@ -113,6 +163,14 @@ export function generateCard(card, outputContainer) {
                 <rect x="20" y="20" rx=${BACKGROUND.BORDER_RADIUS} width="260" height="360" 
                     transform="rotate(30 100 100)"/>
             </clipPath>
+            <clipPath id="fullHeightImageClip">
+                <rect x="30" y="30" rx="20" width="240" height="340"/>
+            </clipPath>
+            <linearGradient id="fullHeightImageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="black" stop-opacity="0.1"/>
+                <stop offset="50%" stop-color="black" stop-opacity="0.5"/>
+                <stop offset="100%" stop-color="black" stop-opacity="1"/>
+            </linearGradient>
             <linearGradient id="${card.name}_borderGradient" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.borderGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.borderGradient[1]}" />
@@ -144,47 +202,72 @@ export function generateCard(card, outputContainer) {
             ${generateBackgroundText()}
         </text>
         
-        <rect x="${TEXT.CONTAINER_X}" y="${TEXT.CONTAINER_Y}"
-            width="${TEXT.CONTAINER_WIDTH}" height="${TEXT.CONTAINER_HEIGHT}"
-            rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-            class="textContainer" fill="url(#${card.name}_textContainerGradient)"
-        />
-
-        <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
-            fill="url(#${card.name}_borderGradient)"/>
-        <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
-            y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
-            width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
-            href="media/cardArt/redBloon.png"
-            class="cardImage" 
-            clip-path="url(#imageClip)"
-            filter="url(#bwFilter)"
-        />
-        <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
-            y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
-            width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
-            href="media/cardArt/${card.name}.png"
-            class="cardImage" 
-            clip-path="url(#imageClip)"
-        />
-        <text font-size="8" fill="black" class="bcsfont ${card.cardType}ImageBorderTextPath"
-            lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
-            <textPath href="#circlePath" startOffset="0%">
-                BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226;
-                BCS Popology &#8226; BCS Popology &#8226;
-            </textPath>
-        </text>
-
+        ${
+            card.cardType === "monkey"
+            ?`
+            <image x=${FULL_HEIGHT_IMAGE.X} 
+                y=${FULL_HEIGHT_IMAGE.Y}
+                width=${FULL_HEIGHT_IMAGE.WIDTH}
+                rx="${TEXT.CONTAINER_BORDER_RADIUS}"
+                href="media/cardArt/dartMonkey.png"
+                clip-path="url(#fullHeightImageClip)"
+                filter="url(#fullHeightImageGradient) url(#bwFilter)"
+            />
+            <image x=${FULL_HEIGHT_IMAGE.X} 
+                y=${FULL_HEIGHT_IMAGE.Y}
+                width=${FULL_HEIGHT_IMAGE.WIDTH}
+                rx="${TEXT.CONTAINER_BORDER_RADIUS}"
+                href="media/cardArt/${card.name}.png"
+                clip-path="url(#fullHeightImageClip)"
+                filter="url(#fullHeightImageGradient)"
+            />
+            <rect x="${FULL_HEIGHT_IMAGE.X}" y="${FULL_HEIGHT_IMAGE.Y}"
+                  width="${FULL_HEIGHT_IMAGE.WIDTH}" height="${340}"
+                  rx="${TEXT.CONTAINER_BORDER_RADIUS}"
+                  clip-path="url(#fullHeightImageClip)"
+                  fill="url(#fullHeightImageGradient)"
+            />
+            `
+            :`<rect x="${TEXT.CONTAINER_X}" y="${TEXT.CONTAINER_Y}"
+                  width="${TEXT.CONTAINER_WIDTH}" height="${TEXT.CONTAINER_HEIGHT}"
+                  rx="${TEXT.CONTAINER_BORDER_RADIUS}"
+                  className="textContainer" fill="url(#${card.name}_textContainerGradient)"
+            />
+            <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
+                fill="url(#${card.name}_borderGradient)"/>
+            <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
+                y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
+                width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
+                href="media/cardArt/redBloon.png"
+                class="cardImage" 
+                clip-path="url(#imageClip)"
+                filter="url(#bwFilter)"
+            />
+            <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
+                y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
+                width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
+                href="media/cardArt/${card.name}.png"
+                class="cardImage" 
+                clip-path="url(#imageClip)"
+            />
+            <text font-size="8" fill="black" class="bcsfont ${card.cardType}ImageBorderTextPath"
+                lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
+                <textPath href="#circlePath" startOffset="0%">
+                    BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226;
+                    BCS Popology &#8226; BCS Popology &#8226;
+                </textPath>
+            </text>
+            `
+        }
         
-
         ${generateCoinCopies(card.copies)}
-
         <text x=${COST.TEXT_X} y=${COST.TEXT_Y} class="bcsfont cardStatText" 
             text-anchor="middle">${card.cost}</text>
-
+        
         ${damageInfo}
-
+        ${ammoInfo}
         ${delayInfo}
+        ${defenderInfo}
 
         <!-- <text x=40 y=376 class="bcsfont bcsPopologyText" 
             text-anchor="start">BCS Popology</text>
@@ -194,8 +277,12 @@ export function generateCard(card, outputContainer) {
         
     </svg>`
 
+    const textContainerClasses = ["cardTextContainer"]
+
+    if (card.cardType === "monkey") textContainerClasses.push("monkeyTextConainer")
+
     const container = new Element("div").class("svgOverlay").children(
-        new Element("div").class("cardTextContainer").children(
+        new Element("div").class(...textContainerClasses).children(
             new Element("div").class("cardTitleContainer").children(
                 new Element("h4").class("bcsfont", "cardTitle")
                     .text(card.displayName)
@@ -264,7 +351,7 @@ function generateBackgroundText() {
     const lineCount = 32;
     for (let i = 0; i < amountOfRepeats; i++) {
         string += "BCS Popology";
-        if (i != amountOfRepeats - 1) { string += " " }
+        if (i !== amountOfRepeats - 1) { string += " " }
     }
     for (let i = 0; i < lineCount; i++) {
         output.push(`<tspan x="${BACKGROUND.TEXT_X_OFFSET + BACKGROUND.TEXT_Y_OFFSET_PER_LINE * i}"

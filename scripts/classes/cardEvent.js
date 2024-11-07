@@ -1,5 +1,5 @@
 import {events} from "../../stats/events.js"
-import {BLOONS} from "../../stats/stats.js"
+import {BLOONS, MONKEYS, POWERS} from "../../stats/stats.js"
 import Element from "../element.js"
 import {popupCard} from "../popology.js"
 import Card from "./card.js"
@@ -31,14 +31,27 @@ export class CardEvent {
                     name = bloon.displayName
                 }
                 return `Spawns a ${name}.`
+            case "drawCard":
+                const card = [...BLOONS, ...MONKEYS, ...POWERS].find(bloon => bloon.name === this.action.name)
+                let cardName = this.action.name
+                if (card !== undefined) {
+                    cardName = card.displayName
+                }
+                return `Draw a ${cardName} card.`
             case "drawCards":
                 return `Draw ${this.action.value} card${this.action.value === 1 ? '' : 's'}.`
             case "gainGold":
                 return `Gain +${this.action.value} gold.`
             case "gainHP":
                 return `Gain +${this.action.value} HP.`
+            case "gainHeroHP":
+                return `Hero +${this.action.value} HP.`
             case "gainBloontonium":
                 return `Gain +${this.action.value} Bloontonium.`
+            case "gainAttackPower":
+                return `Gain +${this.action.value} Attack Power.`
+            case "gainAmmo":
+                return `Gain +${this.action.value} Ammo.`
         }
 
         return this.action
@@ -87,11 +100,29 @@ export class CardEvent {
                     new Element("span").text(this.action.value),
                     new Element("span").text(" HP.")
                 )
+            case "gainHeroHP":
+                return new Element("p").children(
+                    new Element("span").text("Hero +"),
+                    new Element("span").text(this.action.value),
+                    new Element("span").text(" HP.")
+                )
             case "gainBloontonium":
                 return new Element("p").children(
                     new Element("span").text("Gain +"),
                     new Element("span").text(this.action.value),
                     new Element("span").text(" Bloontonium.")
+                )
+            case "gainAttackPower":
+                return new Element("p").children(
+                    new Element("span").text("Gain +"),
+                    new Element("span").text(this.action.value),
+                    new Element("span").text(" Attack Power.")
+                )
+            case "gainAmmo":
+                return new Element("p").children(
+                    new Element("span").text("Gain +"),
+                    new Element("span").text(this.action.value),
+                    new Element("span").text(" Ammo.")
                 )
         }
 
