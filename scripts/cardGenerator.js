@@ -85,7 +85,7 @@ export function generateCard(card, outputContainer) {
 
     let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = ""
     if (["monkey", "bloon"].includes(card.cardType)) {
-        card.delay ? delayInfo = `
+        card.delay !== undefined ? delayInfo = `
             <image x=${DELAY.X}
                 y=${card.cardType === "monkey" ? DELAY.Y + DELAY.MONKEY_Y_OFFSET : DELAY.Y}
                 width=${DELAY.WIDTH}
@@ -95,7 +95,7 @@ export function generateCard(card, outputContainer) {
             <text x=${DELAY.TEXT_X} y=${card.cardType === "monkey" ? DELAY.TEXT_Y + DELAY.MONKEY_Y_OFFSET : DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
                 text-anchor="middle">${card.delay}</text>
         ` : ""
-        card.damage ? damageInfo = `
+        card.damage !== undefined ? damageInfo = `
             <image x=${DAMAGE[`${card.cardType.toUpperCase()}_X`]}
                    y=${DAMAGE[`${card.cardType.toUpperCase()}_Y`]}
                    width=${DAMAGE[`${card.cardType.toUpperCase()}_WIDTH`]}
@@ -107,7 +107,7 @@ export function generateCard(card, outputContainer) {
             />
         ` : ""
         if (card.cardType === "monkey") {
-            card.ammo ? ammoInfo = `
+            card.ammo !== undefined ? ammoInfo = `
                 <image x=${AMMO.X} y=${AMMO.Y} width=${AMMO.WIDTH}
                     href="media/ammo.png"
                 />
@@ -115,7 +115,7 @@ export function generateCard(card, outputContainer) {
                 <text x=${AMMO.TEXT_X} y=${AMMO.TEXT_Y} class="bcsfont cardStatText ammoText" 
                     text-anchor="middle">${card.ammo}</text>
             ` : ""
-            card.defender ? defenderInfo = `
+            card.defender !== undefined ? defenderInfo = `
                 <image x=${DEFENDER.X} y=${DEFENDER.Y} width=${DEFENDER.WIDTH}
                     href="media/defender.png"
                 />

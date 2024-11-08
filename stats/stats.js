@@ -301,7 +301,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 4, "damage": 200, "delay": 2, "copies": 1, "shield": 100,
+        "cost": 4, "damage": 200, "delay": 3, "copies": 1, "shield": 100,
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
@@ -334,7 +334,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 5, "damage": 100, "delay": 2, "copies": 3,
+        "cost": 5, "damage": 100, "delay": 2, "copies": 5,
     },
     {
         "name": "drainingBloon", "displayName": "Draining Bloon",
@@ -528,7 +528,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "support",
         "tower": "farm",
-        "cost": 3,
+        "cost": 4,
     },
     {
         "name": "druid", "displayName": "Druid",
@@ -572,7 +572,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "military",
         "tower": "mortar",
-        "cost": 3, "damage": 40, "ammo": 1, "delay": 1, "fire": 30
+        "cost": 4, "damage": 40, "ammo": 1, "delay": 1, "fire": 30
     },
     {
         "name": "crossbow", "displayName": "Crossbow",
@@ -789,7 +789,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "military",
         "tower": "sniper",
-        "cost": 3, "damage": 75, "ammo": 1, "delay": 2,
+        "cost": 7, "damage": 75, "ammo": 1, "delay": 2,
     },
     {
         "name": "bladeMaelstrom", "displayName": "Blade Maelstrom",
@@ -836,7 +836,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "magic",
         "tower": "wizard",
-        "cost": 7,
+        "cost": 10,
     },
     {
         "name": "theBigOne", "displayName": "The Big One",
