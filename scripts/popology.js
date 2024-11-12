@@ -81,6 +81,12 @@ export function popupCard(card) {
         delete propertiesAsStatChips[3]
     }
 
+    if (card.cardType === "monkey") {
+        // propertiesAsStatChips.push("ammo")
+        // propertyDescriptions.ammo =
+        //     `Number of times this Monkey can attack.`
+    }
+
     if (card.defender) {
         propertiesAsStatChips.push("defender")
         propertyDescriptions.defender =
@@ -161,7 +167,8 @@ export function popupCard(card) {
         }
     }
 
-    const dmg = Array.isArray(card.blueprint.damage) ? card.blueprint.damage.reduce((a, b) => a + b, 0) : card.damage
+    let dmg = Array.isArray(card.blueprint.damage) ? card.blueprint.damage.reduce((a, b) => a + b, 0) : card.damage
+    if (card.ammo !== undefined) dmg = dmg*card.ammo
 
     statChipCalculator(
         card.cardType === "monkey" ? "dmg/$" : "HP/$",
@@ -171,15 +178,15 @@ export function popupCard(card) {
     );
 
     statChipCalculator(
-        "(HP+Shield)/$",
+        "sHP/$",
         card => (dmg + card.shield) / card.cost,
         "This card's raw cost efficiency including shield: HP plus shield divided by cost.",
         ["damage", "cost", "shield"]
     );
 
     statChipCalculator(
-        card.cardType === "monkey" ? "dmg/round" : "HP/round",
-        card => dmg / card.delay,
+        card.cardType === "monkey" ? "dmg/turn" : "HP/turn",
+        card => (dmg / card.delay),
         card.cardType === "monkey"
             ? "This card's damage per delay."
             : "This card's HP per delay. This is the average amount of damage your opponent needs to do per turn to kill this card, excluding shield.",
@@ -187,9 +194,25 @@ export function popupCard(card) {
     );
 
     statChipCalculator(
-        "(HP+Shield)/delay",
+        "sHP/turn",
         card => (dmg + card.shield) / card.delay,
         "This card's HP per delay, including shield. This is the average amount of damage your opponent needs to do per turn to kill this card, including the shield.",
+        ["damage", "delay", "shield"]
+    );
+
+    statChipCalculator(
+        card.cardType === "monkey" ? "dmg/turn/$" : "HP/turn/$",
+        card => (dmg / card.delay) / card.cost,
+        card.cardType === "monkey"
+            ? "This card's damage per delay per cost."
+            : "This card's HP per delay per cost.",
+        ["damage", "delay"]
+    );
+
+    statChipCalculator(
+        "sHP/turn/$",
+        card => ((dmg + card.shield) / card.delay) / card.cost,
+        "This card's HP including shield per delay per cost.",
         ["damage", "delay", "shield"]
     );
 

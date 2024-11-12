@@ -312,11 +312,11 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 4, "damage": 200, "delay": 3, "copies": 1, "shield": 100,
+        "cost": 4, "damage": 50, "delay": 3, "copies": 1, "shield": 100,
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
-        "aliases": ["bb"],
+        "aliases": ["bb", "friendly bloon"],
         "description": [],
         "events": [
             ["whileOnBoard", "Reduces enemy Attack Power to 0."],
@@ -374,7 +374,7 @@ export const BLOONS = [
         "name": "healingBloon", "displayName": "Healing Bloon",
         "description": [],
         "events": [
-            ["onPlay", "Gives all friendly Bloons +50HP."],
+            ["onPlay", "Gives all friendly Bloons +25HP."],
         ],
     
         "cardType": "bloon",
@@ -791,13 +791,14 @@ export const MONKEYS = [
         "aliases": ["amastery"],
         "description": [],
         "events": [
+            ["onAttack", "Deal 50 damage to a different random Bloon 2 times"],
             ["onReload", {"type": "drawCard", "name": "yellowBloon"}]
         ],
 
         "cardType": "monkey",
         "type": "magic",
         "tower": "super",
-        "cost": 9, "damage": [50, 50, 50], "ammo": 2, "delay": 3,
+        "cost": 9, "damage": 50, "ammo": 2, "delay": 3,
     },
     {
         "name": "marketplace", "displayName": "Marketplace",
