@@ -80,10 +80,18 @@ const DEFENDER = {
     "TEXT_Y": 45
 }
 
+const SHIELD = {
+    "X": 150,
+    "Y": -3,
+    "WIDTH": 75,
+    "TEXT_X": 185,
+    "TEXT_Y": 45
+}
+
 export function generateCard(card, outputContainer) {
     const cardOutput = outputContainer
 
-    let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = ""
+    let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = "", shieldInfo = "";
     if (["monkey", "bloon"].includes(card.cardType)) {
         card.delay !== undefined ? delayInfo = `
             <image x=${DELAY.X}
@@ -123,6 +131,15 @@ export function generateCard(card, outputContainer) {
                 <text x=${DEFENDER.TEXT_X} y=${DEFENDER.TEXT_Y} class="bcsfont cardStatText defenderText" 
                     text-anchor="middle">+${card.defender}</text>
             ` : ""
+        } else if (card.cardType === "bloon") {
+            card.shield !== undefined ? shieldInfo = `
+                <image x=${SHIELD.X} y=${SHIELD.Y} width=${SHIELD.WIDTH}
+                    href="media/shield.png"
+                />
+    
+                <text x=${SHIELD.TEXT_X} y=${SHIELD.TEXT_Y} class="bcsfont cardStatText defenderText"
+                    text-anchor="middle">+${card.shield}</text>
+            ` : ""
         }
     }
 
@@ -148,7 +165,7 @@ export function generateCard(card, outputContainer) {
     const svgOutput = `<svg class="cardSvg" width="300" height="400" viewBox="0 0 300 400" 
         preserveAspectRatio="xMidYMid meet">
         <defs>
-            <filter id="bwFilter">
+            <filter id="bwFilter${card.name}">
                 <feColorMatrix type="matrix"
                     values="0.33 0.33 0.33 0 0
                             0.33 0.33 0.33 0 0
@@ -156,30 +173,30 @@ export function generateCard(card, outputContainer) {
                             0    0    0    1 0"
                 />
             </filter>
-            <clipPath id="imageClip">
+            <clipPath id="imageClip${card.name}">
                 <circle cx="${IMAGE.X}" cy="${IMAGE.Y}" r="${IMAGE.RADIUS - IMAGE.BORDER_WIDTH}" />
             </clipPath>
-            <clipPath id="backgroundTextClip">
+            <clipPath id="backgroundTextClip${card.name}">
                 <rect x="20" y="20" rx=${BACKGROUND.BORDER_RADIUS} width="260" height="360" 
                     transform="rotate(30 100 100)"/>
             </clipPath>
-            <clipPath id="fullHeightImageClip">
+            <clipPath id="fullHeightImageClip${card.name}">
                 <rect x="30" y="30" rx="20" width="240" height="340"/>
             </clipPath>
-            <linearGradient id="fullHeightImageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="fullHeightImageGradient${card.name}" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="black" stop-opacity="0.1"/>
                 <stop offset="50%" stop-color="black" stop-opacity="0.5"/>
                 <stop offset="100%" stop-color="black" stop-opacity="1"/>
             </linearGradient>
-            <linearGradient id="${card.name}_borderGradient" gradientTransform="rotate(90)">
+            <linearGradient id="borderGradient${card.name}" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.borderGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.borderGradient[1]}" />
             </linearGradient>
-            <linearGradient id="${card.name}_textContainerGradient" gradientTransform="rotate(90)">
+            <linearGradient id="textContainerGradient${card.name}" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.textContainerGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.textContainerGradient[1]}" />
             </linearGradient>
-            <path id="circlePath"
+            <path id="circlePath${card.name}"
                 d="M ${IMAGE.X},${IMAGE.Y}
                 m -${IMAGE.RADIUS - IMAGE.BORDER_WIDTH + IMAGE.BORDER_TEXT_OFFSET},
                 0 a ${IMAGE.RADIUS - IMAGE.BORDER_WIDTH + IMAGE.BORDER_TEXT_OFFSET},
@@ -198,7 +215,7 @@ export function generateCard(card, outputContainer) {
         
         <text x="0" y="0" lengthAdjust="spacingAndGlyphs" text-anchor="left"
             class="bcsfont cardBackgroundText ${card.cardType}CardBackgroundText unselectable"
-            clip-path="url(#backgroundTextClip)">
+            clip-path="url(#backgroundTextClip${card.name})">
             ${generateBackgroundText()}
         </text>
         
@@ -210,45 +227,45 @@ export function generateCard(card, outputContainer) {
                 width=${FULL_HEIGHT_IMAGE.WIDTH}
                 rx="${TEXT.CONTAINER_BORDER_RADIUS}"
                 href="media/cardArt/dartMonkey.png"
-                clip-path="url(#fullHeightImageClip)"
-                filter="url(#fullHeightImageGradient) url(#bwFilter)"
+                clip-path="url(#fullHeightImageClip${card.name})"
+                filter="url(#fullHeightImageGradient${card.name}) url(#bwFilter${card.name})"
             />
             <image x=${FULL_HEIGHT_IMAGE.X} 
                 y=${FULL_HEIGHT_IMAGE.Y}
                 width=${FULL_HEIGHT_IMAGE.WIDTH}
                 rx="${TEXT.CONTAINER_BORDER_RADIUS}"
                 href="media/cardArt/${card.name}.png"
-                clip-path="url(#fullHeightImageClip)"
-                filter="url(#fullHeightImageGradient)"
+                clip-path="url(#fullHeightImageClip${card.name})"
+                filter="url(#fullHeightImageGradient${card.name})"
             />
             <rect x="${FULL_HEIGHT_IMAGE.X}" y="${FULL_HEIGHT_IMAGE.Y}"
                   width="${FULL_HEIGHT_IMAGE.WIDTH}" height="${340}"
                   rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-                  clip-path="url(#fullHeightImageClip)"
-                  fill="url(#fullHeightImageGradient)"
+                  clip-path="url(#fullHeightImageClip${card.name})"
+                  fill="url(#fullHeightImageGradient${card.name})"
             />
             `
             :`<rect x="${TEXT.CONTAINER_X}" y="${TEXT.CONTAINER_Y}"
                   width="${TEXT.CONTAINER_WIDTH}" height="${TEXT.CONTAINER_HEIGHT}"
                   rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-                  className="textContainer" fill="url(#${card.name}_textContainerGradient)"
+                  className="textContainer" fill="url(#textContainerGradient${card.name})"
             />
             <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
-                fill="url(#${card.name}_borderGradient)"/>
+                fill="url(#borderGradient${card.name}"/>
             <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
                 y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
                 width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
                 href="media/cardArt/redBloon.png"
                 class="cardImage" 
-                clip-path="url(#imageClip)"
-                filter="url(#bwFilter)"
+                clip-path="url(#imageClip${card.name})"
+                filter="url(#bwFilter${card.name})"
             />
             <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
                 y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
                 width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
                 href="media/cardArt/${card.name}.png"
                 class="cardImage" 
-                clip-path="url(#imageClip)"
+                clip-path="url(#imageClip${card.name})"
             />
             <text font-size="8" fill="black" class="bcsfont ${card.cardType}ImageBorderTextPath"
                 lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
@@ -268,6 +285,7 @@ export function generateCard(card, outputContainer) {
         ${ammoInfo}
         ${delayInfo}
         ${defenderInfo}
+        ${shieldInfo}
 
         <!-- <text x=40 y=376 class="bcsfont bcsPopologyText" 
             text-anchor="start">BCS Popology</text>

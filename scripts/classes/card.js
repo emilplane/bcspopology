@@ -174,6 +174,17 @@ export default class Card {
     }
 
     /**
+     * Returns the tower of the card, if present.
+     * @returns {number}
+     */
+    get tower() {
+        if (this.blueprint.tower === undefined || this.blueprint.cardType !== "monkey") {
+            return undefined
+        }
+        return this.blueprint.tower;
+    }
+
+    /**
      * Returns the attributes of the card.
      * @returns {object[]}
      */
@@ -192,4 +203,68 @@ export default class Card {
 
         return attributeArray
     }
+
+    /**
+     * Returns the alias names of the card.
+     * @returns {*[]}
+     */
+    get aliases() {
+        if (this.blueprint.aliases === undefined) {
+            return []
+        }
+        return this.blueprint.aliases
+    }
+
+    searchInCard(query) {
+        const propertiesToSearch = [
+            this.name, this.displayName, this.tower, ...this.aliases
+        ];
+
+
+        const results = propertiesToSearch.map(property => Number(Card.searchAlgorithm(query, property) || 0));
+
+        const deprioritizedPropertiesToSearch = [
+            this.descriptionText, this.type
+        ];
+
+        let deprioritizedResults = deprioritizedPropertiesToSearch.map(property => Card.searchAlgorithm(query, property));
+            deprioritizedResults = deprioritizedResults           .map(num      => Math.min(num, 1));
+
+        return Math.max(...results, ...deprioritizedResults)
+    }
+
+    static searchAlgorithm(query, property) {
+        if (property === undefined || query === undefined) return 0;
+        const lowerQuery = query.toLowerCase();
+        const lowerName = property.toLowerCase();
+
+        // Check for a straightforward, case-insensitive substring match
+        if (lowerName.includes(lowerQuery)) {
+            return 2; // Direct match, spaces preserved
+        }
+
+        // Helper function to check if all letters in query appear in sequence within the name, ignoring spaces
+        const matchesShortcut = () => {
+            const queryNoSpaces = lowerQuery.replace(/\s+/g, ''); // Remove spaces from query
+            const nameNoSpaces = lowerName.replace(/\s+/g, ''); // Remove spaces from property
+            let queryIndex = 0;
+
+            for (let char of nameNoSpaces) {
+                if (char === queryNoSpaces[queryIndex]) {
+                    queryIndex++;
+                    if (queryIndex === queryNoSpaces.length) return true;
+                }
+            }
+            return false;
+        };
+
+        // Check if it matches as a flexible shortcut
+        if (matchesShortcut()) {
+            return 1;
+        }
+
+        // No match
+        return 0;
+    }
+
 }

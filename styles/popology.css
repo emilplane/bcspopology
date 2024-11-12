@@ -1,5 +1,18 @@
-.sectionTitleContainer > h3 {
-    margin: 0 4px;
+.titleContainer {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding-bottom: 48px
+}
+
+.searchContainer {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
 }
 
 .cardGrid {

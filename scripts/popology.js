@@ -1,46 +1,34 @@
 import Element from "./element.js";
-import {BLOONS, MONKEYS, POWERS} from "/stats/stats.js";
+import { BLOONS, POWERS, MONKEYS } from "/stats/stats.js";
 import { generateCard } from "./cardGenerator.js";
-import { attributes } from "/stats/attributes.js";
-import { events } from "/stats/events.js";
-import { CardEvent } from "./classes/cardEvent.js";
 import Card from "./classes/card.js";
 
-// const testCard = new Card({
-//     "name": "redBloon", "displayName": "Red Bloon",
-//     "description": ["line 1", "line 2"],
-//     "events": [
-//         ["onPopped", {"type": "spawn", "name": "redBloon"}],
-//         ["onPopped", {"type": "spawn", "name": "blueBloon"}]
-//     ],
+function setContent(
+    contentArray = [
+        generateCardCategorySection([...BLOONS, ...POWERS, ...MONKEYS]),
+    ]
+) {
+    document.getElementById("cardContent").innerHTML = ""
 
-//     "cardType": "bloon",
-//     "type": "basic",
-//     "cost": 0, "damage": 40, "delay": 1, "copies": 2,
-// })
+    const cardSectionContainer = new Element("div").class("cardSectionContainer")
+        .children(...contentArray)
+    document.getElementById("cardContent").appendChild(cardSectionContainer.element);
+}
 
-// console.log(testCard)
-// console.log(testCard.events)
-generateCardCategorySection("Bloon Cards", BLOONS)
-const cardSectionContainer = new Element("div").class("cardSectionContainer")
-    .children(
-        generateCardCategorySection("Monkey Cards", MONKEYS),
-        generateCardCategorySection("Power Cards", POWERS),
-        generateCardCategorySection("Bloon Cards", BLOONS)
-    )
+setContent()
 
-document.getElementById("content").appendChild(cardSectionContainer.element);
-
-function generateCardCategorySection(name, data) {
+function generateCardCategorySection(data) {
     const cardGrid = document.createElement("div");
     cardGrid.classList.add("cardGrid");
 
     data.forEach(cardBlueprint => {
         try {
             const card = new Card(cardBlueprint);
-            const cardContainer = new Element("div").class("cardContainer")
-            .onclick(() => popupCard(card));
-            
+            const cardContainer = new Element("div")
+                .class("cardContainer")
+                .id(`${card.name}Card`)
+                .onclick(() => popupCard(card));
+
             generateCard(card, cardContainer.element);
 
             cardGrid.appendChild(cardContainer.element);
@@ -51,8 +39,8 @@ function generateCardCategorySection(name, data) {
 
     return new Element("div").class("cardCategorySection")
         .children(
-            new Element("div").class("sectionTitleContainer")
-                .children(new Element("h3").text(name), new Element("hr")),
+            // new Element("div").class("sectionTitleContainer")
+            //     .children(new Element("h3").text("All Cards"), new Element("hr")),
             cardGrid
         )
 }
@@ -241,8 +229,28 @@ export function popupCard(card) {
     });
 }
 
-document.addEventListener("keydown", function(event) {
-    if (event.key === "m") {
-        popupCard(BLOONS[0])
+document.getElementById("searchInput").addEventListener("input", function(event) {
+    const input = String(event.target.value)
+    const noInput = input === ""
+
+    function hideOrShowCards(arrayOfCards) {
+        arrayOfCards.forEach(bloonCardBlueprint => {
+            const card = new Card(bloonCardBlueprint);
+            const element = document.getElementById(`${card.name}Card`)
+
+            let displayCard = noInput;
+
+            if (noInput) {
+                element.style.order = "0"
+            } else {
+                if (card.searchInCard(input) > 0) displayCard = true;
+                element.style.order = String(-card.searchInCard(input))
+            }
+
+            element.style.display = displayCard  ? "flex" : "none";
+        })
     }
+
+    hideOrShowCards([...BLOONS, ...POWERS, ...MONKEYS])
 });
+

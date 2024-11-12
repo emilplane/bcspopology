@@ -282,6 +282,17 @@ export const BLOONS = [
         "cost": 7, "damage": 300, "delay": 4, "copies": 1,
     },
     {
+        "name": "growthGasBloon", "displayName": "Growth Gas Bloon",
+        "aliases": ["gg"],
+        "events": [
+            ["onDamaged", "All other friendly bloons gain 10 health."],
+        ],
+
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 5, "damage": 200, "delay": 5, "copies": 2,
+    },
+    {
         "name": "volatileBloon", "displayName": "Volatile Bloon",
         "description": [],
         "events": [
@@ -305,6 +316,7 @@ export const BLOONS = [
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
+        "aliases": ["bb"],
         "description": [],
         "events": [
             ["whileOnBoard", "Reduces enemy Attack Power to 0."],
@@ -334,7 +346,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 5, "damage": 100, "delay": 2, "copies": 5,
+        "cost": 5, "damage": 100, "delay": 2, "copies": 4,
     },
     {
         "name": "drainingBloon", "displayName": "Draining Bloon",
@@ -371,6 +383,7 @@ export const BLOONS = [
     },
     {
         "name": "strengthenator", "displayName": "Strengthenator",
+        "aliases": ["bollator"],
         "description": [],
         "events": [
             ["onTurnStart", "Increase delay by 1. Gives all friendly Bloons besides self +20HP."],
@@ -436,6 +449,7 @@ export const BLOONS = [
     // MOAB-Class
     {
         "name": "damagedMoab", "displayName": "Damaged MOAB",
+        "aliases": ["damaged massive ornary air blimp", "damaged mobe"],
         "description": [],
         "events": [
             ["onPlay", "Deal 150 damage to this bloon."],
@@ -447,6 +461,7 @@ export const BLOONS = [
     },
     {
         "name": "moab", "displayName": "MOAB",
+        "aliases": ["massive ornary air blimp", "mobe"],
         "description": [],
         "events": [],
     
@@ -456,6 +471,7 @@ export const BLOONS = [
     },
     {
         "name": "bfb", "displayName": "BFB",
+        "aliases": ["brutal floating behemoth"],
         "description": [],
         "events": [],
     
@@ -465,6 +481,7 @@ export const BLOONS = [
     },
     {
         "name": "zomg", "displayName": "ZOMG",
+        "aliases": ["zeppelin of mighty gargantuaness"],
         "description": [],
         "events": [],
     
@@ -532,6 +549,7 @@ export const MONKEYS = [
     },
     {
         "name": "druid", "displayName": "Druid",
+        "aliases": ["durid"],
         "description": [],
         "events": [
             ["onPlay", {"type": "gainHeroHP", "value": 50}],
@@ -576,6 +594,7 @@ export const MONKEYS = [
     },
     {
         "name": "crossbow", "displayName": "Crossbow",
+        "aliases": ["xbow"],
         "description": [],
         "events": [],
 
@@ -596,6 +615,7 @@ export const MONKEYS = [
     },
     {
         "name": "wizardMonkey", "displayName": "Wizard Monkey",
+        "aliases": ["lizard"],
         "description": [],
         "events": [
             ["onTurnStart", {"type": "gainAttackPower", "value": 5}],
@@ -620,6 +640,7 @@ export const MONKEYS = [
     },
     {
         "name": "wallOfFireMonkey", "displayName": "Wall of Fire Monkey",
+        "aliases": ["wof", "lizard"],
         "description": [],
         "events": [
             ["onPlay", "First enemy bloon is set on fire."],
@@ -632,6 +653,7 @@ export const MONKEYS = [
     },
     {
         "name": "superMonkeyFanClub", "displayName": "Super Monkey Fan Club",
+        "aliases": ["smfc"],
         "description": [],
         "events": [
             ["duringTurn", "All Dart Monkeys gain +10 Attack Power."],
@@ -644,6 +666,7 @@ export const MONKEYS = [
     },
     {
         "name": "bananaPlantation", "displayName": "Banana Plantation",
+        "aliases": ["plant"],
         "description": [],
         "events": [
             ["onOpponentDraw", {"type": "gainGold", "value": 1}],
@@ -656,6 +679,7 @@ export const MONKEYS = [
     },
     {
         "name": "spikeOPult", "displayName": "Spike-o-Pult",
+        "aliases": ["spult"],
         "description": [],
         "events": [
             ["onPop", {"type": "gainAttackPower", "value": 20}],
@@ -690,6 +714,7 @@ export const MONKEYS = [
     },
     {
         "name": "junglesBountyDruid", "displayName": "Jungle's Bounty Druid",
+        "aliases": ["jbounty", "jb"],
         "description": [],
         "events": [
             ["perGoldGained", {"type": "gainHeroHP", "value": 10}]
@@ -698,7 +723,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "magic",
         "tower": "druid",
-        "cost": 5, "damage": 15, "ammo": 2, "delay": 1,
+        "cost": 7, "damage": 15, "ammo": 1, "delay": 1,
     },
     {
         "name": "bionicBoomerang", "displayName": "Bionic Boomerang",
@@ -714,6 +739,7 @@ export const MONKEYS = [
     },
     {
         "name": "eliteDefender", "displayName": "Elite Defender",
+        "aliases": ["edef"],
         "description": [],
         "events": [],
 
@@ -724,6 +750,7 @@ export const MONKEYS = [
     },
     {
         "name": "necromancer", "displayName": "Necromancer",
+        "aliases": ["lizard", "Necromancer: Unpopped Army"],
         "description": [],
         "events": [
             ["onTurnStart", "Heal a random friendly bloon +25 HP."],
@@ -737,6 +764,7 @@ export const MONKEYS = [
     },
     {
         "name": "thunderDruid", "displayName": "Thunder Druid",
+        "aliases": ["lightning"],
         "description": [],
         "events": [
             ["onPlay", "Deal 100 damage to all enemy Bloons"],
@@ -749,6 +777,7 @@ export const MONKEYS = [
     },
     {
         "name": "superMonkey", "displayName": "Super Monkey",
+        "aliases": ["super monkey with no upgrades"],
         "description": [],
         "events": [],
 
@@ -759,6 +788,7 @@ export const MONKEYS = [
     },
     {
         "name": "arcaneMaster", "displayName": "Arcane Master",
+        "aliases": ["amastery"],
         "description": [],
         "events": [
             ["onReload", {"type": "drawCard", "name": "yellowBloon"}]
@@ -789,10 +819,11 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "military",
         "tower": "sniper",
-        "cost": 7, "damage": 75, "ammo": 1, "delay": 2,
+        "cost": 7, "damage": 150, "ammo": 1, "delay": 3,
     },
     {
         "name": "bladeMaelstrom", "displayName": "Blade Maelstrom",
+        "aliases": ["mael"],
         "description": [],
         "events": [
             ["onTurnEnd", "Deal 15 damage to all enemy Bloons"],
@@ -805,6 +836,7 @@ export const MONKEYS = [
     },
     {
         "name": "bouncingBullet", "displayName": "Bouncing Bullet",
+        "aliases": ["bbullet"],
         "description": [],
         "events": [
             ["onAttack", "Deal 30 damage to a different random Bloon 3 times"],
@@ -827,6 +859,7 @@ export const MONKEYS = [
     },
     {
         "name": "princeOfDarkness", "displayName": "Prince of Darkness",
+        "aliases": ["pod", "lizard"],
         "description": [],
         "events": [
             ["onPlay", "Summon an Undead MOAB."],
@@ -840,7 +873,7 @@ export const MONKEYS = [
     },
     {
         "name": "theBigOne", "displayName": "The Big One",
-        "description": [],
+        "aliases": ["the bug one"],
         "events": [
             ["onTurnEnd", "Randomly attacks an enemy Bloon."],
         ],
@@ -865,6 +898,7 @@ export const MONKEYS = [
     },
     {
         "name": "glaiveRicochet", "displayName": "Glaive Ricochet",
+        "aliases": ["richochet"],
         "description": [],
         "events": [
             ["onAttack", "Deal 10 damage to all of the bloons next in line"],
@@ -898,26 +932,413 @@ export const POWERS = [
     
         "cardType": "power",
         "type": "basic",
-        "cost": 0, "copies": 1,
+        "cost": 0,
     },
     {
         "name": "cashDrop", "displayName": "Cash Drop",
         "events": [
-            ["onPlay", {"type": "gainGold", "value": 2}]
+            ["onPlay", {"type": "gainGold", "value": 1}]
         ],
 
         "cardType": "power",
         "type": "basic",
-        "cost": 0, "copies": 1,
+        "cost": 0,
+    },
+    {
+        "name": "itsAllOnFireNow", "displayName": "It's All On Fire Now",
+        "events": [
+            ["onPlay", "Set target bloon on fire. If already on fire, deal 50 damage."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 1,
+    },
+    {
+        "name": "manaShield", "displayName": "Mana Shield",
+        "events": [
+            ["onPlay", {"type": "gainShield", "value": 50}]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 1,
+    },
+    {
+        "name": "fortify", "displayName": "Fortify",
+        "aliases": ["jortify", "jortified"],
+        "events": [
+            ["onPlay", "Give a friendly bloon +50HP."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 2,
+    },
+    {
+        "name": "bloonStrike", "displayName": "Bloon Strike",
+        "events": [
+            ["onPlay", "Deal 50 damage to opponent hero."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "quickBreak", "displayName": "Quick Break",
+        "aliases": ["qb"],
+        "events": [
+            ["onPlay", { "type": "gainHP", "value": 50 }]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "supplyDrop", "displayName": "Supply Drop",
+        "events": [
+            ["onPlay", {"type": "drawCards", "value": 2}]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "forMyNextTrick", "displayName": "For My Next Trick",
+        "events": [
+            ["onPlay", "Pick 2. If it's a Bloon, it costs 2 less."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 4,
+    },
+    {
+        "name": "restock", "displayName": "Restock",
+        "events": [
+            ["onPlay", {"type": "drawCards", "value": 3}]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 5,
+    },
+    {
+        "name": "redBloonStorm", "displayName": "Red Bloon Storm",
+        "events": [
+            ["onPlay", "Fills your side with Red Bloons."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 6,
+    },
+    {
+        "name": "whoops", "displayName": "Whoops",
+        "events": [
+            ["onPlay", "Target Monkey loses all Ammo."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 1,
+    },
+    {
+        "name": "stunned", "displayName": "Stunned",
+        "events": [
+            ["onPlay", "Stun target Monkey for 1 turn."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 2,
+    },
+    {
+        "name": "bedTime", "displayName": "Bed Time",
+        "events": [
+            ["onPlay", "Remove target enemy Monkey with 30 or less Attack Power"]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "improvedFortification", "displayName": "Improved Fortification",
+        "events": [
+            ["onPlay", "Give target friendly Bloon +150HP but increase its delay by 1."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "rapidShot", "displayName": "Rapid Shot",
+        "events": [
+            ["onPlay", "Deal 30 damage to a random enemy Bloon 3 times."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "bloonEmbiggen", "displayName": "Bloon Embiggen",
+        "events": [
+            ["onPlay", "Give all your bloons +25HP."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 4,
+    },
+    {
+        "name": "quickReload", "displayName": "Quick Reload",
+        "events": [
+            ["onPlay", "Reload target Monkey."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4,
+    },
+    {
+        "name": "powerfulSlowingTotem", "displayName": "Powerful Slowing Totem",
+        "events": [
+            ["onPlay", "Increasse the delay of all Enemy Bloons by 1."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 7,
     },
     {
         "name": "favoredTrade", "displayName": "Favored Trade",
+        "aliases": ["flavored trades"],
         "events": [
             ["onPlay", "Remove friendly monkey and gain half its gold cost."]
         ],
 
         "cardType": "power",
         "type": "basic",
-        "cost": 0, "copies": 1,
-    }
+        "cost": 0,
+    },
+    {
+        "name": "stormOfArrows", "displayName": "Storm of Arrows",
+        "events": [
+            ["onPlay", "Deal 150 Damage to 2 random opposing Bloons."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 2,
+    },
+    {
+        "name": "firestorm", "displayName": "Firestorm",
+        "events": [
+            ["onPlay", "Deal 70 damage to all enemy Bloons."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "heroProtection", "displayName": "Hero Protection",
+        "events": [
+            ["onPlay", "Reduce the next damage recieved from an enemy Bloon to 0."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "packProtection", "displayName": "Pack Protection",
+        "events": [
+            ["onPlay", "All friendly Bloons gain +40 Shield."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "stickyBomb", "displayName": "Sticky Bomb",
+        "events": [
+            ["onPlay", "Deal 300 Damage to a Large Bloon"]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 3,
+    },
+    {
+        "name": "wallOfTrees", "displayName": "Wall of Trees",
+        "events": [
+            ["onPlay", "Gain 120 Shield. When it breaks, gain 2 Gold."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "reinflated", "displayName": "Reinflated",
+        "events": [
+            ["onPlay", "Summon a random friendly Bloon that was destroyed this game."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4,
+    },
+    {
+        "name": "returnToSender", "displayName": "Return to Sender",
+        "aliases": ["rts", "r2s", "return two sender", "return too sender"],
+        "events": [
+            ["onPlay", "Return a Bloon or Monkey to the owner's hand."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4,
+    },
+    {
+        "name": "partingGift", "displayName": "Parting Gift",
+        "events": [
+            ["onPlay", "Target friendly Monkey damages all enemy Bloons and is removed."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 5,
+    },
+    {
+        "name": "shrink", "displayName": "Shrink",
+        "events": [
+            ["onPlay", "Turns target Monkey into a Baby Monkey."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 5,
+    },
+    {
+        "name": "glueStorm", "displayName": "Glue Storm",
+        "events": [
+            ["onPlay", "Increase the delay of all bloons by 1."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 6,
+    },
+    {
+        "name": "quickReady", "displayName": "Quick Ready",
+        "aliases": ["qr"],
+        "events": [
+            ["onPlay", "Reduce the delay on target Bloon by 1."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 6,
+    },
+    {
+        "name": "expertNegotiator", "displayName": "Expert Negotiator",
+        "events": [
+            ["onPlay", "Target enemy Monkey joins your team."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 8,
+    },
+    {
+        "name": "superMonkeyStorm", "displayName": "Super Monkey Storm",
+        "aliases": ["sms"],
+        "events": [
+            ["onPlay", "Deal 150 damage to all enemy Bloons."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 8,
+    },
+    {
+        "name": "doubleTrouble", "displayName": "Double Trouble",
+        "events": [
+            ["onPlay", "Create a copy of target friendly Bloon."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 10,
+    },
+    {
+        "name": "archersInstinct", "displayName": "Archer's Instinct",
+        "events": [
+            ["onPlay", "Pick 3."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 2,
+    },
+    {
+        "name": "naturesClarity", "displayName": "Nature's Clarity",
+        "events": [
+            ["onPlay", "Pick 4. Gain 20 shield per Gold cost of picked card."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "extremeHeat", "displayName": "Extreme Heat",
+        "events": [
+            ["onPlay", "Destroy target Bloon that is on fire."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 4,
+    },
+    {
+        "name": "ceasefire", "displayName": "Ceasefire",
+        "events": [
+            ["onPlay", "Enemy Monkeys lose all Ammo."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 7,
+    },
+    {
+        "name": "moabStrike", "displayName": "MOAB Strike",
+        "aliases": ["mobe strike"],
+        "events": [
+            ["onPlay", "Deal 100 damage to enemy Hero."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 7,
+    },
+    {
+        "name": "thePrestige", "displayName": "The Prestige",
+        "events": [
+            ["onPlay", "Summon 4 random friendly Bloons destroyed this game."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 10,
+    },
 ]

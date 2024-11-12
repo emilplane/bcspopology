@@ -52,6 +52,8 @@ export class CardEvent {
                 return `Gain +${this.action.value} Attack Power.`
             case "gainAmmo":
                 return `Gain +${this.action.value} Ammo.`
+            case "gainShield":
+                return `Hero +${this.action.value} Shield.`
         }
 
         return this.action
@@ -123,6 +125,12 @@ export class CardEvent {
                     new Element("span").text("Gain +"),
                     new Element("span").text(this.action.value),
                     new Element("span").text(" Ammo.")
+                )
+            case "gainShield":
+                return new Element("p").children(
+                    new Element("span").text("Hero +"),
+                    new Element("span").text(this.action.value),
+                    new Element("span").text(" Shield.")
                 )
         }
 
