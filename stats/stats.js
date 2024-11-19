@@ -549,7 +549,7 @@ export const MONKEYS = [
     },
     {
         "name": "druid", "displayName": "Druid",
-        "aliases": ["durid"],
+        "aliases": ["durid", "taco"],
         "description": [],
         "events": [
             ["onPlay", {"type": "gainHeroHP", "value": 50}],
