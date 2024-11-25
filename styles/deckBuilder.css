@@ -42,12 +42,20 @@
 .deckNameContainer {
     min-height: 40px;
     display: flex;
-    align-items: center;
+    align-items: end;
     width: 100%;
+}
+
+.newNameInput {
+    margin-bottom: 8px;
 }
 
 .deckName {
     cursor: pointer;
+}
+
+.numberOfCards {
+    margin-left: auto;
 }
 
 .listOfCards {

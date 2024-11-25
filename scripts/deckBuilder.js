@@ -10,17 +10,27 @@ class Deck {
         this.updateUiFn = () => {}
     }
 
-    addCard(newCard, updateUi = true) {
+    addCard(newCard, setCount, updateUi = true) {
         let cardInDeck = false
         this.deck.forEach((card) => {
             if (newCard.name === card.name) {
-                if (card.count < 3 && !card.hasAttribute("unique")) card.count++
+                if (card.count < 3 && !card.hasAttribute("unique")) {
+                    if (setCount) {
+                        card.count = setCount
+                    } else {
+                        card.count++
+                    }
+                }
                 cardInDeck = true
             }
         })
         if (!cardInDeck) {
             const newCardTemp = newCard
-            newCardTemp.count = 1
+            if (setCount) {
+                newCardTemp.count = setCount
+            } else {
+                newCardTemp.count = 1
+            }
             this.deck.push(newCardTemp)
         }
 
@@ -57,6 +67,7 @@ class Deck {
 
         this.deck.forEach((card) => {
             shrunkObject.deck.push({ name: card.name, count: card.count })
+            console.log(card.count, shrunkObject)
         })
 
         return shrunkObject
@@ -70,18 +81,34 @@ class Deck {
 
         this.deckName = decodedData.deckName;
         decodedData.deck.forEach((shrunkCard) => {
-            console.log(shrunkCard)
-            deck.addCard(new Card(
-                [...BLOONS, ...MONKEYS, ...POWERS].find(card => card.name === shrunkCard.name),
-                false
-            ))
+            const fullCard = [...BLOONS, ...MONKEYS, ...POWERS].find(card => card.name === shrunkCard.name)
+
+            deck.addCard(new Card(fullCard), shrunkCard.count, false)
         })
+
+        this.updateUiFn()
+    }
+
+    get length() {
+        let totalCount = 0
+
+        this.deck.forEach((card) => {
+            totalCount += card.count
+        })
+
+        return totalCount
     }
 }
 
 const deck = new Deck("New Deck")
 deck.updateUiFn = updateUi
 
+document.getElementById("deckNameContainer").appendChild(new Element("h5")
+    .id("numberOfCards")
+    .class("numberOfCards")
+    .text(`${deck.length}/40 cards`)
+    .element
+)
 deck.setDeckFromCurrentURL()
 
 function updateUi() {
@@ -91,7 +118,8 @@ function updateUi() {
     const encodedData = encodeURIComponent(jsonString);
     const newUrl = `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
     history.pushState(null, '', newUrl);
-    console.log(newUrl)
+
+    document.getElementById("numberOfCards").innerText = `${deck.length}/40 cards`
 
     const listOfCardsElement = document.getElementById("listOfCards")
     listOfCardsElement.innerHTML = ""
@@ -226,15 +254,21 @@ deckNameElementContainer.addEventListener("click", () => { if (!enteringNewName)
             .id("deckName")
             .class("bcsfont", "deckName")
             .text(deck.deckName)
+        const cardNumberElement = new Element("h5")
+            .id("numberOfCards")
+            .class("numberOfCards")
+            .text(`${deck.length}/40 cards`)
 
         deckNameElementContainer.innerHTML = "";
         deckNameElementContainer.appendChild(nameElement.element);
+        deckNameElementContainer.appendChild(cardNumberElement.element);
 
         deck.updateUiFn();
     }
-}})
+}
+})
 
-document.getElementById("searchInput").addEventListener("input", function(event) {
+document.getElementById("searchInput").addEventListener("input", function (event) {
     const input = String(event.target.value)
     const noInput = input === ""
     const resultsElement = document.getElementById("searchResults")
