@@ -962,6 +962,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
+        "hero": "Gwendolin",
         "cost": 1,
     },
     {
@@ -1024,6 +1025,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
+        "hero": "Amelia",
         "cost": 4,
     },
     {
@@ -1094,6 +1096,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
+        "hero": "Quincy",
         "cost": 3,
     },
     {
@@ -1124,6 +1127,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
+        "hero": "Obyn",
         "cost": 7,
     },
     {
@@ -1145,6 +1149,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "advanced",
+        "hero": "Quincy",
         "cost": 2,
     },
     {
@@ -1155,6 +1160,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "advanced",
+        "hero": "Gwendolin",
         "cost": 3,
     },
     {
@@ -1175,6 +1181,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "advanced",
+        "hero": "Amelia",
         "cost": 3,
     },
     {
@@ -1195,6 +1202,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "advanced",
+        "hero": "Obyn",
         "cost": 3,
     },
     {
@@ -1308,6 +1316,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "advanced",
+        "hero": "Obyn",
         "cost": 3,
     },
     {
@@ -1318,6 +1327,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
+        "hero": "Gwendolin",
         "cost": 4,
     },
     {
@@ -1350,6 +1360,7 @@ export const POWERS = [
         "cardType": "power",
         "type": "exotic",
         "cost": 10,
+        "hero": "Amelia",
         "attributes": ["unique"]
     },
 ]

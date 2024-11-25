@@ -32,6 +32,8 @@ export default class Card {
         } else {
             this.copies = this.blueprint.copies
         }
+
+        this.hero = this.blueprint.hero
     }
 
     /**

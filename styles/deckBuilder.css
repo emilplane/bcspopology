@@ -58,6 +58,28 @@
     margin-left: auto;
 }
 
+.heroContainer {
+    margin-bottom: 8px;
+    background-color: var(--shade4);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .heroContainer {
+        margin-bottom: 8px;
+        background-color: var(--shade5);
+        border-radius: 8px;
+        padding: 4px;
+    }
+}
+
+.heroText {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 .listOfCards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

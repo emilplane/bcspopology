@@ -7,6 +7,7 @@ class Deck {
     constructor(deckName) {
         this.deckName = deckName
         this.deck = []
+        this.hero = "Quincy"
         this.updateUiFn = () => {}
     }
 
@@ -62,12 +63,13 @@ class Deck {
     getShrunkObject() {
         const shrunkObject = {
             deckName: this.deckName,
-            deck: []
+            deck: [],
+            hero: this.hero
         }
+
 
         this.deck.forEach((card) => {
             shrunkObject.deck.push({ name: card.name, count: card.count })
-            console.log(card.count, shrunkObject)
         })
 
         return shrunkObject
@@ -85,6 +87,7 @@ class Deck {
 
             deck.addCard(new Card(fullCard), shrunkCard.count, false)
         })
+        this.hero = decodedData.hero
 
         this.updateUiFn()
     }
@@ -97,6 +100,19 @@ class Deck {
         })
 
         return totalCount
+    }
+
+    setHero(newValue) {
+        this.hero = newValue
+
+        this.deck.forEach((card, index) => {
+            console.log(card.name)
+            if (card.hero !== this.hero && card.hero !== undefined) {
+                delete this.deck[index]
+            }
+        })
+
+        this.updateUiFn()
     }
 }
 
@@ -120,6 +136,7 @@ function updateUi() {
     history.pushState(null, '', newUrl);
 
     document.getElementById("numberOfCards").innerText = `${deck.length}/40 cards`
+    document.getElementById("heroText").innerText = `Hero: ${deck.hero}`
 
     const listOfCardsElement = document.getElementById("listOfCards")
     listOfCardsElement.innerHTML = ""
@@ -309,5 +326,26 @@ document.getElementById("searchInput").addEventListener("input", function (event
         })
 
         return searchResults
+    }
+});
+
+document.getElementById("heroContainer").addEventListener("click", function (event) {
+    switch (deck.hero) {
+        case "Quincy":          deck.setHero("Gwendolin");  break;
+        case "Gwendolin":       deck.setHero("Obyn");       break;
+        case "Obyn":            deck.setHero("Amelia");     break;
+        case "Amelia": default: deck.setHero("Quincy");     break;
+    }
+});
+
+document.getElementById("heroContainer").addEventListener("keydown", function (event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+        // Prevent default behavior for space
+        if (event.key === ' ') {
+            event.preventDefault();
+        }
+
+        // Trigger the same logic as the click event
+        this.click();
     }
 });
