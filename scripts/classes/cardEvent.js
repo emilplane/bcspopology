@@ -1,8 +1,8 @@
 import {events} from "../../stats/events.js"
 import {BLOONS, MONKEYS, POWERS} from "../../stats/stats.js"
 import Element from "../element.js"
-import {popupCard} from "../popology.js"
 import Card from "./card.js"
+import {popupCard} from "../popupCard.js";
 
 export class CardEvent {
     constructor(data) {

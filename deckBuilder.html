@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="styles/style.css"/>
         <link rel="stylesheet" href="styles/card.css"/>
         <link rel="stylesheet" href="styles/deckBuilder.css"/>
+        <link rel="stylesheet" href="styles/cardPopup.css"/>
     </head>
     <body>
         <main id="main">
@@ -36,9 +37,34 @@
                         </div>
                     </div>
                     <div id="content">
-                        <section class="sectionTitleContainer" style="padding: 8px;">
-                            <h2>Deck Builder</h2>
+                        <section class="deckBuilderContainer">
+                                <div class="deckContent">
+                                        <div class="deckNameContainer" id="deckNameContainer">
+                                    <h3 id="deckName" class="bcsfont deckName"></h3>
+                                </div>
+                                <div class="horizontalLine strongLineStyle"></div>
+                                <div class="listOfCards" id="listOfCards"></div>
+                            </div>
+                            <div class="smallCardSearchContainer">
+                                <h5 class="bcsfont">Add cards</h5>
+                                <div class="horizontalLine strongLineStyle"></div>
+                                <label>
+                                    <input type="text" class="searchInput searchContainer" id="searchInput"
+                                           placeholder="Enter a search term..." autocomplete="off">
+                                </label>
+                                <div class="searchResults" id="searchResults"></div>
+                            </div>
+                            <div class="exportOptions">
+                                <h5 class="bcsfont">Import and export</h5>
+                                <div class="horizontalLine strongLineStyle"></div>
+                            </div>
                         </section>
+                    </div>
+                    <div class="cardPopupWrapper">
+                        <div class="cardPopup">
+                            <div class="cardPopupCardContainer"></div>
+                            <div class="cardPopupInfoWrapper"></div>
+                        </div>
                     </div>
                 </div>
             </div>

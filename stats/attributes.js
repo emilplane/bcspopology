@@ -16,5 +16,11 @@ export const attributes = {
         "description": () => {
             return `This card does not attack at all, and does something else instead.`
         },
+    },
+    "unique": {
+        "displayName": "Unique",
+        "description": () => {
+            return `You can only add one copy of this card to your deck.`
+        },
     }
 }

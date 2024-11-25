@@ -26,35 +26,12 @@
     --shade7_5: hsl(0, 0%, 6%);
     --shade8: hsl(0, 0%, 0%);
 
-    --bloons1: #E6EEF2;
-    --bloons3: #afd8ec;
-    --bloons5: #49B9F2;
-    --bloons6: #3688B3;
-    --bloons7: #26607F;
-
-    --towers1: #DFE6DB;
-    --towers3: #b2e996;
-    --towers5: #7BE646;
-    --towers7: #447F27;
-
-    --powers1: #EBE8F3;
-    --powers3: #D3C2F3;
-    --powers5: #9160F3;
-    --powers7: #4C337F;
-    --powers8: #261A40;
-
-    --supportTower1: #E6E6DB;
-    --supportTower3: #e6e6ac;
-    --supportTower5: #E6E644;
-    --supportTower7: #7F7F26;
-
-    --heroes3: #F3DEC2;
-    --heroes5: #F3AB48;
-    --heroes7: #ac6e17;
-
     --winColor: hsl(128, 56%, 45%);
-    --lossColorDark: hsl(0, 100%, 34%);
-    --lossColorLight: hsl(0, 100%, 67%);
+    --warningColorLight: hsl(0, 100%, 67%);
+    --warningColorDark: hsl(0, 100%, 34%);
+
+    --transparent-background-light: hsla(0, 0%, 70%, 0.7);
+    --transparent-background-dark: hsla(0, 0%, 30%, 0.7);
 
     --b2popologyLight3: hsl(161, 61%, 82%);
     --b2popologyLight2: hsl(160, 56%, 74%);
@@ -410,16 +387,16 @@ a {
 }
 
 .horizontalLine {
-    height: 1px;
+    min-height: 1px;
     margin-bottom: 8px;
-    background-color: var(--shade3);
+    background-color: var(--shade5);
     @media (prefers-color-scheme: dark) {
-        background-color: var(--shade6);
+        background-color: var(--shade4);
     };
 }
 
 .thick {
-    height: 2px;
+    min-height: 2px;
     margin-top: 2px;
 }
 
@@ -428,6 +405,10 @@ a {
     @media (prefers-color-scheme: dark) {
         background-color: var(--shade3);
     };
+}
+
+.noLineMargin {
+    margin: 0;
 }
 
 py-loader {
@@ -667,7 +648,7 @@ dialog {
     color: var(--winColor)
 }
 .redText {
-    color: var(--lossColor)
+    color: var(--warningColorLight)
 }
 .lds-dual-ring {
     display: inline-block;

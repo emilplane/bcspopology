@@ -205,6 +205,16 @@ export default class Card {
     }
 
     /**
+     * Checks whether this card has the given attribute.
+     * @param attributeName
+     * @returns {boolean}
+     */
+    hasAttribute(attributeName) {
+        if (this.blueprint.attributes === undefined) return false
+        return this.blueprint.attributes.includes(attributeName);
+    }
+
+    /**
      * Returns the alias names of the card.
      * @returns {*[]}
      */

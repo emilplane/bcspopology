@@ -392,6 +392,7 @@ export const BLOONS = [
         "cardType": "bloon",
         "type": "advanced",
         "cost": 2, "damage": 150, "delay": 7, "copies": 1,
+        "attributes": ["unique"]
     },
     // Zebra
     {
@@ -811,6 +812,7 @@ export const MONKEYS = [
         "type": "support",
         "tower": "farm",
         "cost": 6,
+        "attributes": ["unique"]
     },
     {
         "name": "cripplingSniper", "displayName": "Crippling Sniper",
@@ -821,6 +823,7 @@ export const MONKEYS = [
         "type": "military",
         "tower": "sniper",
         "cost": 7, "damage": 150, "ammo": 1, "delay": 3,
+        "attributes": ["unique"]
     },
     {
         "name": "bladeMaelstrom", "displayName": "Blade Maelstrom",
@@ -847,6 +850,7 @@ export const MONKEYS = [
         "type": "primary",
         "tower": "tack",
         "cost": 8, "damage": 65, "ammo": 1, "delay": 2,
+        "attributes": ["unique"]
     },
     {
         "name": "sharpShooter", "displayName": "Sharp Shooter",
@@ -857,6 +861,7 @@ export const MONKEYS = [
         "type": "primary",
         "tower": "dart",
         "cost": 9, "damage": 40, "ammo": 3, "delay": 2,
+        "attributes": ["unique"]
     },
     {
         "name": "princeOfDarkness", "displayName": "Prince of Darkness",
@@ -871,6 +876,7 @@ export const MONKEYS = [
         "type": "magic",
         "tower": "wizard",
         "cost": 10,
+        "attributes": ["unique"]
     },
     {
         "name": "theBigOne", "displayName": "The Big One",
@@ -883,7 +889,7 @@ export const MONKEYS = [
         "type": "primary",
         "tower": "mortar",
         "cost": 11, "damage": 140, "ammo": 1, "delay": 1,
-        "attributes": ["normalAttacksDisabled"]
+        "attributes": ["normalAttacksDisabled", "unique"]
     },
     {
         "name": "darkChampion", "displayName": "Dark Champion",
@@ -896,6 +902,7 @@ export const MONKEYS = [
         "type": "magic",
         "tower": "super",
         "cost": 12, "damage": 90, "ammo": 3, "delay": 3,
+        "attributes": ["unique"]
     },
     {
         "name": "glaiveRicochet", "displayName": "Glaive Ricochet",
@@ -909,6 +916,7 @@ export const MONKEYS = [
         "type": "primary",
         "tower": "boomerang",
         "cost": 12, "damage": 30, "ammo": 4, "delay": 2,
+        "attributes": ["unique"]
     },
     {
         "name": "sunTemple", "displayName": "Sun Temple",
@@ -921,6 +929,7 @@ export const MONKEYS = [
         "type": "magic",
         "tower": "super",
         "cost": 18, "damage": 100, "ammo": 3, "delay": 1,
+        "attributes": ["unique"]
     },
 ]
 
@@ -1341,5 +1350,6 @@ export const POWERS = [
         "cardType": "power",
         "type": "exotic",
         "cost": 10,
+        "attributes": ["unique"]
     },
 ]
