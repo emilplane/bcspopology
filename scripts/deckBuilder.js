@@ -16,6 +16,16 @@ document.getElementById("deckNameContainer").appendChild(new Element("h5")
 )
 deck.setDeckFromCurrentURL()
 
+// const all = [...BLOONS, ...POWERS, ...MONKEYS]
+// const idlist = []
+// all.forEach((card) => {
+//     if (idlist.includes(card.id)) {
+//         throw new Error(card.id)
+//     } else {
+//         idlist.push(card.id)
+//     }
+// })
+
 function updateUi() {
     // Set URL
     const shrunkObject = deck.getShrunkObject()

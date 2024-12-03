@@ -359,7 +359,7 @@ export const BLOONS = [
     },
     {
         "name": "toxicBloon", "displayName": "Toxic Bloon",
-        "id": "aE",
+        "id": "cI",
         "description": [],
         "events": [
             ["onPopped", "Remove attacking Monkey."],
@@ -1054,7 +1054,7 @@ export const MONKEYS = [
     },
     {
         "name": "monkeyInvestigator", "displayName": "Monkey Investigator",
-        "id": "cs",
+        "id": "cJ",
         "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
         "description": [],
         "events": [
@@ -1068,7 +1068,7 @@ export const MONKEYS = [
     },
     {
         "name": "dartMonkeyTwins", "displayName": "Dart Monkey Twins",
-        "id": "cs",
+        "id": "cK",
         "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
         "description": [],
         "events": [
