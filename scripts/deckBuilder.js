@@ -463,7 +463,7 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
 
     const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
         .children(
-            new Element("p").class("bcsfont").text("BCS Popology • game version 1.2")
+            new Element("p").class("bcsfont").text("BCS Popology • game version 2.0")
         )
 
     const image = new Element("div")
@@ -477,7 +477,7 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
                     imageHeader, imageSummaryContainer, allCardsContainer, extraDetailsContainer,
                     new Element("img")
                         .class("imageHeroIcon")
-                        .setProperty("src", `media/cardIcons/${deck.hero}.png`),
+                        .setProperty("src", `media/cardIcons/${deck.hero.toLowerCase()}.png`),
                 )
         )
 
