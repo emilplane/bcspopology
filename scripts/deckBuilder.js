@@ -5,6 +5,7 @@ import Card from "./classes/card.js";
 import {Deck} from "./classes/deck.js";
 import {generateCard} from "./cardGenerator.js";
 
+let deckUrl = ""
 const deck = new Deck("New Deck")
 deck.updateUiFn = updateUi
 
@@ -26,6 +27,14 @@ deck.setDeckFromCurrentURL()
 //     }
 // })
 
+document.getElementById("copyUrlButton").addEventListener("click", () => {
+    navigator.clipboard.writeText(deckUrl).then(function() {
+        console.log("Copied url!")
+    }).catch(function(error) {
+        console.error("Error copying text: ", error);
+    });
+})
+
 function updateUi() {
     // Set URL
     const shrunkObject = deck.getShrunkObject()
@@ -45,8 +54,8 @@ function updateUi() {
     dataString += `_${shrunkObject.deckName}`
 
     const encodedData = encodeURIComponent(dataString);
-    const newUrl = `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
-    history.pushState(null, '', newUrl);
+    deckUrl = `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
+    history.pushState(null, '', deckUrl);
 
     document.getElementById("numberOfCards").innerText = `${deck.length}/40 cards`
     document.getElementById("heroText").innerText = `Hero: ${deck.hero}`
@@ -270,7 +279,7 @@ document.getElementById("heroContainer").addEventListener("keydown", function (e
     }
 });
 
-document.getElementById("downloadImageButton").addEventListener("click", function (event) {
+document.getElementById("downloadImageButton").addEventListener("click", function (event) { if (deck.length === 40) {
     const imagePreviewContainer = document.getElementById("imagePreviewContainer")
 
     const imageHeader = new Element("div")
@@ -297,7 +306,7 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
 
         allCards.children(
             new Element("div")
-                .class("smallCardInList", `smallCard-${card.cardType}`, "imageCard", "imageBoxShadow")
+                .class("smallCardInList", `imageSmallCard-${card.cardType}`, "imageCard", "imageBoxShadow")
                 .children(
                     imageCardImgContainer,
                     new Element("h5")
@@ -351,15 +360,15 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
 
     const distributionArray = deck.cardCostDistribution()
     const distributionBars = [
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted")
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue")
     ]
     distributionBars.forEach((bar, index) => {
         const percentage = distributionArray[index]/Math.max(...distributionArray)*100
-        bar.element.style.clipPath = `polygon(0 0, 150% 0, 150% ${100-percentage}%, 0 ${100-percentage}%)`
+        bar.element.style.height = `${percentage}%`
     })
 
     const distributionBarContainers = []
@@ -398,21 +407,17 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
                 .children(...distributionBarContainers, ...barLabelElements)
         )
 
-
-
-
-
     const bloonCostDistributionArray = deck.bloonCardCostDistribution()
     const bloonCostDistributionBars = [
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted"),
-        new Element("div").class("distributionBarInverted")
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue"),
+        new Element("div").class("distributionBarValue")
     ]
     bloonCostDistributionBars.forEach((bar, index) => {
         const percentage = bloonCostDistributionArray[index]/Math.max(...bloonCostDistributionArray)*100
-        bar.element.style.clipPath = `polygon(0 0, 150% 0, 150% ${100-percentage}%, 0 ${100-percentage}%)`
+        bar.element.style.height = `${percentage}%`
     })
 
     const bloonCostDistributionBarContainers = []
@@ -491,10 +496,8 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
                 )
         )
 
-    const downloadButton = new Element("button").id("download").text("Download")
-
+    imagePreviewContainer.innerHTML = ""
     imagePreviewContainer.appendChild(image.element)
-    imagePreviewContainer.appendChild(downloadButton.element)
 
     imagePreviewContainer.classList.add("showImagePreviewContainer")
 
@@ -553,30 +556,31 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
         style.textContent = fontFace + style.textContent;
     }
 
-    document.getElementById('download').addEventListener('click', async () => {
-        const content = document.getElementById('imageWrapper');
-        const svg = content.querySelector('svg');
+    // Download image
+    const content = document.getElementById('imageWrapper');
+    const svg = content.querySelector('svg');
 
-        // Inline the images in the SVG
-        // await inlineSVGImages(svg);
+    // Inline the images in the SVG
+    // await inlineSVGImages(svg);
 
-        // Embed the font directly in the SVG
-        // await embedFontInSVG(svg);
+    // Embed the font directly in the SVG
+    // await embedFontInSVG(svg);
 
-        // Use html2canvas to render the div
-        html2canvas(content, {
-            useCORS: true, // Ensure cross-origin resources are loaded properly
-            backgroundColor: null,
-        }).then(canvas => {
-            const imageData = canvas.toDataURL('image/png');
+    // Use html2canvas to render the div
+    html2canvas(content, {
+        useCORS: true, // Ensure cross-origin resources are loaded properly
+        backgroundColor: null,
+    }).then(canvas => {
+        const imageData = canvas.toDataURL('image/png');
 
-            // Create a download link
-            const link = document.createElement('a');
-            link.href = imageData;
-            link.download = 'div-image.png';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+        // Create a download link
+        const link = document.createElement('a');
+        link.href = imageData;
+        link.download = 'div-image.png';
+        document.body.appendChild(link);
+        // link.click();
+        document.body.removeChild(link);
     });
-})
+
+    // imagePreviewContainer.classList.remove("showImagePreviewContainer")
+}})
