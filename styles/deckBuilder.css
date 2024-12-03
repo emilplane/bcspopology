@@ -1,6 +1,6 @@
 :root {
     --smallCard-buttonBorderThickness: 1.5px;
-    --deckImageBackground: linear-gradient(135deg, hsla(249, 78%, 70%, 1), hsla(249, 78%, 65%, 1))
+    --deckImagebackground-image: linear-gradient(135deg, hsla(249, 78%, 70%, 1), hsla(249, 78%, 65%, 1))
 }
 
 .statsPageWrapper {
@@ -126,26 +126,26 @@
 }
 
 .smallCard-bloon {
-    background: linear-gradient(135deg, hsl(207, 100%, 80%), hsl(207, 100%, 70%))
+    background-image: linear-gradient(135deg, hsl(207, 100%, 80%), hsl(207, 100%, 70%))
 }
 .smallCard-monkey {
-    background: linear-gradient(135deg, hsl(8, 100%, 80%), hsl(8, 100%, 70%))
+    background-image: linear-gradient(135deg, hsl(8, 100%, 80%), hsl(8, 100%, 70%))
 }
 .smallCard-power {
-    background: linear-gradient(135deg, hsl(283, 100%, 80%), hsl(283, 100%, 70%))
+    background-image: linear-gradient(135deg, hsl(283, 100%, 80%), hsl(283, 100%, 70%))
 }
 @media (prefers-color-scheme: dark) {
     .smallCardInList {
         background-color: var(--shade8);
     }
     .smallCard-bloon {
-        background: linear-gradient(135deg, hsl(207, 100%, 40%), hsl(207, 100%, 35%))
+        background-image: linear-gradient(135deg, hsl(207, 100%, 40%), hsl(207, 100%, 35%))
     }
     .smallCard-monkey {
-        background: linear-gradient(135deg, hsl(8, 100%, 40%), hsl(8, 100%, 35%))
+        background-image: linear-gradient(135deg, hsl(8, 100%, 40%), hsl(8, 100%, 35%))
     }
     .smallCard-power {
-         background: linear-gradient(135deg, hsl(283, 100%, 40%), hsl(283, 100%, 35%))
+         background-image: linear-gradient(135deg, hsl(283, 100%, 40%), hsl(283, 100%, 35%))
     }
 }
 
@@ -602,11 +602,11 @@
 }
 
 .imageSmallCard-bloon {
-    background: linear-gradient(135deg, hsl(207, 100%, 40%), hsl(207, 100%, 35%))
+    background-image: linear-gradient(135deg, hsl(207, 100%, 40%), hsl(207, 100%, 35%))
 }
 .imageSmallCard-monkey {
-    background: linear-gradient(135deg, hsl(8, 100%, 40%), hsl(8, 100%, 35%))
+    background-image: linear-gradient(135deg, hsl(8, 100%, 40%), hsl(8, 100%, 35%))
 }
 .imageSmallCard-power {
-    background: linear-gradient(135deg, hsl(283, 100%, 40%), hsl(283, 100%, 35%))
+    background-image: linear-gradient(135deg, hsl(283, 100%, 40%), hsl(283, 100%, 35%))
 }
