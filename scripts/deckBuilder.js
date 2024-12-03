@@ -578,9 +578,9 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
         link.href = imageData;
         link.download = 'div-image.png';
         document.body.appendChild(link);
-        // link.click();
+        link.click();
         document.body.removeChild(link);
     });
 
-    // imagePreviewContainer.classList.remove("showImagePreviewContainer")
+    imagePreviewContainer.classList.remove("showImagePreviewContainer")
 }})
