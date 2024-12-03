@@ -1080,6 +1080,20 @@ export const MONKEYS = [
         "tower": "dart",
         "cost": 1, "damage": 15, "ammo": 1, "delay": 1, "copies": 2
     },
+    {
+        "name": "quincyActionFigure", "displayName": "Quincy Action Figure",
+        "id": "cH",
+        "aliases": ["nft"],
+        "description": [],
+        "events": [
+            ["onReplace", "Gain gold equal to your economy."],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "agent",
+        "cost": 2,
+    },
 ]
 
 export const POWERS = [
@@ -1625,7 +1639,7 @@ export const POWERS = [
     },
     {
         "name": "rarePower", "displayName": "Rare Power",
-        "id": "cA",
+        "id": "cB",
         "aliases": ["sporm"],
         "description": [],
         "events": [
@@ -1638,7 +1652,7 @@ export const POWERS = [
     },
     {
         "name": "abilityBan", "displayName": "Ability Ban",
-        "id": "cB",
+        "id": "cC",
         "description": [],
         "events": [
             ["onPlay", "Heroes can't use their Hero Abilities until the end of your next turn."],
@@ -1650,7 +1664,7 @@ export const POWERS = [
     },
     {
         "name": "bloonMelter", "displayName": "Bloon Melter",
-        "id": "cC",
+        "id": "cD",
         "description": [],
         "events": [
             ["onPlay", "Destroy target friendly Bloon. Opponent takes 20 damage."],
@@ -1662,7 +1676,7 @@ export const POWERS = [
     },
     {
         "name": "divination", "displayName": "Divination",
-        "id": "cD",
+        "id": "cE",
         "description": [],
         "events": [
             ["onPlay", "Pick 3. If it's a Monkey, it gains +10 Attack Power."],
@@ -1675,7 +1689,7 @@ export const POWERS = [
     },
     {
         "name": "energyOverload", "displayName": "Energy Overload",
-        "id": "cE",
+        "id": "cF",
         "description": [],
         "events": [
             ["onPlay", "Destroy target Bloon with Shield"],
@@ -1688,7 +1702,7 @@ export const POWERS = [
     },
     {
         "name": "enhancedReflexes", "displayName": "Enhanced Reflexes",
-        "id": "cF",
+        "id": "cG",
         "description": [],
         "events": [
             ["onPlay", "Target bloon takes 50 damage. Draw a card."],

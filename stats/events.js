@@ -72,6 +72,12 @@ export const events = {
             return `Triggers when this tower reloads.`
         },
     },
+    "onReplace": {
+        "displayName": "On Replace",
+        "description": (card) => {
+            return `Triggers when this tower is replaced.`
+        },
+    },
     "onBloonPlayed": {
         "displayName": "On Bloon Played",
         "description": (card) => {
