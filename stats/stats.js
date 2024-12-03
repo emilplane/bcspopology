@@ -2,6 +2,7 @@ export const BLOONS = [
     // Red
     {
         "name": "redBloon", "displayName": "Red Bloon",
+        "id": "aa",
         "description": [],
         "events": [],
     
@@ -11,6 +12,7 @@ export const BLOONS = [
     },
     {
         "name": "swarmRedBloon", "displayName": "Swarm Red Bloon",
+        "id": "ab",
         "description": [],
         "events": [],
     
@@ -20,6 +22,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleRedBloon", "displayName": "Double Red Bloon",
+        "id": "ac",
         "description": [],
         "events": [],
     
@@ -31,6 +34,7 @@ export const BLOONS = [
     // Blue
     {
         "name": "blueBloon", "displayName": "Blue Bloon",
+        "id": "ad",
         "description": [],
         "events": [],
     
@@ -40,6 +44,7 @@ export const BLOONS = [
     },
     {
         "name": "nestedBlue", "displayName": "Nested Blue",
+        "id": "ae",
         "description": [],
         "events": [
             ["onPopped", {"type": "spawn", "name": "redBloon"}]
@@ -51,6 +56,7 @@ export const BLOONS = [
     },
     {
         "name": "swarmBlueBloon", "displayName": "Swarm Blue Bloon",
+        "id": "af",
         "description": [],
         "events": [],
     
@@ -60,6 +66,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleBlueBloon", "displayName": "Double Blue Bloon",
+        "id": "ag",
         "description": [],
         "events": [],
     
@@ -71,6 +78,7 @@ export const BLOONS = [
     // Green
     {
         "name": "greenBloon", "displayName": "Green Bloon",
+        "id": "ah",
         "description": [],
         "events": [],
     
@@ -80,6 +88,7 @@ export const BLOONS = [
     },
     {
         "name": "nestedGreen", "displayName": "Nested Green",
+        "id": "ai",
         "description": [],
         "events": [
             ["onPopped", {"type": "spawn", "name": "nestedBlue"}]
@@ -91,6 +100,7 @@ export const BLOONS = [
     },
     {
         "name": "swarmGreenBloon", "displayName": "Swarm Green Bloon",
+        "id": "aj",
         "description": [],
         "events": [],
     
@@ -100,6 +110,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleGreenBloon", "displayName": "Double Green Bloon",
+        "id": "ak",
         "description": [],
         "events": [],
     
@@ -111,6 +122,7 @@ export const BLOONS = [
     // Yellow
     {
         "name": "yellowBloon", "displayName": "Yellow Bloon",
+        "id": "al",
         "description": [],
         "events": [],
     
@@ -120,6 +132,7 @@ export const BLOONS = [
     },
     {
         "name": "nestedYellow", "displayName": "Nested Yellow",
+        "id": "am",
         "description": [],
         "events": [
             ["onPopped", {"type": "spawn", "name": "nestedGreen"}]
@@ -131,6 +144,7 @@ export const BLOONS = [
     },
     {
         "name": "swarmYellowBloon", "displayName": "Swarm Yellow Bloon",
+        "id": "an",
         "description": [],
         "events": [],
     
@@ -140,6 +154,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleYellowBloon", "displayName": "Double Yellow Bloon",
+        "id": "ao",
         "description": [],
         "events": [],
     
@@ -151,6 +166,7 @@ export const BLOONS = [
     // Pink
     {
         "name": "pinkBloon", "displayName": "Pink Bloon",
+        "id": "ap",
         "description": [],
         "events": [],
     
@@ -161,6 +177,7 @@ export const BLOONS = [
     // White
     {
         "name": "whiteBloon", "displayName": "White Bloon",
+        "id": "aq",
         "description": [],
         "events": [
             {"type": "drawCards", "value": 1}
@@ -173,6 +190,7 @@ export const BLOONS = [
     // Black
     {
         "name": "blackBloon", "displayName": "Black Bloon",
+        "id": "ar",
         "description": [],
         "events": [
             ["onDestroyed", {"type": "drawCards", "value": 1}]
@@ -185,6 +203,7 @@ export const BLOONS = [
     // Golden
     {
         "name": "goldenBloon", "displayName": "Golden Bloon",
+        "id": "as",
         "description": [],
         "events": [
             ["onDamaged", {"type": "gainGold", "value": 1}],
@@ -197,6 +216,7 @@ export const BLOONS = [
     // Special
     {
         "name": "auraOfStrength", "displayName": "Aura of Strength Bloon",
+        "id": "at",
         "description": [],
         "events": [
             ["onTurnStart", "Increase delay by 1. Gives another random friendly bloon +50HP."],
@@ -208,6 +228,7 @@ export const BLOONS = [
     },
     {
         "name": "steadyGrowthBloon", "displayName": "Steady Growth Bloon",
+        "id": "au",
         "description": [],
         "events": [
             ["onTurnStart", {"type": "gainHP", "value": 50}],
@@ -219,6 +240,7 @@ export const BLOONS = [
     },
     {
         "name": "emboldenedBloon", "displayName": "Emboldened Bloon",
+        "id": "av",
         "description": ["Costs 1 less per Bloon you control"],
         "events": [],
     
@@ -228,6 +250,7 @@ export const BLOONS = [
     },
     {
         "name": "setupBloon", "displayName": "Setup Bloon",
+        "id": "aw",
         "description": [],
         "events": [
             ["onLeak", "Reduce cost of a random bloon in your hand by 1."]
@@ -239,6 +262,7 @@ export const BLOONS = [
     },
     {
         "name": "stunGasBloon", "displayName": "Stun Gas Bloon",
+        "id": "ax",
         "description": [],
         "events": [
             ["onDamaged", "Stun attacking monkey for 1 turn."],
@@ -250,6 +274,7 @@ export const BLOONS = [
     },
     {
         "name": "shieldGasBloon", "displayName": "Shield Gas Bloon",
+        "id": "ay",
         "description": [],
         "events": [
             ["onDamaged", "Random friendly bloon gains 30 shield."],
@@ -261,6 +286,7 @@ export const BLOONS = [
     },
     {
         "name": "bloontoniumGasBloon", "displayName": "Bloontonium Gas Bloon",
+        "id": "az",
         "description": [],
         "events": [
             ["onDamaged", {"type": "gainBloontonium", "value": 1}],
@@ -272,6 +298,7 @@ export const BLOONS = [
     },
     {
         "name": "weakeningGasBloon", "displayName": "Weakening Gas Bloon",
+        "id": "aA",
         "description": [],
         "events": [
             ["onDamaged", "Lower attacking monkey's attack power by 5."],
@@ -283,6 +310,7 @@ export const BLOONS = [
     },
     {
         "name": "growthGasBloon", "displayName": "Growth Gas Bloon",
+        "id": "aB",
         "aliases": ["gg"],
         "events": [
             ["onDamaged", "All other friendly bloons gain 10 health."],
@@ -294,6 +322,7 @@ export const BLOONS = [
     },
     {
         "name": "volatileBloon", "displayName": "Volatile Bloon",
+        "id": "aC",
         "description": [],
         "events": [
             ["onPopped", "Deal 100 damage to all Bloons."],
@@ -305,6 +334,7 @@ export const BLOONS = [
     },
     {
         "name": "bolsteredBloon", "displayName": "Bolstered Bloon",
+        "id": "aD",
         "description": [],
         "events": [
             ["onBloonPlayed", {"type": "gainHP", "value": 30}],
@@ -316,6 +346,7 @@ export const BLOONS = [
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
+        "id": "aE",
         "aliases": ["bb", "friendly bloon"],
         "description": [],
         "events": [
@@ -328,6 +359,7 @@ export const BLOONS = [
     },
     {
         "name": "toxicBloon", "displayName": "Toxic Bloon",
+        "id": "aE",
         "description": [],
         "events": [
             ["onPopped", "Remove attacking Monkey."],
@@ -339,6 +371,7 @@ export const BLOONS = [
     },
     {
         "name": "discountBloon", "displayName": "Discount Bloon",
+        "id": "aF",
         "description": [],
         "events": [
             ["onPlay", "Reduces cost of Discount Bloons in hand by 1."],
@@ -350,6 +383,7 @@ export const BLOONS = [
     },
     {
         "name": "drainingBloon", "displayName": "Draining Bloon",
+        "id": "aG",
         "description": [],
         "events": [
             ["onPlay", "Drains all Bloontonium, gains 30 shield per Bloontonium drained"],
@@ -361,6 +395,7 @@ export const BLOONS = [
     },
     {
         "name": "hasteningBloon", "displayName": "Hastening Bloon",
+        "id": "aH",
         "description": [],
         "events": [
             ["onPlay", "Reduces the delay of a random friendly bloon by 1."],
@@ -372,6 +407,7 @@ export const BLOONS = [
     },
     {
         "name": "healingBloon", "displayName": "Healing Bloon",
+        "id": "aI",
         "description": [],
         "events": [
             ["onPlay", "Gives all friendly Bloons +25HP."],
@@ -383,6 +419,7 @@ export const BLOONS = [
     },
     {
         "name": "strengthenator", "displayName": "Strengthenator",
+        "id": "aJ",
         "aliases": ["bollator"],
         "description": [],
         "events": [
@@ -397,6 +434,7 @@ export const BLOONS = [
     // Zebra
     {
         "name": "zebraBloon", "displayName": "Zebra Bloon",
+        "id": "aK",
         "description": [],
         "events": [
             ["onPlay", {"type": "drawCards", "value": 1}],
@@ -410,6 +448,7 @@ export const BLOONS = [
     // Rainbow
     {
         "name": "rainbowBloon", "displayName": "Rainbow Bloon",
+        "id": "aL",
         "description": [],
         "events": [],
 
@@ -419,6 +458,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleRainbowBloon", "displayName": "Double Rainbow Bloon",
+        "id": "aM",
         "description": [],
         "events": [],
 
@@ -430,6 +470,7 @@ export const BLOONS = [
     // Ceramics
     {
         "name": "ceramicBloon", "displayName": "Ceramic Bloon",
+        "id": "aN",
         "description": [],
         "events": [],
     
@@ -439,6 +480,7 @@ export const BLOONS = [
     },
     {
         "name": "doubleCeramicBloon", "displayName": "Double Ceramic Bloon",
+        "id": "aO",
         "description": [],
         "events": [],
     
@@ -450,6 +492,7 @@ export const BLOONS = [
     // MOAB-Class
     {
         "name": "damagedMoab", "displayName": "Damaged MOAB",
+        "id": "aP",
         "aliases": ["damaged massive ornary air blimp", "damaged mobe"],
         "description": [],
         "events": [
@@ -462,6 +505,7 @@ export const BLOONS = [
     },
     {
         "name": "moab", "displayName": "MOAB",
+        "id": "aQ",
         "aliases": ["massive ornary air blimp", "mobe"],
         "description": [],
         "events": [],
@@ -472,6 +516,7 @@ export const BLOONS = [
     },
     {
         "name": "bfb", "displayName": "BFB",
+        "id": "aR",
         "aliases": ["brutal floating behemoth"],
         "description": [],
         "events": [],
@@ -482,6 +527,7 @@ export const BLOONS = [
     },
     {
         "name": "zomg", "displayName": "ZOMG",
+        "id": "aS",
         "aliases": ["zeppelin of mighty gargantuaness"],
         "description": [],
         "events": [],
@@ -489,12 +535,37 @@ export const BLOONS = [
         "cardType": "bloon",
         "type": "large",
         "cost": 10, "damage": 800, "delay": 5, "copies": 1,
+    },
+    {
+        "name": "signalBloon", "displayName": "Signal Bloon",
+        "id": "cu",
+        "description": [],
+        "events": [
+            ["onPlay", "Draw a Large Bloon from your deck."],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 50, "delay": 2, "copies": 1,
+    },
+    {
+        "name": "slowingBloon", "displayName": "Slowing Bloon",
+        "id": "cv",
+        "description": [],
+        "events": [
+            ["onPlay", "Increase target bloon's delay by 1."],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 140, "delay": 3, "copies": 2,
     }
 ]
 
 export const MONKEYS = [
     {
         "name": "dartMonkey", "displayName": "Dart Monkey",
+        "id": "aT",
         "description": [],
         "events": [],
 
@@ -505,6 +576,7 @@ export const MONKEYS = [
     },
     {
         "name": "mortarMonkey", "displayName": "Mortar Monkey",
+        "id": "aU",
         "description": [],
         "events": [
             ["onTurnEnd", "Randomly attacks an enemy Bloon."],
@@ -518,6 +590,7 @@ export const MONKEYS = [
     },
     {
         "name": "tackShooter", "displayName": "Tack Shooter",
+        "id": "aV",
         "description": [],
         "events": [],
 
@@ -528,6 +601,7 @@ export const MONKEYS = [
     },
     {
         "name": "sniperMonkey", "displayName": "Sniper Monkey",
+        "id": "aW",
         "description": [],
         "events": [],
 
@@ -538,6 +612,7 @@ export const MONKEYS = [
     },
     {
         "name": "bananaFarm", "displayName": "Banana Farm",
+        "id": "aX",
         "description": [],
         "events": [
             ["onTurnStart", {"type": "gainGold", "value": 2}],
@@ -550,6 +625,7 @@ export const MONKEYS = [
     },
     {
         "name": "druid", "displayName": "Druid",
+        "id": "aY",
         "aliases": ["durid", "taco"],
         "description": [],
         "events": [
@@ -563,6 +639,7 @@ export const MONKEYS = [
     },
     {
         "name": "boomerangMonkey", "displayName": "Boomerang Monkey",
+        "id": "aZ",
         "description": [],
         "events": [],
 
@@ -573,6 +650,7 @@ export const MONKEYS = [
     },
     {
         "name": "tripleShot", "displayName": "Triple Shot",
+        "id": "ba",
         "description": [],
         "events": [],
 
@@ -583,6 +661,7 @@ export const MONKEYS = [
     },
     {
         "name": "burnyStuffMortar", "displayName": "Burny Stuff Mortar",
+        "id": "bb",
         "description": [],
         "events": [
             ["onTurnEnd", "Randomly attacks an enemy Bloon."],
@@ -595,6 +674,7 @@ export const MONKEYS = [
     },
     {
         "name": "crossbow", "displayName": "Crossbow",
+        "id": "bc",
         "aliases": ["xbow"],
         "description": [],
         "events": [],
@@ -606,6 +686,7 @@ export const MONKEYS = [
     },
     {
         "name": "monkeyVillage", "displayName": "Monkey Village",
+        "id": "bd",
         "description": ["Adjacent monkeys have +15 Attack Power"],
         "events": [],
 
@@ -616,6 +697,7 @@ export const MONKEYS = [
     },
     {
         "name": "wizardMonkey", "displayName": "Wizard Monkey",
+        "id": "be",
         "aliases": ["lizard"],
         "description": [],
         "events": [
@@ -629,6 +711,7 @@ export const MONKEYS = [
     },
     {
         "name": "cashDropSniper", "displayName": "Cash Drop Sniper",
+        "id": "bf",
         "description": [],
         "events": [
             ["onReload", {"type": "gainGold", "value": 3}],
@@ -641,6 +724,7 @@ export const MONKEYS = [
     },
     {
         "name": "wallOfFireMonkey", "displayName": "Wall of Fire Monkey",
+        "id": "bg",
         "aliases": ["wof", "lizard"],
         "description": [],
         "events": [
@@ -654,6 +738,7 @@ export const MONKEYS = [
     },
     {
         "name": "superMonkeyFanClub", "displayName": "Super Monkey Fan Club",
+        "id": "bh",
         "aliases": ["smfc"],
         "description": [],
         "events": [
@@ -667,6 +752,7 @@ export const MONKEYS = [
     },
     {
         "name": "bananaPlantation", "displayName": "Banana Plantation",
+        "id": "bi",
         "aliases": ["plant"],
         "description": [],
         "events": [
@@ -680,6 +766,7 @@ export const MONKEYS = [
     },
     {
         "name": "spikeOPult", "displayName": "Spike-o-Pult",
+        "id": "bj",
         "aliases": ["spult"],
         "description": [],
         "events": [
@@ -693,6 +780,7 @@ export const MONKEYS = [
     },
     {
         "name": "tackSprayer", "displayName": "Tack Sprayer",
+        "id": "bk",
         "description": [],
         "events": [],
 
@@ -703,6 +791,7 @@ export const MONKEYS = [
     },
     {
         "name": "heartOfVengeanceDruid", "displayName": "Heart of Vengeance Druid",
+        "id": "bl",
         "description": [],
         "events": [
             ["onLeak", {"type": "gainAttackPower", "value": 5}],
@@ -715,6 +804,7 @@ export const MONKEYS = [
     },
     {
         "name": "junglesBountyDruid", "displayName": "Jungle's Bounty Druid",
+        "id": "bm",
         "aliases": ["jbounty", "jb"],
         "description": [],
         "events": [
@@ -728,6 +818,7 @@ export const MONKEYS = [
     },
     {
         "name": "bionicBoomerang", "displayName": "Bionic Boomerang",
+        "id": "bn",
         "description": [],
         "events": [
             ["onPlay", {"type": "gainAmmo", "value": 2}],
@@ -740,6 +831,7 @@ export const MONKEYS = [
     },
     {
         "name": "eliteDefender", "displayName": "Elite Defender",
+        "id": "bo",
         "aliases": ["edef"],
         "description": [],
         "events": [],
@@ -751,6 +843,7 @@ export const MONKEYS = [
     },
     {
         "name": "necromancer", "displayName": "Necromancer",
+        "id": "bp",
         "aliases": ["lizard", "Necromancer: Unpopped Army"],
         "description": [],
         "events": [
@@ -765,6 +858,7 @@ export const MONKEYS = [
     },
     {
         "name": "thunderDruid", "displayName": "Thunder Druid",
+        "id": "bq",
         "aliases": ["lightning"],
         "description": [],
         "events": [
@@ -778,6 +872,7 @@ export const MONKEYS = [
     },
     {
         "name": "superMonkey", "displayName": "Super Monkey",
+        "id": "br",
         "aliases": ["super monkey with no upgrades"],
         "description": [],
         "events": [],
@@ -789,6 +884,7 @@ export const MONKEYS = [
     },
     {
         "name": "arcaneMaster", "displayName": "Arcane Master",
+        "id": "bs",
         "aliases": ["amastery"],
         "description": [],
         "events": [
@@ -803,6 +899,7 @@ export const MONKEYS = [
     },
     {
         "name": "marketplace", "displayName": "Marketplace",
+        "id": "bt",
         "description": [],
         "events": [
             ["onTurnStart", "Gain 1 gold per friendly monkey"],
@@ -816,6 +913,7 @@ export const MONKEYS = [
     },
     {
         "name": "cripplingSniper", "displayName": "Crippling Sniper",
+        "id": "bu",
         "description": ["Targeted Large Bloons have their Delay increased by 1."],
         "events": [],
 
@@ -827,6 +925,7 @@ export const MONKEYS = [
     },
     {
         "name": "bladeMaelstrom", "displayName": "Blade Maelstrom",
+        "id": "bv",
         "aliases": ["mael"],
         "description": [],
         "events": [
@@ -840,6 +939,7 @@ export const MONKEYS = [
     },
     {
         "name": "bouncingBullet", "displayName": "Bouncing Bullet",
+        "id": "bw",
         "aliases": ["bbullet"],
         "description": [],
         "events": [
@@ -847,13 +947,14 @@ export const MONKEYS = [
         ],
 
         "cardType": "monkey",
-        "type": "primary",
-        "tower": "tack",
-        "cost": 8, "damage": 65, "ammo": 1, "delay": 2,
+        "type": "military",
+        "tower": "sniper",
+        "cost": 8, "damage": 80, "ammo": 1, "delay": 2,
         "attributes": ["unique"]
     },
     {
         "name": "sharpShooter", "displayName": "Sharp Shooter",
+        "id": "bx",
         "description": ["Double attack power while at full Ammo."],
         "events": [],
 
@@ -865,6 +966,7 @@ export const MONKEYS = [
     },
     {
         "name": "princeOfDarkness", "displayName": "Prince of Darkness",
+        "id": "by",
         "aliases": ["pod", "lizard"],
         "description": [],
         "events": [
@@ -880,6 +982,7 @@ export const MONKEYS = [
     },
     {
         "name": "theBigOne", "displayName": "The Big One",
+        "id": "bz",
         "aliases": ["the bug one"],
         "events": [
             ["onTurnEnd", "Randomly attacks an enemy Bloon."],
@@ -893,6 +996,7 @@ export const MONKEYS = [
     },
     {
         "name": "darkChampion", "displayName": "Dark Champion",
+        "id": "bA",
         "description": [],
         "events": [
             ["duringOpponentTurn", "All of your defenders gain +10 Attack Power."],
@@ -906,7 +1010,8 @@ export const MONKEYS = [
     },
     {
         "name": "glaiveRicochet", "displayName": "Glaive Ricochet",
-        "aliases": ["richochet"],
+        "id": "bB",
+        "aliases": ["richochet", "glaive richochet"],
         "description": [],
         "events": [
             ["onAttack", "Deal 10 damage to all of the bloons next in line"],
@@ -915,11 +1020,12 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "primary",
         "tower": "boomerang",
-        "cost": 12, "damage": 30, "ammo": 4, "delay": 2,
+        "cost": 12, "damage": 40, "ammo": 4, "delay": 2,
         "attributes": ["unique"]
     },
     {
         "name": "sunTemple", "displayName": "Sun Temple",
+        "id": "bC",
         "description": [],
         "events": [
             ["onPlay", "Sacrifice all friendly Monkeys for +25 Attack Power per Monkey"],
@@ -931,11 +1037,55 @@ export const MONKEYS = [
         "cost": 18, "damage": 100, "ammo": 3, "delay": 1,
         "attributes": ["unique"]
     },
+    {
+        "name": "moabDominator", "displayName": "MOAB Dominator",
+        "id": "cs",
+        "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
+        "description": [],
+        "events": [
+            ["onPlay", "Increase target Large Bloon's delay by 2."],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "boomerang",
+        "cost": 18, "damage": 75, "ammo": 3, "delay": 2,
+        "attributes": ["unique"]
+    },
+    {
+        "name": "monkeyInvestigator", "displayName": "Monkey Investigator",
+        "id": "cs",
+        "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
+        "description": [],
+        "events": [
+            ["onPlay", "Draw a random Bloon from your deck."],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "agent",
+        "cost": 3, "damage": 35, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "dartMonkeyTwins", "displayName": "Dart Monkey Twins",
+        "id": "cs",
+        "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
+        "description": [],
+        "events": [
+            ["onPlay", "Gains +10 Attack Power when next to another Dart Monkey Twins card."],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 1, "damage": 15, "ammo": 1, "delay": 1, "copies": 2
+    },
 ]
 
 export const POWERS = [
     {
         "name": "bloontoniumCache", "displayName": "Bloontonium Cache",
+        "id": "bD",
         "events": [
             ["onPlay", {"type": "gainBloontonium", "value": 5}]
         ],
@@ -946,6 +1096,7 @@ export const POWERS = [
     },
     {
         "name": "cashDrop", "displayName": "Cash Drop",
+        "id": "bE",
         "events": [
             ["onPlay", {"type": "gainGold", "value": 1}]
         ],
@@ -956,6 +1107,7 @@ export const POWERS = [
     },
     {
         "name": "itsAllOnFireNow", "displayName": "It's All On Fire Now",
+        "id": "bF",
         "events": [
             ["onPlay", "Set target bloon on fire. If already on fire, deal 50 damage."]
         ],
@@ -967,6 +1119,7 @@ export const POWERS = [
     },
     {
         "name": "manaShield", "displayName": "Mana Shield",
+        "id": "bG",
         "events": [
             ["onPlay", {"type": "gainShield", "value": 50}]
         ],
@@ -977,6 +1130,7 @@ export const POWERS = [
     },
     {
         "name": "fortify", "displayName": "Fortify",
+        "id": "bH",
         "aliases": ["jortify", "jortified"],
         "events": [
             ["onPlay", "Give a friendly bloon +50HP."]
@@ -988,6 +1142,7 @@ export const POWERS = [
     },
     {
         "name": "bloonStrike", "displayName": "Bloon Strike",
+        "id": "bI",
         "events": [
             ["onPlay", "Deal 50 damage to opponent hero."]
         ],
@@ -998,6 +1153,7 @@ export const POWERS = [
     },
     {
         "name": "quickBreak", "displayName": "Quick Break",
+        "id": "bJ",
         "aliases": ["qb"],
         "events": [
             ["onPlay", { "type": "gainHP", "value": 50 }]
@@ -1009,6 +1165,7 @@ export const POWERS = [
     },
     {
         "name": "supplyDrop", "displayName": "Supply Drop",
+        "id": "bK",
         "events": [
             ["onPlay", {"type": "drawCards", "value": 2}]
         ],
@@ -1019,6 +1176,7 @@ export const POWERS = [
     },
     {
         "name": "forMyNextTrick", "displayName": "For My Next Trick",
+        "id": "bL",
         "events": [
             ["onPlay", "Pick 2. If it's a Bloon, it costs 2 less."]
         ],
@@ -1030,6 +1188,7 @@ export const POWERS = [
     },
     {
         "name": "restock", "displayName": "Restock",
+        "id": "bM",
         "events": [
             ["onPlay", {"type": "drawCards", "value": 3}]
         ],
@@ -1040,6 +1199,7 @@ export const POWERS = [
     },
     {
         "name": "redBloonStorm", "displayName": "Red Bloon Storm",
+        "id": "bN",
         "events": [
             ["onPlay", "Fills your side with Red Bloons."]
         ],
@@ -1050,6 +1210,7 @@ export const POWERS = [
     },
     {
         "name": "whoops", "displayName": "Whoops",
+        "id": "bO",
         "events": [
             ["onPlay", "Target Monkey loses all Ammo."]
         ],
@@ -1060,6 +1221,7 @@ export const POWERS = [
     },
     {
         "name": "stunned", "displayName": "Stunned",
+        "id": "bP",
         "events": [
             ["onPlay", "Stun target Monkey for 1 turn."]
         ],
@@ -1070,6 +1232,7 @@ export const POWERS = [
     },
     {
         "name": "bedTime", "displayName": "Bed Time",
+        "id": "bQ",
         "events": [
             ["onPlay", "Remove target enemy Monkey with 30 or less Attack Power"]
         ],
@@ -1080,6 +1243,7 @@ export const POWERS = [
     },
     {
         "name": "improvedFortification", "displayName": "Improved Fortification",
+        "id": "bR",
         "events": [
             ["onPlay", "Give target friendly Bloon +150HP but increase its delay by 1."]
         ],
@@ -1090,8 +1254,9 @@ export const POWERS = [
     },
     {
         "name": "rapidShot", "displayName": "Rapid Shot",
+        "id": "bS",
         "events": [
-            ["onPlay", "Deal 30 damage to a random enemy Bloon 3 times."]
+            ["onPlay", "Deal 40 damage to a random enemy Bloon 4 times."]
         ],
 
         "cardType": "power",
@@ -1101,6 +1266,7 @@ export const POWERS = [
     },
     {
         "name": "bloonEmbiggen", "displayName": "Bloon Embiggen",
+        "id": "bT",
         "events": [
             ["onPlay", "Give all your bloons +25HP."]
         ],
@@ -1111,6 +1277,7 @@ export const POWERS = [
     },
     {
         "name": "quickReload", "displayName": "Quick Reload",
+        "id": "bU",
         "events": [
             ["onPlay", "Reload target Monkey."]
         ],
@@ -1121,6 +1288,7 @@ export const POWERS = [
     },
     {
         "name": "powerfulSlowingTotem", "displayName": "Powerful Slowing Totem",
+        "id": "bV",
         "events": [
             ["onPlay", "Increasse the delay of all Enemy Bloons by 1."]
         ],
@@ -1132,6 +1300,7 @@ export const POWERS = [
     },
     {
         "name": "favoredTrade", "displayName": "Favored Trade",
+        "id": "bW",
         "aliases": ["flavored trades"],
         "events": [
             ["onPlay", "Remove friendly monkey and gain half its gold cost."]
@@ -1143,8 +1312,9 @@ export const POWERS = [
     },
     {
         "name": "stormOfArrows", "displayName": "Storm of Arrows",
+        "id": "bX",
         "events": [
-            ["onPlay", "Deal 150 Damage to 2 random opposing Bloons."]
+            ["onPlay", "Deal 120 Damage to 2 random opposing Bloons."]
         ],
 
         "cardType": "power",
@@ -1154,6 +1324,7 @@ export const POWERS = [
     },
     {
         "name": "firestorm", "displayName": "Firestorm",
+        "id": "bY",
         "events": [
             ["onPlay", "Deal 70 damage to all enemy Bloons."]
         ],
@@ -1165,6 +1336,7 @@ export const POWERS = [
     },
     {
         "name": "heroProtection", "displayName": "Hero Protection",
+        "id": "bZ",
         "events": [
             ["onPlay", "Reduce the next damage recieved from an enemy Bloon to 0."]
         ],
@@ -1175,6 +1347,7 @@ export const POWERS = [
     },
     {
         "name": "packProtection", "displayName": "Pack Protection",
+        "id": "ca",
         "events": [
             ["onPlay", "All friendly Bloons gain +40 Shield."]
         ],
@@ -1186,6 +1359,7 @@ export const POWERS = [
     },
     {
         "name": "stickyBomb", "displayName": "Sticky Bomb",
+        "id": "cb",
         "events": [
             ["onPlay", "Deal 300 Damage to a Large Bloon"]
         ],
@@ -1196,6 +1370,7 @@ export const POWERS = [
     },
     {
         "name": "wallOfTrees", "displayName": "Wall of Trees",
+        "id": "cc",
         "events": [
             ["onPlay", "Gain 120 Shield. When it breaks, gain 2 Gold."]
         ],
@@ -1207,6 +1382,7 @@ export const POWERS = [
     },
     {
         "name": "reinflated", "displayName": "Reinflated",
+        "id": "cd",
         "events": [
             ["onPlay", "Summon a random friendly Bloon that was destroyed this game."]
         ],
@@ -1217,6 +1393,7 @@ export const POWERS = [
     },
     {
         "name": "returnToSender", "displayName": "Return to Sender",
+        "id": "ce",
         "aliases": ["rts", "r2s", "return two sender", "return too sender"],
         "events": [
             ["onPlay", "Return a Bloon or Monkey to the owner's hand."]
@@ -1228,6 +1405,7 @@ export const POWERS = [
     },
     {
         "name": "partingGift", "displayName": "Parting Gift",
+        "id": "cf",
         "events": [
             ["onPlay", "Target friendly Monkey damages all enemy Bloons and is removed."]
         ],
@@ -1238,6 +1416,7 @@ export const POWERS = [
     },
     {
         "name": "shrink", "displayName": "Shrink",
+        "id": "cg",
         "events": [
             ["onPlay", "Turns target Monkey into a Baby Monkey."]
         ],
@@ -1248,6 +1427,7 @@ export const POWERS = [
     },
     {
         "name": "glueStorm", "displayName": "Glue Storm",
+        "id": "ch",
         "events": [
             ["onPlay", "Increase the delay of all bloons by 1."]
         ],
@@ -1258,6 +1438,7 @@ export const POWERS = [
     },
     {
         "name": "quickReady", "displayName": "Quick Ready",
+        "id": "ci",
         "aliases": ["qr"],
         "events": [
             ["onPlay", "Reduce the delay on target Bloon by 1."]
@@ -1269,6 +1450,7 @@ export const POWERS = [
     },
     {
         "name": "expertNegotiator", "displayName": "Expert Negotiator",
+        "id": "cj",
         "events": [
             ["onPlay", "Target enemy Monkey joins your team."]
         ],
@@ -1279,6 +1461,7 @@ export const POWERS = [
     },
     {
         "name": "superMonkeyStorm", "displayName": "Super Monkey Storm",
+        "id": "ck",
         "aliases": ["sms"],
         "events": [
             ["onPlay", "Deal 150 damage to all enemy Bloons."]
@@ -1290,6 +1473,7 @@ export const POWERS = [
     },
     {
         "name": "doubleTrouble", "displayName": "Double Trouble",
+        "id": "cl",
         "events": [
             ["onPlay", "Create a copy of target friendly Bloon."]
         ],
@@ -1300,6 +1484,7 @@ export const POWERS = [
     },
     {
         "name": "archersInstinct", "displayName": "Archer's Instinct",
+        "id": "cm",
         "events": [
             ["onPlay", "Pick 3."]
         ],
@@ -1310,6 +1495,7 @@ export const POWERS = [
     },
     {
         "name": "naturesClarity", "displayName": "Nature's Clarity",
+        "id": "cn",
         "events": [
             ["onPlay", "Pick 4. Gain 20 shield per Gold cost of picked card."]
         ],
@@ -1321,6 +1507,7 @@ export const POWERS = [
     },
     {
         "name": "extremeHeat", "displayName": "Extreme Heat",
+        "id": "co",
         "events": [
             ["onPlay", "Destroy target Bloon that is on fire."]
         ],
@@ -1332,6 +1519,7 @@ export const POWERS = [
     },
     {
         "name": "ceasefire", "displayName": "Ceasefire",
+        "id": "cp",
         "events": [
             ["onPlay", "Enemy Monkeys lose all Ammo."]
         ],
@@ -1342,6 +1530,7 @@ export const POWERS = [
     },
     {
         "name": "moabStrike", "displayName": "MOAB Strike",
+        "id": "cq",
         "aliases": ["mobe strike"],
         "events": [
             ["onPlay", "Deal 100 damage to enemy Hero."]
@@ -1353,6 +1542,7 @@ export const POWERS = [
     },
     {
         "name": "thePrestige", "displayName": "The Prestige",
+        "id": "cr",
         "events": [
             ["onPlay", "Summon 4 random friendly Bloons destroyed this game."]
         ],
@@ -1362,5 +1552,151 @@ export const POWERS = [
         "cost": 10,
         "hero": "Amelia",
         "attributes": ["unique"]
+    },
+    {
+        "name": "tryThis", "displayName": "Try This!",
+        "id": "ct",
+        "events": [
+            ["onPlay", "Target monkey gains 1 max ammo."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 3,
+    },
+    {
+        "name": "bubbleTime", "displayName": "Bubble Time!",
+        "id": "cw",
+        "events": [
+            ["onPlay", "Pick 3. If it's a Power, +50 Shield to Hero and random friendly Bloon."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+        "hero": "Amelia",
+    },
+    {
+        "name": "bloonReinforcements", "displayName": "Bloon Reinforcements!",
+        "id": "cx",
+        "events": [
+            ["onPlay", "Draw 2 Basic Bloons from your deck."]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "inOurDarkestHour", "displayName": "In Our Darkest Hour...",
+        "id": "cy",
+        "events": [
+            ["onPlay", "Draw an Ultra Rare Monkey from your deck."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 3,
+    },
+    {
+        "name": "maxHeal", "displayName": "Max Heal",
+        "id": "cz",
+        "events": [
+            ["onPlay", "Target non-Large Bloon gains +100HP."]
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 3,
+        "hero": "Adora"
+    },
+    {
+        "name": "spikeStorm", "displayName": "Spike Storm!",
+        "id": "cA",
+        "aliases": ["sporm"],
+        "description": [],
+        "events": [
+            ["onPlay", "Deal 30 damage to all enemy Bloons."],
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 2,
+    },
+    {
+        "name": "rarePower", "displayName": "Rare Power",
+        "id": "cA",
+        "aliases": ["sporm"],
+        "description": [],
+        "events": [
+            ["onPlay", "Deal 30 damage to all enemy Bloons."],
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 2, "copies": 2
+    },
+    {
+        "name": "abilityBan", "displayName": "Ability Ban",
+        "id": "cB",
+        "description": [],
+        "events": [
+            ["onPlay", "Heroes can't use their Hero Abilities until the end of your next turn."],
+        ],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 2
+    },
+    {
+        "name": "bloonMelter", "displayName": "Bloon Melter",
+        "id": "cC",
+        "description": [],
+        "events": [
+            ["onPlay", "Destroy target friendly Bloon. Opponent takes 20 damage."],
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 2, "copies": 2
+    },
+    {
+        "name": "divination", "displayName": "Divination",
+        "id": "cD",
+        "description": [],
+        "events": [
+            ["onPlay", "Pick 3. If it's a Monkey, it gains +10 Attack Power."],
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 2,
+        "hero": "Adora"
+    },
+    {
+        "name": "energyOverload", "displayName": "Energy Overload",
+        "id": "cE",
+        "description": [],
+        "events": [
+            ["onPlay", "Destroy target Bloon with Shield"],
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4,
+        "hero": "Adora"
+    },
+    {
+        "name": "enhancedReflexes", "displayName": "Enhanced Reflexes",
+        "id": "cF",
+        "description": [],
+        "events": [
+            ["onPlay", "Target bloon takes 50 damage. Draw a card."],
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 2,
+        "hero": "Quincy"
     },
 ]

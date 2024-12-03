@@ -1,5 +1,6 @@
 :root {
-    --smallCard-buttonBorderThickness: 1.5px
+    --smallCard-buttonBorderThickness: 1.5px;
+    --deckImageBackground: linear-gradient(135deg, hsla(249, 78%, 70%, 1), hsla(249, 78%, 65%, 1))
 }
 
 .statsPageWrapper {
@@ -14,6 +15,14 @@
     grid-template-rows: auto 1fr;
     gap: 8px;
 }
+@media screen and (max-width: 600px) {
+    .statsPageWrapper {
+        height: revert; max-height: revert;
+    }
+    .statsPageBody {
+        grid-template-columns: 1fr;
+    }
+}
 
 .deckBuilderContainer {
     display: grid;
@@ -21,6 +30,16 @@
     grid-template-rows: 1fr auto;
     gap: 16px;
     height: 100%; max-height: 100%;
+}
+@media screen and (max-width: 900px) {
+    .deckBuilderContainer {
+        grid-template-columns: 1.2fr 1fr;
+    }
+}
+@media screen and (max-width: 600px) {
+    .deckBuilderContainer {
+        grid-template-columns: 1fr;
+    }
 }
 
 #content {
@@ -43,7 +62,9 @@
     min-height: 40px;
     display: flex;
     align-items: end;
+    flex-wrap: wrap;
     width: 100%;
+    gap: 0 12px;
 }
 
 .newNameInput {
@@ -56,6 +77,7 @@
 
 .numberOfCards {
     margin-left: auto;
+    text-wrap: nowrap;
 }
 
 .heroContainer {
@@ -84,6 +106,11 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+}
+@media screen and (max-width: 900px) {
+    .listOfCards {
+        grid-template-columns: 1fr
+    }
 }
 
 .smallCardInList {
@@ -248,6 +275,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 }
 
 .searchContainer {
@@ -282,4 +310,283 @@
     border-radius: 8px;
     padding: 12px;
     height: 200px;
+}
+
+.imagePreviewContainer {
+    display: none;
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%; height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--transparent-background-dark);
+}
+
+.showImagePreviewContainer {
+    display: flex;
+}
+
+.imageWrapper {
+    width: 900px; max-width: 900px;
+    height: 650px; max-height: 650px;
+    padding: 24px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+@media screen and (max-width: 925px) {
+    .imageWrapper {
+        transform: scale(0.8);
+    }
+}
+@media screen and (max-width: 725px) {
+    .imageWrapper {
+        transform: scale(0.6);
+    }
+}
+@media screen and (max-width: 575px) {
+    .imageWrapper {
+        transform: scale(0.4);
+    }
+}
+@media screen and (max-width: 375px) {
+    .imageWrapper {
+        transform: scale(0.3);
+    }
+}
+
+.imageContainer {
+    background: var(--deckImageBackground);
+    border-radius: 12px;
+    display: grid;
+    gap: 0 12px;
+    padding: 12px;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.imageBoxShadow {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.imageCardContainer {
+    width: 200px;
+}
+
+.imageHeader {
+    grid-column: 1 / 3;
+    display: flex;
+    gap: 8px;
+    background-color: var(--primaryDark1);
+    border-radius: 8px;
+}
+
+.imageHeroIcon {
+    height: 120px;
+    position: absolute;
+    left: 0; top: 0;
+}
+
+.imageDeckTitle {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 100px;
+}
+
+.imageDeckTitle-Quincy {
+    margin-left: 88px;
+}
+.imageDeckTitle-Gwendolin {
+    margin-left: 84px;
+}
+.imageDeckTitle-Obyn {
+    margin-left: 92px;
+}
+.imageDeckTitle-Amelia {
+    margin-left: 90px;
+}
+
+.allCardsContainer {
+    margin-top: 12px;
+    grid-column: 2;
+    grid-row: 2 / 4;
+}
+
+.allCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    height: 100%;
+
+}
+.allCards.shrinkCard2 {
+    gap: 4px;
+}
+
+.imageCard {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.imageCardTitle {
+    /*text-wrap: nowrap;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.imageCardTitle.shrinkCard,
+.imageCardCount.shrinkCard {
+    font-size: 12pt;
+}
+
+.imageCardTitle.shrinkCard2,
+.imageCardCount.shrinkCard2 {
+    font-size: 8pt;
+}
+
+.imageCardCount {
+    margin-left: auto;
+}
+
+.imageCardImgContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+}
+
+.imageCardImg {
+    height: 30px;
+    border-radius: 6px;
+    aspect-ratio: 1;
+    width: auto;
+    object-fit: contain;
+}
+
+.imageCardContainer {
+
+}
+
+.imageSummaryContainer {
+
+}
+
+.imageHeroText {
+    margin-left: 78px;
+    margin-top: 4px;
+}
+
+.summaryContainerDivider {
+    height: 2px;
+    border-radius: 99px;
+    background-color: var(--primaryDark1);
+    margin-left: 54px;
+    margin-top: 2px;
+}
+
+.summaryCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 16px;
+    position: relative;
+    left: -24px;
+}
+
+.summaryCard {
+    border-radius: 8px;
+    background-color: var(--primaryDark1);
+    width: calc(100% + 24px);
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.summaryCard > .summaryCardTitle {
+    text-align: center;
+}
+
+.costDistributionContainer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.cardDistributionSubContainer {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.cardDistributionSubContainer > img {
+    height: 24px;
+}
+
+.cardCostDistributionContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px 12px;
+}
+
+.distributionBarContainer {
+    background-color: var(--primaryLight3);
+    border-radius: 8px;
+    height: 64px;
+    width: 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.distributionBarInverted {
+    background-color: var(--primaryLight1);
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.distributionBarLabelContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0; top: 0;
+}
+
+.distributionBarLabel {
+    justify-content: center;
+    font-family: "Gabarito", serif;
+    font-size: 20px;
+    text-shadow: 0 0 2px var(--primaryLight3);
+    font-weight: 400;
+}
+
+.barLabel {
+    justify-content: center;
+    font-family: "Gabarito", serif;
+    color: var(--primaryLight3);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.extraDetailsContainer {
+
 }

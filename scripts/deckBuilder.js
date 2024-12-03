@@ -1,120 +1,9 @@
-import { BLOONS, MONKEYS, POWERS } from "../stats/stats.js";
+import {BLOONS, MONKEYS, POWERS} from "../stats/stats.js";
 import Element from "./element.js";
-import { popupCard } from "./popupCard.js";
+import {popupCard} from "./popupCard.js";
 import Card from "./classes/card.js";
-
-class Deck {
-    constructor(deckName) {
-        this.deckName = deckName
-        this.deck = []
-        this.hero = "Quincy"
-        this.updateUiFn = () => {}
-    }
-
-    addCard(newCard, setCount, updateUi = true) {
-        let cardInDeck = false
-        this.deck.forEach((card) => {
-            if (newCard.name === card.name) {
-                if (card.count < 3 && !card.hasAttribute("unique")) {
-                    if (setCount) {
-                        card.count = setCount
-                    } else {
-                        card.count++
-                    }
-                }
-                cardInDeck = true
-            }
-        })
-        if (!cardInDeck) {
-            const newCardTemp = newCard
-            if (setCount) {
-                newCardTemp.count = setCount
-            } else {
-                newCardTemp.count = 1
-            }
-            this.deck.push(newCardTemp)
-        }
-
-        if (updateUi) this.updateUiFn()
-    }
-
-    removeCopy(copyToRemove, updateUi = true) {
-        this.deck.forEach((card) => {
-            if (copyToRemove.name === card.name) {
-                if (card.count > 1) card.count--
-            }
-        })
-
-        if (updateUi) this.updateUiFn()
-    }
-
-    swapCardPositionByIndex(index1, index2, updateUi = true) {
-        [this.deck[index1], this.deck[index2]] = [this.deck[index2], this.deck[index1]]
-
-        if (updateUi) this.updateUiFn()
-    }
-
-    deleteCardAtIndex(index, updateUi = true) {
-        delete this.deck[index]
-
-        if (updateUi) this.updateUiFn()
-    }
-
-    getShrunkObject() {
-        const shrunkObject = {
-            deckName: this.deckName,
-            deck: [],
-            hero: this.hero
-        }
-
-
-        this.deck.forEach((card) => {
-            shrunkObject.deck.push({ name: card.name, count: card.count })
-        })
-
-        return shrunkObject
-    }
-
-    setDeckFromCurrentURL() {
-        const queryString = new URLSearchParams(window.location.search);
-        const encodedParam = queryString.get('data');
-
-        const decodedData = JSON.parse(decodeURIComponent(encodedParam));
-
-        this.deckName = decodedData.deckName;
-        decodedData.deck.forEach((shrunkCard) => {
-            const fullCard = [...BLOONS, ...MONKEYS, ...POWERS].find(card => card.name === shrunkCard.name)
-
-            deck.addCard(new Card(fullCard), shrunkCard.count, false)
-        })
-        this.hero = decodedData.hero
-
-        this.updateUiFn()
-    }
-
-    get length() {
-        let totalCount = 0
-
-        this.deck.forEach((card) => {
-            totalCount += card.count
-        })
-
-        return totalCount
-    }
-
-    setHero(newValue) {
-        this.hero = newValue
-
-        this.deck.forEach((card, index) => {
-            console.log(card.name)
-            if (card.hero !== this.hero && card.hero !== undefined) {
-                delete this.deck[index]
-            }
-        })
-
-        this.updateUiFn()
-    }
-}
+import {Deck} from "./classes/deck.js";
+import {generateCard} from "./cardGenerator.js";
 
 const deck = new Deck("New Deck")
 deck.updateUiFn = updateUi
@@ -130,8 +19,22 @@ deck.setDeckFromCurrentURL()
 function updateUi() {
     // Set URL
     const shrunkObject = deck.getShrunkObject()
-    const jsonString = JSON.stringify(shrunkObject);
-    const encodedData = encodeURIComponent(jsonString);
+    let dataString = "1_"
+    switch (shrunkObject.hero) {
+        case "Quincy": default: dataString +=   "1"; break;
+        case "Gwendolin":       dataString +=   "2"; break;
+        case "Obyn":            dataString +=   "3"; break;
+        case "Amelia":          dataString +=   "4"; break;
+        case "Adora":           dataString +=   "5"; break;
+    }
+    shrunkObject.deck.forEach((shrunkCard) => {
+        const cardId = [...BLOONS, ...POWERS, ...MONKEYS].find(c => c.name === shrunkCard.name).id
+        dataString += cardId
+        if (shrunkCard.count > 1) dataString += shrunkCard.count
+    })
+    dataString += `_${shrunkObject.deckName}`
+
+    const encodedData = encodeURIComponent(dataString);
     const newUrl = `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
     history.pushState(null, '', newUrl);
 
@@ -152,20 +55,27 @@ function updateUi() {
                     })
             )
 
-        buttonContainer.children(
-            new Element("button")
-                .class("smallCardButton", "material-symbols-outlined")
-                .text("keyboard_arrow_up")
-                .onclick(() => {
-                    deck.swapCardPositionByIndex(index-1, index)
-                }),
-            new Element("button")
-                .class("smallCardButton", "material-symbols-outlined")
-                .text("keyboard_arrow_down")
-                .onclick(() => {
-                    deck.swapCardPositionByIndex(index, index+1)
-                })
-        )
+        if (index !== 0) {
+            buttonContainer.children(
+                new Element("button")
+                    .class("smallCardButton", "material-symbols-outlined")
+                    .text("keyboard_arrow_up")
+                    .onclick(() => {
+                        deck.swapCardPositionByIndex(index-1, index)
+                    })
+            )
+        }
+
+        if (index !== deck.deck.length - 1) {
+            buttonContainer.children(
+                new Element("button")
+                    .class("smallCardButton", "material-symbols-outlined")
+                    .text("keyboard_arrow_down")
+                    .onclick(() => {
+                        deck.swapCardPositionByIndex(index, index+1)
+                    })
+            )
+        }
 
         // Add plus and minus buttons if the card is not unique
         if (!card.hasAttribute("unique")) {
@@ -282,8 +192,7 @@ deckNameElementContainer.addEventListener("click", () => { if (!enteringNewName)
 
         deck.updateUiFn();
     }
-}
-})
+}})
 
 document.getElementById("searchInput").addEventListener("input", function (event) {
     const input = String(event.target.value)
@@ -329,12 +238,13 @@ document.getElementById("searchInput").addEventListener("input", function (event
     }
 });
 
-document.getElementById("heroContainer").addEventListener("click", function (event) {
+document.getElementById("heroContainer").addEventListener("click", function () {
     switch (deck.hero) {
         case "Quincy":          deck.setHero("Gwendolin");  break;
         case "Gwendolin":       deck.setHero("Obyn");       break;
         case "Obyn":            deck.setHero("Amelia");     break;
-        case "Amelia": default: deck.setHero("Quincy");     break;
+        case "Amelia":          deck.setHero("Adora");      break;
+        case "Adora":  default: deck.setHero("Quincy");     break;
     }
 });
 
@@ -349,3 +259,314 @@ document.getElementById("heroContainer").addEventListener("keydown", function (e
         this.click();
     }
 });
+
+document.getElementById("downloadImageButton").addEventListener("click", function (event) {
+    const imagePreviewContainer = document.getElementById("imagePreviewContainer")
+
+    const imageHeader = new Element("div")
+        .class("imageHeader", "imageBoxShadow")
+        .children(
+            new Element("h2")
+                .class("bcsfont", "imageDeckTitle", `imageDeckTitle-${deck.hero}`)
+                .text(deck.deckName)
+        )
+
+    const allCards = new Element("div")
+        .class("allCards")
+
+    deck.deck.forEach(card => {
+        const imageCardImgContainer = new Element("div").class("imageCardImgContainer")
+        imageCardImgContainer.element.style.backgroundImage = `url(media/cardArt/${card.name}.png)`
+
+        const shrinkTextInCardsClasses = []
+        if (deck.deck.length > 24) shrinkTextInCardsClasses.push("shrinkCard")
+        if (deck.deck.length > 28) {
+            shrinkTextInCardsClasses.push("shrinkCard2")
+        }
+        allCards.class(...shrinkTextInCardsClasses)
+
+        allCards.children(
+            new Element("div")
+                .class("smallCardInList", `smallCard-${card.cardType}`, "imageCard", "imageBoxShadow")
+                .children(
+                    imageCardImgContainer,
+                    new Element("h5")
+                        .class("bcsfont", "imageCardTitle", ...shrinkTextInCardsClasses)
+                        .text(card.displayName),
+                    new Element("h5")
+                        .class("bcsfont", "imageCardCount", ...shrinkTextInCardsClasses)
+                        .text(`${card.count}x`),
+                )
+        )
+    })
+
+    const allCardsContainer = new Element("div")
+        .class("allCardsContainer")
+        .children(allCards.element)
+
+    const cardDistribution = new Element("div")
+        .class("summaryCard", "imageBoxShadow")
+        .children(
+            new Element("h5")
+                .class("summaryCardTitle", "bcsfont")
+                .text("Card Distribution"),
+            new Element("div").class("costDistributionContainer")
+                .children(
+                    new Element("div")
+                        .class("cardDistributionSubContainer")
+                        .children(
+                            new Element("h5")
+                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "monkey")),
+                            new Element("img")
+                                .setProperty("src", `media/monkeyIcon.png`),
+                        ),
+                    new Element("div")
+                        .class("cardDistributionSubContainer")
+                        .children(
+                            new Element("h5")
+                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "bloon")),
+                            new Element("img")
+                                .setProperty("src", `media/bloonIcon.png`),
+                        ),
+                    new Element("div")
+                        .class("cardDistributionSubContainer")
+                        .children(
+                            new Element("h5")
+                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "power")),
+                            new Element("img")
+                                .setProperty("src", `media/powerIcon.png`),
+                        )
+                )
+        )
+
+    const distributionArray = deck.cardCostDistribution()
+    const distributionBars = [
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted")
+    ]
+    distributionBars.forEach((bar, index) => {
+        const percentage = distributionArray[index]/Math.max(...distributionArray)*100
+        bar.element.style.clipPath = `polygon(0 0, 150% 0, 150% ${100-percentage}%, 0 ${100-percentage}%)`
+    })
+
+    const distributionBarContainers = []
+    distributionBars.forEach((element, index) => {
+        distributionBarContainers.push(
+            new Element("div").class("distributionBarContainer").children(
+                element,
+                new Element("div")
+                    .class("distributionBarLabelContainer")
+                    .children(
+                        new Element("div")
+                            .class("distributionBarLabel")
+                            .text(distributionArray[index])
+                    )
+            )
+        )
+    })
+
+    const barLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
+    const barLabelElements = []
+    barLabelStrings.forEach(string => {
+        barLabelElements.push(
+            new Element("div").class("barLabelContainer").children(
+                    new Element("div").class("barLabel").text(string))
+        )
+    })
+
+    const cardCostDistribution = new Element("div")
+        .class("summaryCard", "imageBoxShadow")
+        .children(
+            new Element("h5")
+                .class("summaryCardTitle", "bcsfont")
+                .text("Card Cost Distribution"),
+            new Element("div")
+                .class("cardCostDistributionContainer")
+                .children(...distributionBarContainers, ...barLabelElements)
+        )
+
+
+
+
+
+    const bloonCostDistributionArray = deck.bloonCardCostDistribution()
+    const bloonCostDistributionBars = [
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted"),
+        new Element("div").class("distributionBarInverted")
+    ]
+    bloonCostDistributionBars.forEach((bar, index) => {
+        const percentage = bloonCostDistributionArray[index]/Math.max(...bloonCostDistributionArray)*100
+        bar.element.style.clipPath = `polygon(0 0, 150% 0, 150% ${100-percentage}%, 0 ${100-percentage}%)`
+    })
+
+    const bloonCostDistributionBarContainers = []
+    bloonCostDistributionBars.forEach((element, index) => {
+        bloonCostDistributionBarContainers.push(
+            new Element("div").class("distributionBarContainer").children(
+                element,
+                new Element("div")
+                    .class("distributionBarLabelContainer")
+                    .children(
+                        new Element("div")
+                            .class("distributionBarLabel")
+                            .text(bloonCostDistributionArray[index])
+                    )
+            )
+        )
+    })
+
+    const bloonCostbarLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
+    const bloonCostBarLabelElements = []
+    bloonCostbarLabelStrings.forEach(string => {
+        bloonCostBarLabelElements.push(
+            new Element("div").class("barLabelContainer").children(
+                new Element("div").class("barLabel").text(string))
+        )
+    })
+
+    const bloonCostDistribution = new Element("div")
+        .class("summaryCard", "imageBoxShadow")
+        .children(
+            new Element("h5")
+                .class("summaryCardTitle", "bcsfont")
+                .text("Bloon Cost Distribution"),
+            new Element("div")
+                .class("cardCostDistributionContainer")
+                .children(...bloonCostDistributionBarContainers, ...bloonCostBarLabelElements)
+        )
+
+
+
+
+
+
+    const summaryCardContainer = new Element("div")
+        .class("summaryCardContainer")
+        .children(cardDistribution, cardCostDistribution, bloonCostDistribution)
+
+    const imageSummaryContainer = new Element("div")
+        .class("imageSummaryContainer")
+        .children(
+            new Element("h5")
+                .class("imageHeroText")
+                .text(`Hero: ${deck.hero}`),
+            new Element("div")
+                .class("summaryContainerDivider"),
+            summaryCardContainer
+        )
+
+    const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
+        .children(
+            new Element("p").class("bcsfont").text("BCS Popology • game version 1.2")
+        )
+
+    const image = new Element("div")
+        .class("imageWrapper")
+        .id("imageWrapper")
+        .children(
+            new Element("div")
+                .class("imageContainer")
+                .id("imageContainer")
+                .children(
+                    imageHeader, imageSummaryContainer, allCardsContainer, extraDetailsContainer,
+                    new Element("img")
+                        .class("imageHeroIcon")
+                        .setProperty("src", `media/cardIcons/${deck.hero}.png`),
+                )
+        )
+
+    const downloadButton = new Element("button").id("download").text("Download")
+
+    imagePreviewContainer.appendChild(image.element)
+    imagePreviewContainer.appendChild(downloadButton.element)
+
+    imagePreviewContainer.classList.add("showImagePreviewContainer")
+
+    // generateCard(deck.deck[0], document.getElementById("imageCardContainer"));
+
+    async function inlineSVGImages(svgElement) {
+        const images = svgElement.querySelectorAll('image');
+        for (const image of images) {
+            const href = image.getAttribute('href') || image.getAttribute('xlink:href');
+            if (href) {
+                // Fetch the image as a Blob
+                const response = await fetch(href);
+                const blob = await response.blob();
+                const reader = new FileReader();
+
+                // Convert Blob to Data URL
+                await new Promise(resolve => {
+                    reader.onload = resolve;
+                    reader.readAsDataURL(blob);
+                });
+
+                // Replace href with Data URL
+                image.setAttribute('href', reader.result);
+            }
+        }
+    }
+
+    async function embedFontInSVG(svgElement) {
+        const fontURL = '/bcsfont.ttf'; // Adjust the path to your font file
+        const response = await fetch(fontURL);
+        const fontBlob = await response.blob();
+        const reader = new FileReader();
+
+        // Convert Blob to Base64
+        const fontBase64 = await new Promise(resolve => {
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(fontBlob);
+        });
+
+        // Construct @font-face rule with embedded font
+        const fontFace = `
+        @font-face {
+            font-family: 'BCS Font';
+            src: url('${fontBase64}') format('truetype');
+        }
+    `;
+
+        // Find or create a <style> tag within the SVG
+        let style = svgElement.querySelector('style');
+        if (!style) {
+            style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+            svgElement.insertBefore(style, svgElement.firstChild);
+        }
+
+        // Add the font-face rule to the <style> tag
+        style.textContent = fontFace + style.textContent;
+    }
+
+    document.getElementById('download').addEventListener('click', async () => {
+        const content = document.getElementById('imageWrapper');
+        const svg = content.querySelector('svg');
+
+        // Inline the images in the SVG
+        // await inlineSVGImages(svg);
+
+        // Embed the font directly in the SVG
+        // await embedFontInSVG(svg);
+
+        // Use html2canvas to render the div
+        html2canvas(content, {
+            useCORS: true, // Ensure cross-origin resources are loaded properly
+            backgroundColor: null,
+        }).then(canvas => {
+            const imageData = canvas.toDataURL('image/png');
+
+            // Create a download link
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = 'div-image.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    });
+})

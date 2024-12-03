@@ -18,6 +18,17 @@
         <link rel="stylesheet" href="styles/card.css"/>
         <link rel="stylesheet" href="styles/deckBuilder.css"/>
         <link rel="stylesheet" href="styles/cardPopup.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+        <style>
+            @font-face {
+                font-family: 'BCS Font';
+                src: url('/bcsfont.ttf') format('truetype');
+            }
+            .bcsfont {
+                font-family: "BCS Font", "Gabarito", serif;
+                font-weight: 400;
+            }
+        </style>
     </head>
     <body>
         <main id="main">
@@ -60,6 +71,7 @@
                             <div class="exportOptions">
                                 <h5 class="bcsfont">Import and export</h5>
                                 <div class="horizontalLine strongLineStyle"></div>
+                                <button id="downloadImageButton">Download Image</button>
                             </div>
                         </section>
                     </div>
@@ -69,6 +81,7 @@
                             <div class="cardPopupInfoWrapper"></div>
                         </div>
                     </div>
+                    <div class="imagePreviewContainer" id="imagePreviewContainer"></div>
                 </div>
             </div>
         </main>

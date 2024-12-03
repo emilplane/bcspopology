@@ -4,6 +4,12 @@ import { CardEvent } from "./cardEvent.js"
 export default class Card {
     constructor(blueprint) {
         this.blueprint = Object.freeze(structuredClone(blueprint))
+
+        if (this.blueprint.id === undefined) {
+            throw Error("Card has no ID!")
+        } else {
+            this.id = this.blueprint.id
+        }
         
         if (this.blueprint.name === undefined) {
             throw Error("Card has no internal name!")
@@ -25,10 +31,8 @@ export default class Card {
         }
         this.cost = this.blueprint.cost
 
-        if (["monkey", "power"].includes(this.cardType)) {
+        if (this.blueprint.copies === undefined) {
             this.copies = 1
-        } else if (this.blueprint.copies === undefined) {
-            throw Error("Card has no specified number of copies!")
         } else {
             this.copies = this.blueprint.copies
         }
