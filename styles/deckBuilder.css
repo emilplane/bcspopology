@@ -1,6 +1,6 @@
 :root {
     --smallCard-buttonBorderThickness: 1.5px;
-    --deckImagebackground-image: linear-gradient(135deg, hsla(249, 78%, 70%, 1), hsla(249, 78%, 65%, 1))
+    --deckImageBackground: linear-gradient(135deg, hsla(249, 78%, 70%, 1), hsla(249, 78%, 65%, 1))
 }
 
 .statsPageWrapper {
