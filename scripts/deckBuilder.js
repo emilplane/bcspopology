@@ -576,11 +576,12 @@ document.getElementById("downloadImageButton").addEventListener("click", functio
         // Create a download link
         const link = document.createElement('a');
         link.href = imageData;
-        link.download = 'div-image.png';
+        link.download = `${deck.deckName}.png`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     });
+
 
     imagePreviewContainer.classList.remove("showImagePreviewContainer")
 }})

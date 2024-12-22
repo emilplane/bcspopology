@@ -441,7 +441,7 @@
 
 .imageCard {
     display: grid;
-    grid-template-columns: minmax(40px, auto) 1fr auto;
+    grid-template-columns: minmax(5px, auto) 1fr auto;
     gap: 8px;
     align-items: center;
     width: 100%;
