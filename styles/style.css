@@ -211,6 +211,48 @@ select, button {
     transition: 0.5s;
 }
 
+.primaryButton {
+    background-color: var(--primaryDark1);
+    color: var(--shade1);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--primaryDark1);
+        /*color: var(--shade8);*/
+    };
+}
+.primaryButton > * {
+    color: var(--shade1);
+    @media (prefers-color-scheme: dark) {
+        /*color: var(--shade8);*/
+    };
+}
+.primaryButton:hover {
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--primaryLight1);
+    };
+}
+
+.dangerButton {
+    background-color: var(--warningColorLight);
+    color: var(--shade8);
+}
+
+.dangerButton:hover {
+    background-color: var(--warningColorDark);
+    color: var(--shade1);
+}
+
+@media (prefers-color-scheme: dark) {
+    .dangerButton {
+        background-color: var(--warningColorDark);
+        color: var(--shade1);
+    }
+
+    .dangerButton:hover {
+        background-color: var(--warningColorLight);
+        color: var(--shade8);
+    }
+}
+
 a > button > * {
     text-decoration: none !important;
 }
@@ -232,7 +274,7 @@ select {
 .inputUnderline {
     background-color: var(--primary);
     height: 100%; 
-    width: 0%;
+    width: 0;
     margin-left: 50%;
     margin-right: 50%;
     transition: 0.2s;
@@ -390,9 +432,9 @@ a {
 .horizontalLine {
     min-height: 1px;
     margin-bottom: 8px;
-    background-color: var(--shade5);
+    background-color: var(--shade4);
     @media (prefers-color-scheme: dark) {
-        background-color: var(--shade4);
+        background-color: var(--shade5);
     };
 }
 
@@ -537,12 +579,18 @@ dialog {
     width: calc(100vw - 96px);
     max-width: 1400px;
     position: fixed;
-    height: calc(100vh - 96px);
-    max-height: 1000px;
+    height: fit-content;
+    /*max-height: 1000px;*/
     background-color: var(--shade2);
     @media (prefers-color-scheme: dark) {
         background-color: var(--shade7);
     };
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .playerDataWindow {

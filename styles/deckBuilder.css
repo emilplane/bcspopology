@@ -170,6 +170,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    border: var(--smallCard-buttonBorderThickness) var(--primaryDark1) solid;
+
+}
+
+
+.smallCardButton:hover {
+    background-color: var(--primaryLight1);
 }
 
 .smallCard-bloon .smallCardButton {
@@ -193,25 +201,33 @@
 .smallCard-power .smallCardButton:hover {
     background-color: hsl(283, 100%, 40%)
 }
-.deleteCardButton {
+.smallCardDeleteButton {
     border: none !important;
     background-color: var(--warningColorLight) !important;
 }
-.deleteCardButton:hover {
+.smallCardDeleteButton:hover {
     background-color: var(--warningColorDark) !important;
 }
 @media (prefers-color-scheme: light) {
-    .smallCard-monkey .deleteCardButton {
+    .smallCard-monkey .smallCardDeleteButton {
         color: var(--shade2);
         border: none !important;
         background-color: var(--warningColorDark) !important;
     }
-    .smallCard-monkey .deleteCardButton:hover {
+    .smallCard-monkey .smallCardDeleteButton:hover {
         background-color: var(--warningColorLight) !important;
     }
 }
 
 @media (prefers-color-scheme: dark) {
+    .smallCardButton {
+        background-color: transparent;
+        border: var(--smallCard-buttonBorderThickness) var(--primaryLight1) solid;
+    }
+    .smallCardButton:hover {
+        background-color: var(--primaryLight1);
+    }
+
     .smallCard-bloon .smallCardButton {
         border: var(--smallCard-buttonBorderThickness) hsl(207, 100%, 80%) solid
     }
@@ -310,7 +326,26 @@
     }
     border-radius: 8px;
     padding: 12px;
-    height: 200px;
+    /*height: 140px;*/
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.deckManagementButtonContainer {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.deckManagementButton {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .imagePreviewContainer {
@@ -346,26 +381,26 @@
     position: relative;
 }
 
-@media screen and (max-width: 925px) {
-    .imageWrapper {
-        transform: scale(0.8);
-    }
-}
-@media screen and (max-width: 725px) {
-    .imageWrapper {
-        transform: scale(0.6);
-    }
-}
-@media screen and (max-width: 575px) {
-    .imageWrapper {
-        transform: scale(0.4);
-    }
-}
-@media screen and (max-width: 375px) {
-    .imageWrapper {
-        transform: scale(0.3);
-    }
-}
+/*@media screen and (max-width: 925px) {*/
+/*    .imageWrapper {*/
+/*        transform: scale(0.8);*/
+/*    }*/
+/*}*/
+/*@media screen and (max-width: 725px) {*/
+/*    .imageWrapper {*/
+/*        transform: scale(0.6);*/
+/*    }*/
+/*}*/
+/*@media screen and (max-width: 575px) {*/
+/*    .imageWrapper {*/
+/*        transform: scale(0.4);*/
+/*    }*/
+/*}*/
+/*@media screen and (max-width: 375px) {*/
+/*    .imageWrapper {*/
+/*        transform: scale(0.3);*/
+/*    }*/
+/*}*/
 
 .imageContainer {
     background: var(--deckImageBackground);
@@ -609,4 +644,165 @@
 }
 .imageSmallCard-power {
     background-image: linear-gradient(135deg, hsl(283, 100%, 40%), hsl(283, 100%, 35%))
+}
+
+.userInteractionDialog {
+    width: 600px;
+    max-width: calc(100vw - 70px);
+    background-color: var(--shade3);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--shade6);
+    };
+    padding: 12px;
+}
+
+.userInteractionDialogContents {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.userInteractionDialogButtonWrapper {
+    display: flex;
+    justify-content: end;
+    flex-wrap: wrap;
+}
+
+.userInteractionDialogButtonContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.manageDecksDialog {
+    width: 1000px;
+    height: calc(100vh - 70px);
+    max-height: 100%;
+    max-width: calc(100vw - 70px);
+    background-color: var(--shade3);
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--shade6);
+    };
+    padding: 12px;
+    overflow-y: clip;
+}
+
+.manageDecksDialogContents {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    max-height: 100%;
+}
+
+.manageDecksTitleContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.manageDecksTitleSubContainer {
+    display: flex;
+}
+
+.closeManageDecksDialogButton {
+    margin-left: auto;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.deckGridWrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow-y: auto;
+}
+
+.deckGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+@media screen and (max-width: 900px) {
+    .deckGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .deckGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+.deckCard {
+    background-color: var(--primaryLight2);
+    border-radius: 8px;
+    display: grid;
+    padding: 8px;
+    text-align: start;
+    overflow: hidden;
+    height: 100px;
+    grid-template-rows: 1fr auto;
+    transition: background-color 0.5s;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .deckCard {
+        background-color: var(--primaryDark2);
+    }
+}
+
+.deckCardHover {
+    background-color: var(--primaryLight1);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .deckCardHover {
+        background-color: var(--primaryDark1);
+    }
+}
+
+.deckCardMainContainer > h5 {
+    text-wrap: nowrap;
+    /*text-align: start;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+}
+
+.deckCardMainContainer {
+    cursor: pointer;
+    overflow-x: hidden;
+}
+
+.deckCardConfigButtonContainer {
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    gap: 2px;
+}
+
+.deckManagementMainButtonWrapper {
+    display: grid;
+}
+
+.deckManagementMainButtonContainer {
+    display: flex;
+    /*flex-wrap: wrap;*/
+    overflow-x: auto;
+    gap: 8px;
+}
+
+.deckManagementMainButtonContainer > button {
+    height: auto;
+    width: 100px;
+}
+
+.deckManagementScreenMainButton {
+
 }

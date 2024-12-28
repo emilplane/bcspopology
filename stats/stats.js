@@ -350,7 +350,7 @@ export const BLOONS = [
         "aliases": ["bb", "friendly bloon"],
         "description": [],
         "events": [
-            ["whileOnBoard", "Reduces enemy Attack Power to 0."],
+            ["whileOnBoard", "Enemy Monkey with greatest attack has attack set to 0."],
         ],
     
         "cardType": "bloon",
@@ -410,7 +410,7 @@ export const BLOONS = [
         "id": "aI",
         "description": [],
         "events": [
-            ["onPlay", "Gives all friendly Bloons +25HP."],
+            ["onPlay", "Heals all friendly Bloons +25HP."],
         ],
     
         "cardType": "bloon",
@@ -635,7 +635,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "magic",
         "tower": "druid",
-        "cost": 4, "damage": 50, "ammo": 1, "delay": 2,
+        "cost": 4, "damage": 50, "ammo": 1, "delay": 2, "defender": 10
     },
     {
         "name": "boomerangMonkey", "displayName": "Boomerang Monkey",
@@ -888,7 +888,7 @@ export const MONKEYS = [
         "aliases": ["amastery"],
         "description": [],
         "events": [
-            ["onAttack", "Deal 50 damage to a different random Bloon 2 times"],
+            ["onAttack", "Attack up to 2 other random Bloons"],
             ["onReload", {"type": "drawCard", "name": "yellowBloon"}]
         ],
 
@@ -936,6 +936,7 @@ export const MONKEYS = [
         "type": "primary",
         "tower": "tack",
         "cost": 8, "damage": 20, "ammo": 3, "delay": 4, "defender": 10,
+        "attributes": ["unique"]
     },
     {
         "name": "bouncingBullet", "displayName": "Bouncing Bullet",
@@ -971,7 +972,7 @@ export const MONKEYS = [
         "description": [],
         "events": [
             ["onPlay", "Summon an Undead MOAB."],
-            ["onTurnStart", "Heal all friendly Bloons +25 HP."],
+            ["onTurnStart", "Heal all friendly Bloons +30 HP."],
         ],
 
         "cardType": "monkey",
@@ -1070,10 +1071,8 @@ export const MONKEYS = [
         "name": "dartMonkeyTwins", "displayName": "Dart Monkey Twins",
         "id": "cK",
         "aliases": ["mobe dominator", "moabdom", "moab dom", "mobedom", "mobe dom"],
-        "description": [],
-        "events": [
-            ["onPlay", "Gains +10 Attack Power when next to another Dart Monkey Twins card."],
-        ],
+        "description": ["Gains +10 Attack Power when next to another Dart Monkey Twins card."],
+        "events": [],
 
         "cardType": "monkey",
         "type": "primary",
@@ -1170,7 +1169,7 @@ export const POWERS = [
         "id": "bJ",
         "aliases": ["qb"],
         "events": [
-            ["onPlay", { "type": "gainHP", "value": 50 }]
+            ["onPlay", { "type": "gainHP", "value": 100 }]
         ],
 
         "cardType": "power",
@@ -1616,7 +1615,7 @@ export const POWERS = [
         "name": "maxHeal", "displayName": "Max Heal",
         "id": "cz",
         "events": [
-            ["onPlay", "Target non-Large Bloon gains +100HP."]
+            ["onPlay", "Target non-Large Bloon is healed +100HP."]
         ],
 
         "cardType": "power",
@@ -1635,7 +1634,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
-        "cost": 2,
+        "cost": 2, "copies": 2
     },
     {
         "name": "rarePower", "displayName": "Rare Power",

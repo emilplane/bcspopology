@@ -4,10 +4,13 @@ import {popupCard} from "./popupCard.js";
 import Card from "./classes/card.js";
 import {Deck} from "./classes/deck.js";
 import {generateCard} from "./cardGenerator.js";
+import UserDecks from "./classes/userDecks.js";
 
+let shiftDown = false
 let deckUrl = ""
 const deck = new Deck("New Deck")
-deck.updateUiFn = updateUi
+deck.changeUpdateUiFn(updateUi)
+const userDecks = new UserDecks()
 
 document.getElementById("deckNameContainer").appendChild(new Element("h5")
     .id("numberOfCards")
@@ -28,33 +31,24 @@ deck.setDeckFromCurrentURL()
 // })
 
 document.getElementById("copyUrlButton").addEventListener("click", () => {
+    if (deck.deckName === "New Deck") {
+        promptForDeckName(copyUrl)
+    } else {
+        copyUrl()
+    }
+})
+
+function copyUrl() {
     navigator.clipboard.writeText(deckUrl).then(function() {
         console.log("Copied url!")
     }).catch(function(error) {
         console.error("Error copying text: ", error);
     });
-})
+}
 
 function updateUi() {
     // Set URL
-    const shrunkObject = deck.getShrunkObject()
-    let dataString = "1_"
-    switch (shrunkObject.hero) {
-        case "Quincy": default: dataString +=   "1"; break;
-        case "Gwendolin":       dataString +=   "2"; break;
-        case "Obyn":            dataString +=   "3"; break;
-        case "Amelia":          dataString +=   "4"; break;
-        case "Adora":           dataString +=   "5"; break;
-    }
-    shrunkObject.deck.forEach((shrunkCard) => {
-        const cardId = [...BLOONS, ...POWERS, ...MONKEYS].find(c => c.name === shrunkCard.name).id
-        dataString += cardId
-        if (shrunkCard.count > 1) dataString += shrunkCard.count
-    })
-    dataString += `_${shrunkObject.deckName}`
-
-    const encodedData = encodeURIComponent(dataString);
-    deckUrl = `${window.location.origin}${window.location.pathname}?data=${encodedData}`;
+    deckUrl = `${window.location.origin}${window.location.pathname}?data=${deck.getEncodedString()}`;
     history.pushState(null, '', deckUrl);
 
     document.getElementById("numberOfCards").innerText = `${deck.length}/40 cards`
@@ -62,7 +56,12 @@ function updateUi() {
 
     const listOfCardsElement = document.getElementById("listOfCards")
     listOfCardsElement.innerHTML = ""
+
+    document.getElementById("deckName").innerText = deck.deckName
+
+    let instantIndex = -1
     deck.deck.forEach((card, index) => {
+        instantIndex++
         const buttonContainer = new Element("div")
             .class("smallCardButtons")
             .children(
@@ -74,7 +73,7 @@ function updateUi() {
                     })
             )
 
-        if (index !== 0) {
+        if (instantIndex !== 0) {
             buttonContainer.children(
                 new Element("button")
                     .class("smallCardButton", "material-symbols-outlined")
@@ -84,8 +83,7 @@ function updateUi() {
                     })
             )
         }
-
-        if (index !== deck.deck.length - 1) {
+        if (instantIndex !== deck.length - 1) {
             buttonContainer.children(
                 new Element("button")
                     .class("smallCardButton", "material-symbols-outlined")
@@ -117,7 +115,7 @@ function updateUi() {
         // Delete button
         buttonContainer.children(
             new Element("button")
-                .class("smallCardButton", "material-symbols-outlined", "deleteCardButton")
+                .class("smallCardButton", "material-symbols-outlined", "smallCardDeleteButton")
                 .text("delete")
                 .onclick(() => {
                     deck.deleteCardAtIndex(index)
@@ -188,30 +186,30 @@ deckNameElementContainer.addEventListener("click", () => { if (!enteringNewName)
             newNameInput.blur();
         }
     });
-
-    function updateDeckName(value) {
-        enteringNewName = false
-
-        if (value !== undefined && value !== "") {
-            deck.deckName = value;
-        }
-
-        const nameElement = new Element("h3")
-            .id("deckName")
-            .class("bcsfont", "deckName")
-            .text(deck.deckName)
-        const cardNumberElement = new Element("h5")
-            .id("numberOfCards")
-            .class("numberOfCards")
-            .text(`${deck.length}/40 cards`)
-
-        deckNameElementContainer.innerHTML = "";
-        deckNameElementContainer.appendChild(nameElement.element);
-        deckNameElementContainer.appendChild(cardNumberElement.element);
-
-        deck.updateUiFn();
-    }
 }})
+
+function updateDeckName(value) {
+    enteringNewName = false
+
+    if (value !== undefined && value !== "") {
+        deck.deckName = value;
+    }
+
+    const nameElement = new Element("h3")
+        .id("deckName")
+        .class("bcsfont", "deckName")
+        .text(deck.deckName)
+    const cardNumberElement = new Element("h5")
+        .id("numberOfCards")
+        .class("numberOfCards")
+        .text(`${deck.length}/40 cards`)
+
+    deckNameElementContainer.innerHTML = "";
+    deckNameElementContainer.appendChild(nameElement.element);
+    deckNameElementContainer.appendChild(cardNumberElement.element);
+
+    deck.updateUiFn();
+}
 
 document.getElementById("searchInput").addEventListener("input", function (event) {
     const input = String(event.target.value)
@@ -224,6 +222,17 @@ document.getElementById("searchInput").addEventListener("input", function (event
         addListOfSearchResults(searchResults["2"])
         addListOfSearchResults(searchResults["1"])
 
+        function handleHeroExclusiveCards(card) {
+            if (card.hero === undefined || card.hero === deck.hero) {
+                deck.addCard(card)
+            } else {
+                confirmHeroChangeDialog(card.hero, () => {
+                    deck.setHero(card.hero)
+                    deck.addCard(card)
+                })
+            }
+        }
+
         function addListOfSearchResults(list) {
             list.forEach((card) => {
                 const searchResultCard = new Element("div")
@@ -231,7 +240,7 @@ document.getElementById("searchInput").addEventListener("input", function (event
                     .children(
                         new Element("h6").text(card.displayName),
                     )
-                    .onclick(() => deck.addCard(card))
+                    .onclick(() => handleHeroExclusiveCards(card))
                 resultsElement.appendChild(searchResultCard.element)
 
                 const dividingLine = new Element("div").class("horizontalLine", "noLineMargin")
@@ -257,6 +266,41 @@ document.getElementById("searchInput").addEventListener("input", function (event
     }
 });
 
+function confirmHeroChangeDialog(heroName, changeFn) {
+    const title = new Element("h3").text("Change deck hero?")
+
+    const description = new Element("p").text(`This card is exclusive to ${heroName}. Would you like to change this deck's hero? Any cards exclusive to ${deck.hero} will be removed.`)
+
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .children(
+                    new Element("button")
+                        .id("cancelHeroChangeButton")
+                        .text("Cancel"),
+                    new Element("button")
+                        .class("primaryButton")
+                        .id("confirmHeroChangeButton")
+                        .text("Change Hero")
+                ),
+        )
+
+    displayUserInteractionDialog(
+        [title, description, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("cancelHeroChangeButton", (dialog) => {
+                dialog.close()
+            }),
+            new UserInteractionDialogEventListener("confirmHeroChangeButton", (dialog) => {
+                changeFn()
+                dialog.close()
+            })
+        ]
+    )
+}
+
 document.getElementById("heroContainer").addEventListener("click", function () {
     switch (deck.hero) {
         case "Quincy":          deck.setHero("Gwendolin");  break;
@@ -279,309 +323,727 @@ document.getElementById("heroContainer").addEventListener("keydown", function (e
     }
 });
 
-document.getElementById("downloadImageButton").addEventListener("click", function (event) { if (deck.length === 40) {
-    const imagePreviewContainer = document.getElementById("imagePreviewContainer")
+document.getElementById("downloadImageButton").addEventListener("click", function (event) {
+    if (deck.length !== 40) {
+        deckNotCompleteDialog()
+    } else if (deck.deckName === "New Deck") {
+        promptForDeckName(generateDeckImage)
+    } else {
+        generateDeckImage()
+    }
+})
 
-    const imageHeader = new Element("div")
-        .class("imageHeader", "imageBoxShadow")
-        .children(
-            new Element("h2")
-                .class("bcsfont", "imageDeckTitle", `imageDeckTitle-${deck.hero}`)
-                .text(deck.deckName)
-        )
+function generateDeckImage() {
+    imageGenInfoDialog()
 
-    const allCards = new Element("div")
-        .class("allCards")
+    try {
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer")
 
-    deck.deck.forEach(card => {
-        const imageCardImgContainer = new Element("div").class("imageCardImgContainer")
-        imageCardImgContainer.element.style.backgroundImage = `url(media/cardArt/${card.name}.png)`
+        const imageHeader = new Element("div")
+            .class("imageHeader", "imageBoxShadow")
+            .children(
+                new Element("h2")
+                    .class("bcsfont", "imageDeckTitle", `imageDeckTitle-${deck.hero}`)
+                    .text(deck.deckName)
+            )
 
-        const shrinkTextInCardsClasses = []
-        if (deck.deck.length > 24) shrinkTextInCardsClasses.push("shrinkCard")
-        if (deck.deck.length > 28) {
-            shrinkTextInCardsClasses.push("shrinkCard2")
-        }
-        allCards.class(...shrinkTextInCardsClasses)
+        const allCards = new Element("div")
+            .class("allCards")
 
-        allCards.children(
-            new Element("div")
-                .class("smallCardInList", `imageSmallCard-${card.cardType}`, "imageCard", "imageBoxShadow")
-                .children(
-                    imageCardImgContainer,
-                    new Element("h5")
-                        .class("bcsfont", "imageCardTitle", ...shrinkTextInCardsClasses)
-                        .text(card.displayName),
-                    new Element("h5")
-                        .class("bcsfont", "imageCardCount", ...shrinkTextInCardsClasses)
-                        .text(`${card.count}x`),
-                )
-        )
-    })
+        deck.deck.forEach(card => {
+            const imageCardImgContainer = new Element("div").class("imageCardImgContainer")
+            imageCardImgContainer.element.style.backgroundImage = `url(media/cardArt/${card.name}.png)`
 
-    const allCardsContainer = new Element("div")
-        .class("allCardsContainer")
-        .children(allCards.element)
+            const shrinkTextInCardsClasses = []
+            if (deck.deck.length > 24) shrinkTextInCardsClasses.push("shrinkCard")
+            if (deck.deck.length > 28) {
+                shrinkTextInCardsClasses.push("shrinkCard2")
+            }
+            allCards.class(...shrinkTextInCardsClasses)
 
-    const cardDistribution = new Element("div")
-        .class("summaryCard", "imageBoxShadow")
-        .children(
-            new Element("h5")
-                .class("summaryCardTitle", "bcsfont")
-                .text("Card Distribution"),
-            new Element("div").class("costDistributionContainer")
-                .children(
+            allCards.children(
+                new Element("div")
+                    .class("smallCardInList", `imageSmallCard-${card.cardType}`, "imageCard", "imageBoxShadow")
+                    .children(
+                        imageCardImgContainer,
+                        new Element("h5")
+                            .class("bcsfont", "imageCardTitle", ...shrinkTextInCardsClasses)
+                            .text(card.displayName),
+                        new Element("h5")
+                            .class("bcsfont", "imageCardCount", ...shrinkTextInCardsClasses)
+                            .text(`${card.count}x`),
+                    )
+            )
+        })
+
+        const allCardsContainer = new Element("div")
+            .class("allCardsContainer")
+            .children(allCards.element)
+
+        const cardDistribution = new Element("div")
+            .class("summaryCard", "imageBoxShadow")
+            .children(
+                new Element("h5")
+                    .class("summaryCardTitle", "bcsfont")
+                    .text("Card Distribution"),
+                new Element("div").class("costDistributionContainer")
+                    .children(
+                        new Element("div")
+                            .class("cardDistributionSubContainer")
+                            .children(
+                                new Element("h5")
+                                    .text(deck.countNumberOfCardsWithPropertyValue("cardType", "monkey")),
+                                new Element("img")
+                                    .setProperty("src", `media/monkeyIcon.png`),
+                            ),
+                        new Element("div")
+                            .class("cardDistributionSubContainer")
+                            .children(
+                                new Element("h5")
+                                    .text(deck.countNumberOfCardsWithPropertyValue("cardType", "bloon")),
+                                new Element("img")
+                                    .setProperty("src", `media/bloonIcon.png`),
+                            ),
+                        new Element("div")
+                            .class("cardDistributionSubContainer")
+                            .children(
+                                new Element("h5")
+                                    .text(deck.countNumberOfCardsWithPropertyValue("cardType", "power")),
+                                new Element("img")
+                                    .setProperty("src", `media/powerIcon.png`),
+                            )
+                    )
+            )
+
+        const distributionArray = deck.cardCostDistribution()
+        const distributionBars = [
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue")
+        ]
+        distributionBars.forEach((bar, index) => {
+            const percentage = distributionArray[index]/Math.max(...distributionArray)*100
+            bar.element.style.height = `${percentage}%`
+        })
+
+        const distributionBarContainers = []
+        distributionBars.forEach((element, index) => {
+            distributionBarContainers.push(
+                new Element("div").class("distributionBarContainer").children(
+                    element,
                     new Element("div")
-                        .class("cardDistributionSubContainer")
+                        .class("distributionBarLabelContainer")
                         .children(
-                            new Element("h5")
-                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "monkey")),
-                            new Element("img")
-                                .setProperty("src", `media/monkeyIcon.png`),
-                        ),
-                    new Element("div")
-                        .class("cardDistributionSubContainer")
-                        .children(
-                            new Element("h5")
-                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "bloon")),
-                            new Element("img")
-                                .setProperty("src", `media/bloonIcon.png`),
-                        ),
-                    new Element("div")
-                        .class("cardDistributionSubContainer")
-                        .children(
-                            new Element("h5")
-                                .text(deck.countNumberOfCardsWithPropertyValue("cardType", "power")),
-                            new Element("img")
-                                .setProperty("src", `media/powerIcon.png`),
+                            new Element("div")
+                                .class("distributionBarLabel")
+                                .text(distributionArray[index])
                         )
                 )
-        )
-
-    const distributionArray = deck.cardCostDistribution()
-    const distributionBars = [
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue")
-    ]
-    distributionBars.forEach((bar, index) => {
-        const percentage = distributionArray[index]/Math.max(...distributionArray)*100
-        bar.element.style.height = `${percentage}%`
-    })
-
-    const distributionBarContainers = []
-    distributionBars.forEach((element, index) => {
-        distributionBarContainers.push(
-            new Element("div").class("distributionBarContainer").children(
-                element,
-                new Element("div")
-                    .class("distributionBarLabelContainer")
-                    .children(
-                        new Element("div")
-                            .class("distributionBarLabel")
-                            .text(distributionArray[index])
-                    )
             )
-        )
-    })
+        })
 
-    const barLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
-    const barLabelElements = []
-    barLabelStrings.forEach(string => {
-        barLabelElements.push(
-            new Element("div").class("barLabelContainer").children(
+        const barLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
+        const barLabelElements = []
+        barLabelStrings.forEach(string => {
+            barLabelElements.push(
+                new Element("div").class("barLabelContainer").children(
                     new Element("div").class("barLabel").text(string))
-        )
-    })
+            )
+        })
 
-    const cardCostDistribution = new Element("div")
-        .class("summaryCard", "imageBoxShadow")
-        .children(
-            new Element("h5")
-                .class("summaryCardTitle", "bcsfont")
-                .text("Card Cost Distribution"),
-            new Element("div")
-                .class("cardCostDistributionContainer")
-                .children(...distributionBarContainers, ...barLabelElements)
-        )
-
-    const bloonCostDistributionArray = deck.bloonCardCostDistribution()
-    const bloonCostDistributionBars = [
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue"),
-        new Element("div").class("distributionBarValue")
-    ]
-    bloonCostDistributionBars.forEach((bar, index) => {
-        const percentage = bloonCostDistributionArray[index]/Math.max(...bloonCostDistributionArray)*100
-        bar.element.style.height = `${percentage}%`
-    })
-
-    const bloonCostDistributionBarContainers = []
-    bloonCostDistributionBars.forEach((element, index) => {
-        bloonCostDistributionBarContainers.push(
-            new Element("div").class("distributionBarContainer").children(
-                element,
+        const cardCostDistribution = new Element("div")
+            .class("summaryCard", "imageBoxShadow")
+            .children(
+                new Element("h5")
+                    .class("summaryCardTitle", "bcsfont")
+                    .text("Card Cost Distribution"),
                 new Element("div")
-                    .class("distributionBarLabelContainer")
+                    .class("cardCostDistributionContainer")
+                    .children(...distributionBarContainers, ...barLabelElements)
+            )
+
+        const bloonCostDistributionArray = deck.bloonCardCostDistribution()
+        const bloonCostDistributionBars = [
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue"),
+            new Element("div").class("distributionBarValue")
+        ]
+        bloonCostDistributionBars.forEach((bar, index) => {
+            const percentage = bloonCostDistributionArray[index]/Math.max(...bloonCostDistributionArray)*100
+            bar.element.style.height = `${percentage}%`
+        })
+
+        const bloonCostDistributionBarContainers = []
+        bloonCostDistributionBars.forEach((element, index) => {
+            bloonCostDistributionBarContainers.push(
+                new Element("div").class("distributionBarContainer").children(
+                    element,
+                    new Element("div")
+                        .class("distributionBarLabelContainer")
+                        .children(
+                            new Element("div")
+                                .class("distributionBarLabel")
+                                .text(bloonCostDistributionArray[index])
+                        )
+                )
+            )
+        })
+
+        const bloonCostbarLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
+        const bloonCostBarLabelElements = []
+        bloonCostbarLabelStrings.forEach(string => {
+            bloonCostBarLabelElements.push(
+                new Element("div").class("barLabelContainer").children(
+                    new Element("div").class("barLabel").text(string))
+            )
+        })
+
+        const bloonCostDistribution = new Element("div")
+            .class("summaryCard", "imageBoxShadow")
+            .children(
+                new Element("h5")
+                    .class("summaryCardTitle", "bcsfont")
+                    .text("Bloon Cost Distribution"),
+                new Element("div")
+                    .class("cardCostDistributionContainer")
+                    .children(...bloonCostDistributionBarContainers, ...bloonCostBarLabelElements)
+            )
+
+        const summaryCardContainer = new Element("div")
+            .class("summaryCardContainer")
+            .children(cardDistribution, cardCostDistribution, bloonCostDistribution)
+
+        const imageSummaryContainer = new Element("div")
+            .class("imageSummaryContainer")
+            .children(
+                new Element("h5")
+                    .class("imageHeroText")
+                    .text(`Hero: ${deck.hero}`),
+                new Element("div")
+                    .class("summaryContainerDivider"),
+                summaryCardContainer
+            )
+
+        const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
+            .children(
+                new Element("p").class("bcsfont").text("BCS Popology • game version 2.0")
+            )
+
+        const image = new Element("div")
+            .class("imageWrapper")
+            .id("imageWrapper")
+            .children(
+                new Element("div")
+                    .class("imageContainer")
+                    .id("imageContainer")
                     .children(
-                        new Element("div")
-                            .class("distributionBarLabel")
-                            .text(bloonCostDistributionArray[index])
+                        imageHeader, imageSummaryContainer, allCardsContainer, extraDetailsContainer,
+                        new Element("img")
+                            .class("imageHeroIcon")
+                            .setProperty("src", `media/cardIcons/${deck.hero.toLowerCase()}.png`),
                     )
             )
-        )
-    })
 
-    const bloonCostbarLabelStrings = ["0-2", "3-4", "5-6", "7-9", "10+"]
-    const bloonCostBarLabelElements = []
-    bloonCostbarLabelStrings.forEach(string => {
-        bloonCostBarLabelElements.push(
-            new Element("div").class("barLabelContainer").children(
-                new Element("div").class("barLabel").text(string))
-        )
-    })
+        imagePreviewContainer.innerHTML = ""
+        imagePreviewContainer.appendChild(image.element)
+        imagePreviewContainer.classList.add("showImagePreviewContainer")
 
-    const bloonCostDistribution = new Element("div")
-        .class("summaryCard", "imageBoxShadow")
+        // Download image
+        const content = document.getElementById('imageWrapper');
+
+        // Use html2canvas to render the div
+        html2canvas(content, {
+            useCORS: true, // Ensure cross-origin resources are loaded properly
+            backgroundColor: null,
+        }).then(canvas => {
+            const imageData = canvas.toDataURL('image/png');
+
+            // Function to convert dataURL to Blob
+            function dataURLToBlob(dataURL) {
+                const byteString = atob(dataURL.split(',')[1]); // Decode base64
+                const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0]; // Extract MIME type
+                const byteArray = new Uint8Array(byteString.length);
+
+                for (let i = 0; i < byteString.length; i++) {
+                    byteArray[i] = byteString.charCodeAt(i);
+                }
+
+                return new Blob([byteArray], { type: mimeString });
+            }
+
+            // Convert the data URL to a Blob
+            const blob = dataURLToBlob(imageData);
+            const file = new File([blob], `${deck.deckName}.png`, { type: 'image/png' });
+
+            // Use Web Share API if available and supported
+            if (navigator.share && navigator.canShare({ files: [file] })) {
+                navigator.share({
+                    title: 'Shared Image',
+                    text: `Check out this deck: ${deck.deckName}`,
+                    files: [file],
+                })
+                    .then(() => console.log('Image shared successfully!'))
+                    .catch(err => imageGenFailedDialog(err));
+            } else {
+                // Fallback: Download the image
+                console.log('Web Share API not supported or cannot share file. Falling back to download.');
+
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = `${deck.deckName}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }).catch((err) => {imageGenFailedDialog(err)});
+
+        imagePreviewContainer.classList.remove("showImagePreviewContainer")
+    } catch (error) {
+        imageGenFailedDialog(error)
+    }
+}
+
+document.getElementById("manageDecksButton").addEventListener("click", displayManageDecksDialog)
+
+function displayManageDecksDialog() {
+    const dialog = document.getElementById("manageDecksDialog")
+    const dialogContents = document.getElementById("manageDecksDialogContents")
+    dialogContents.innerHTML = ""
+
+    const titleContainer = new Element("div")
+        .class("manageDecksTitleContainer")
         .children(
-            new Element("h5")
-                .class("summaryCardTitle", "bcsfont")
-                .text("Bloon Cost Distribution"),
             new Element("div")
-                .class("cardCostDistributionContainer")
-                .children(...bloonCostDistributionBarContainers, ...bloonCostBarLabelElements)
-        )
-
-
-
-
-
-
-    const summaryCardContainer = new Element("div")
-        .class("summaryCardContainer")
-        .children(cardDistribution, cardCostDistribution, bloonCostDistribution)
-
-    const imageSummaryContainer = new Element("div")
-        .class("imageSummaryContainer")
-        .children(
-            new Element("h5")
-                .class("imageHeroText")
-                .text(`Hero: ${deck.hero}`),
-            new Element("div")
-                .class("summaryContainerDivider"),
-            summaryCardContainer
-        )
-
-    const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
-        .children(
-            new Element("p").class("bcsfont").text("BCS Popology • game version 2.0")
-        )
-
-    const image = new Element("div")
-        .class("imageWrapper")
-        .id("imageWrapper")
-        .children(
-            new Element("div")
-                .class("imageContainer")
-                .id("imageContainer")
+                .class("manageDecksTitleSubContainer")
                 .children(
-                    imageHeader, imageSummaryContainer, allCardsContainer, extraDetailsContainer,
-                    new Element("img")
-                        .class("imageHeroIcon")
-                        .setProperty("src", `media/cardIcons/${deck.hero.toLowerCase()}.png`),
+                    new Element("h3")
+                        .text("Your Decks"),
+                    new Element("span")
+                        .class("material-symbols-outlined", "closeManageDecksDialogButton")
+                        .text("close")
+                        .onclick(() => { dialog.close() })
+                ),
+            new Element("div")
+                .class("horizontalLine", "strongLineStyle", "thick")
+        )
+
+    const deckGrid = new Element("div")
+        .class("deckGrid")
+
+    console.log(userDecks)
+    userDecks.encodedDeckStrings.forEach((encodedString, index) => {
+        const storedDeck = new Deck("Stored Deck")
+        storedDeck.setDeckWithEncodedString(encodedString)
+        const deckCard = new Element("div")
+            .class("deckCard")
+            .children(
+                new Element("div")
+                    .class("deckCardMainContainer")
+                    .children(
+                        new Element("h5").class("bcsfont").text(storedDeck.deckName),
+                        new Element("h6").text(`${storedDeck.hero} - ${storedDeck.length}/40 Cards`),
+                    )
+                    .onhover(
+                        () => {deckCard.element.classList.add("deckCardHover")},
+                        () => {deckCard.element.classList.remove("deckCardHover")})
+                    .onclick(() => {
+                        deck.setDeckWithEncodedString(encodedString)
+                        console.log(
+                            storedDeck.getEncodedString())
+                        dialog.close()
+                    }),
+                new Element("div").class("deckCardConfigButtonContainer").children(
+                    new Element("button").class("smallCardButton", "material-symbols-outlined").text("link")
+                        .onclick(() => {
+                            const url = `https://bcspopology.com/deckBuilder.html?data=${storedDeck.getEncodedString()}`
+                            navigator.clipboard.writeText(url).then(function() {
+                                console.log("Copied url!")
+                            }).catch(function(error) {
+                                console.error("Error copying text: ", error);
+                            });
+                        }),
+                    new Element("button").class("smallCardButton", "smallCardDeleteButton", "material-symbols-outlined").text("delete")
+                        .onclick(() => {
+                            function deleteDeck() {
+                                userDecks.deleteDeckWithIndex(index)
+                                displayManageDecksDialog()
+                            }
+
+                            if (shiftDown) deleteDeck()
+                            else confirmDeckDeletionDialog(deleteDeck)
+                        })
+                )
+            )
+        deckGrid.children(deckCard)
+    })
+
+    const deckGridWrapper = new Element("div")
+        .class("deckGridWrapper")
+        .children(deckGrid)
+
+    const mainButtonWrapper = new Element("div")
+        .class("deckManagementMainButtonWrapper")
+        .children(
+            new Element("div")
+                .class("horizontalLine"),
+            new Element("div")
+                .class("deckManagementMainButtonContainer")
+                .children(
+                    new Element("button")
+                        .class("deckManagementButton")
+                        .children(
+                            new Element("span")
+                                .class("material-symbols-outlined")
+                                .text("bookmark"),
+                            new Element("p")
+                                .text("Save Deck")
+                        )
+                        .onclick(() => {
+                            userDecks.addDeckString(deck.getEncodedString())
+                            displayManageDecksDialog()
+                        }),
+                    new Element("button")
+                        .class("deckManagementButton")
+                        .children(
+                            new Element("span")
+                                .class("material-symbols-outlined")
+                                .text("save"),
+                            new Element("p")
+                                .text("Backup Decks")
+                        )
+                        .onclick(() => {
+                            backupUserDecks()
+                        }),
+                    new Element("button")
+                        .class("deckManagementButton")
+                        .children(
+                            new Element("span")
+                                .class("material-symbols-outlined")
+                                .text("settings_backup_restore"),
+                            new Element("p")
+                                .text("Restore Decks")
+                        )
+                        .onclick(() => {
+                            triggerFileSelectionToRestoreDecks()
+                        })
                 )
         )
 
-    imagePreviewContainer.innerHTML = ""
-    imagePreviewContainer.appendChild(image.element)
+    dialogContents.appendChild(titleContainer.element);
+    dialogContents.appendChild(deckGridWrapper.element);
+    dialogContents.appendChild(mainButtonWrapper.element);
 
-    imagePreviewContainer.classList.add("showImagePreviewContainer")
+    dialog.showModal()
+}
 
-    // generateCard(deck.deck[0], document.getElementById("imageCardContainer"));
+function promptForDeckName(thenFn) {
+    const title = new Element("h3").text("Name your deck!")
 
-    async function inlineSVGImages(svgElement) {
-        const images = svgElement.querySelectorAll('image');
-        for (const image of images) {
-            const href = image.getAttribute('href') || image.getAttribute('xlink:href');
-            if (href) {
-                // Fetch the image as a Blob
-                const response = await fetch(href);
-                const blob = await response.blob();
-                const reader = new FileReader();
+    const input = new Element("label").children(
+        new Element("input")
+            .setProperty("type", "text")
+            .setProperty("value", deck.deckName)
+            .setProperty("autocomplete", "off")
+            .id("renameDialogInput")
+    )
 
-                // Convert Blob to Data URL
-                await new Promise(resolve => {
-                    reader.onload = resolve;
-                    reader.readAsDataURL(blob);
-                });
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .children(
+                    new Element("button")
+                        .id("dialogCancelButton")
+                        .text("Cancel"),
+                    new Element("button")
+                        .id("continueWithoutNamingButton")
+                        .text("Continue without naming"),
+                    new Element("button")
+                        .id("nameDeckButton")
+                        .class("primaryButton")
+                        .text("Name deck")
+                )
+        )
 
-                // Replace href with Data URL
-                image.setAttribute('href', reader.result);
-            }
-        }
+    displayUserInteractionDialog(
+        [title, input, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("dialogCancelButton", (dialog) => {
+                dialog.close()
+            }),
+            new UserInteractionDialogEventListener("continueWithoutNamingButton", (dialog) => {
+                dialog.close()
+                thenFn()
+            }),
+            new UserInteractionDialogEventListener("nameDeckButton", (dialog) => {
+                updateDeckName(document.getElementById("renameDialogInput").value)
+                dialog.close()
+                thenFn()
+            })
+        ]
+    )
+
+    setTimeout(() => {
+        document.getElementById("renameDialogInput").select();
+    }, 0);
+}
+
+function deckNotCompleteDialog() {
+    const title = new Element("h3").text("Incomplete deck!")
+
+    const description = new Element("p").text("Your deck must have 40 cards in it before you are able to share an image.")
+
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .id("deckNotCompleteConfirmButton")
+                .children(
+                    new Element("button")
+                        .text("OK")
+                )
+        )
+
+    displayUserInteractionDialog(
+        [title, description, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("deckNotCompleteConfirmButton", (dialog) => {
+                dialog.close()
+            })
+        ]
+    )
+}
+
+function imageGenInfoDialog() {
+    const title = new Element("h3").text("Image is being exported")
+
+    const description = new Element("p").text("Generating an image from your deck is still an experimental feature and your experience may vary depening on your device and browser. If you are experiencing issues, please join our Discord server to report them.")
+
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .id("imageGenInfoConfirmButton")
+                .children(
+                    new Element("button")
+                        .text("OK")
+                )
+        )
+
+    displayUserInteractionDialog(
+        [title, description, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("imageGenInfoConfirmButton", (dialog) => {
+                dialog.close()
+            })
+        ]
+    )
+}
+
+function imageGenFailedDialog(error) {
+    const title = new Element("h3").text("Share Image failed")
+
+    const description = new Element("p").text(`The image failed to export. If this issue persists, please join our Discord server to report it.\n\nError info:\n${error}`)
+
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .id("imageGenFailedConfirmButton")
+                .children(
+                    new Element("button")
+                        .text("OK")
+                )
+        )
+
+    displayUserInteractionDialog(
+        [title, description, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("imageGenFailedConfirmButton", (dialog) => {
+                dialog.close()
+            })
+        ]
+    )
+}
+
+function confirmDeckDeletionDialog(deleteFn) {
+    const title = new Element("h3").text("Confirm Deck Deletion")
+
+    const description = new Element("p").text("Are you sure you want to delete this deck?\nHold shift while deleting to avoid this pop-up.")
+
+    const buttonContainer = new Element("div")
+        .class("userInteractionDialogButtonWrapper")
+        .children(
+            new Element("div")
+                .class("userInteractionDialogButtonContainer")
+                .children(
+                    new Element("button")
+                        .id("cancelDeckDeletionButton")
+                        .text("Cancel"),
+                    new Element("button")
+                        .id("deleteDeckButton")
+                        .class("dangerButton")
+                        .text("Delete Deck")
+                ),
+        )
+
+    displayUserInteractionDialog(
+        [title, description, buttonContainer],
+        [
+            new UserInteractionDialogEventListener("cancelDeckDeletionButton", (dialog) => {
+                dialog.close()
+            }),
+            new UserInteractionDialogEventListener("deleteDeckButton", (dialog) => {
+                dialog.close()
+                deleteFn()
+            })
+        ]
+    )
+}
+
+class UserInteractionDialogEventListener {
+    constructor(id, listener) {
+        this.id = id; this.listener = listener;
+    }
+}
+
+function displayUserInteractionDialog(elements, buttonEventListeners) {
+    const dialog = document.getElementById("userInteractionDialog")
+    const dialogContents = document.getElementById("userInteractionDialogContents")
+    dialogContents.innerHTML = ""
+
+    elements.forEach(element => {
+        dialogContents.appendChild(element.element);
+    })
+
+    dialog.showModal()
+
+    buttonEventListeners.forEach(buttonEventListener => {
+        document.getElementById(buttonEventListener.id).addEventListener("click", () => {
+            buttonEventListener.listener(dialog)
+        })
+    })
+}
+
+document.addEventListener('keydown', function (event) {
+    switch (event.key) {
+        case "Shift":
+            shiftDown = true
+            break;
+    }
+});
+document.addEventListener('keyup', function (event) {
+    switch (event.key) {
+        case "Shift":
+            shiftDown = false
+            break;
+    }
+});
+
+
+/**
+ * Backup the "userDecks" key from localStorage as a plain text file.
+ */
+function backupUserDecks() {
+    const userDecks = localStorage.getItem('userDecks');
+    if (!userDecks) {
+        alert('No "userDecks" data found to back up.');
+        return;
     }
 
-    async function embedFontInSVG(svgElement) {
-        const fontURL = '/bcsfont.ttf'; // Adjust the path to your font file
-        const response = await fetch(fontURL);
-        const fontBlob = await response.blob();
+    const blob = new Blob([userDecks], { type: 'text/plain' }); // Handle as plain text
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'userDecksBackup.txt'; // Default filename for plain text
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // Clean up the URL object
+}
+
+/**
+ * Dynamically create and trigger the file input for selecting a file.
+ */
+function triggerFileSelectionToRestoreDecks() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt'; // Specify accepted file type (plain text)
+    fileInput.style.display = 'none'; // Hide the input element
+
+    // Add event listener to handle file selection
+    fileInput.addEventListener('change', restoreUserDecks);
+
+    // Append input to the body temporarily and trigger click
+    document.body.appendChild(fileInput);
+    fileInput.click();
+
+    // Clean up the input element after use
+    document.body.removeChild(fileInput);
+}
+
+/**
+ * Restore the "userDecks" key into localStorage from a plain text file.
+ * @param {Event} event - The file input change event.
+ */
+function restoreUserDecks(event) {
+    function decksRestoredErrorDialog() {
+        const title = new Element("h3").text("Error while restoring decks")
+
+        const description = new Element("p").text(`There was an issue while restoring your backup file. If this issue persists, please report it on our Discord server.`)
+
+        const buttonContainer = new Element("div")
+            .class("userInteractionDialogButtonWrapper")
+            .children(
+                new Element("div")
+                    .class("userInteractionDialogButtonContainer")
+                    .id("restoreFailedConfirmButton")
+                    .children(
+                        new Element("button")
+                            .text("OK")
+                    )
+            )
+
+        displayUserInteractionDialog(
+            [title, description, buttonContainer],
+            [
+                new UserInteractionDialogEventListener("restoreFailedConfirmButton", (dialog) => {
+                    dialog.close()
+                })
+            ]
+        )
+    }
+
+    try {
+        const file = event.target.files[0];
+        if (!file) return;
+
         const reader = new FileReader();
+        reader.onload = function () {
+            const data = reader.result;
 
-        // Convert Blob to Base64
-        const fontBase64 = await new Promise(resolve => {
-            reader.onload = () => resolve(reader.result);
-            reader.readAsDataURL(fontBlob);
-        });
+            // Validate if the data is a string
+            if (typeof data !== 'string') {
+                decksRestoredErrorDialog()
+                return;
+            }
+            userDecks.restoreDecks(data)
+            localStorage.setItem('userDecks', data);
 
-        // Construct @font-face rule with embedded font
-        const fontFace = `
-        @font-face {
-            font-family: 'BCS Font';
-            src: url('${fontBase64}') format('truetype');
-        }
-    `;
 
-        // Find or create a <style> tag within the SVG
-        let style = svgElement.querySelector('style');
-        if (!style) {
-            style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-            svgElement.insertBefore(style, svgElement.firstChild);
-        }
-
-        // Add the font-face rule to the <style> tag
-        style.textContent = fontFace + style.textContent;
+            displayManageDecksDialog()
+        };
+        reader.readAsText(file);
+    } catch {
+        decksRestoredErrorDialog()
     }
-
-    // Download image
-    const content = document.getElementById('imageWrapper');
-    const svg = content.querySelector('svg');
-
-    // Inline the images in the SVG
-    // await inlineSVGImages(svg);
-
-    // Embed the font directly in the SVG
-    // await embedFontInSVG(svg);
-
-    // Use html2canvas to render the div
-    html2canvas(content, {
-        useCORS: true, // Ensure cross-origin resources are loaded properly
-        backgroundColor: null,
-    }).then(canvas => {
-        const imageData = canvas.toDataURL('image/png');
-
-        // Create a download link
-        const link = document.createElement('a');
-        link.href = imageData;
-        link.download = `${deck.deckName}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
-
-
-    imagePreviewContainer.classList.remove("showImagePreviewContainer")
-}})
+}

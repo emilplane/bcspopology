@@ -71,10 +71,20 @@
                             <div class="exportOptions">
                                 <h5 class="bcsfont">Import and export</h5>
                                 <div class="horizontalLine strongLineStyle"></div>
-                                <button id="copyUrlButton">Copy URL</button>
-                                <button id="downloadImageButton">Download as image</button>
-                                <p>Note: you must have 40 cards in deck to create image.</p>
-                                <p>Ability to store multiple decks locally will come soon!</p>
+                                <div class="deckManagementButtonContainer">
+                                    <button class="deckManagementButton" id="copyUrlButton">
+                                        <span class="material-symbols-outlined">link</span>
+                                        <p>Copy Link</p>
+                                    </button>
+                                    <button class="deckManagementButton" id="downloadImageButton">
+                                        <span class="material-symbols-outlined">image</span>
+                                        <p>Share Image</p>
+                                    </button>
+                                    <button class="deckManagementButton" id="manageDecksButton">
+                                        <span class="material-symbols-outlined">settings</span>
+                                        <p>Manage Decks</p>
+                                    </button>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -98,6 +108,12 @@
         <a href="popology.html"><h3>Popology</h3></a>
         <a href="deckBuilder.html"><h3>Deck Builder</h3></a>
         <a href="https://discord.gg/mJDw5qzvHV"><h3>Discord Server</h3></a>
+    </dialog>
+    <dialog class="userInteractionDialog" id="userInteractionDialog">
+        <div class="userInteractionDialogContents" id="userInteractionDialogContents"></div>
+    </dialog>
+    <dialog class="manageDecksDialog" id="manageDecksDialog">
+        <div class="manageDecksDialogContents" id="manageDecksDialogContents"></div>
     </dialog>
     <style id="coverImageStyle">
         .coverImage {

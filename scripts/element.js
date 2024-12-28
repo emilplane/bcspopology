@@ -44,6 +44,12 @@ export default class Element {
         return this;
     }
 
+    onhover(callback, onLeaveCallback) {
+        this.element.addEventListener('mouseenter', callback);
+        this.element.addEventListener('mouseleave', onLeaveCallback);
+        return this;
+    }
+
     clearHTML() {
         this.element.innerHTML = "";
         return this;

@@ -9,6 +9,15 @@ export class Deck {
         this.updateUiFn = () => {}
     }
 
+    changeUpdateUiFn(newFn) {
+        this.updateUiFn = newFn
+    }
+
+    updateDeckName(newName) {
+        this.deck = newName
+        this.updateUiFn()
+    }
+
     addCard(newCard, setCount = undefined, updateUi = true) {
         let cardInDeck = false
         this.deck.forEach((card) => {
@@ -73,17 +82,43 @@ export class Deck {
         return shrunkObject
     }
 
+    getEncodedString() {
+        const shrunkObject = this.getShrunkObject()
+        let dataString = "1_"
+        switch (shrunkObject.hero) {
+            case "Quincy": default: dataString +=   "1"; break;
+            case "Gwendolin":       dataString +=   "2"; break;
+            case "Obyn":            dataString +=   "3"; break;
+            case "Amelia":          dataString +=   "4"; break;
+            case "Adora":           dataString +=   "5"; break;
+        }
+        shrunkObject.deck.forEach((shrunkCard) => {
+            const cardId = [...BLOONS, ...POWERS, ...MONKEYS].find(c => c.name === shrunkCard.name).id
+            dataString += cardId
+            if (shrunkCard.count > 1) dataString += shrunkCard.count
+        })
+        dataString += `_${shrunkObject.deckName}`
+
+        return encodeURIComponent(dataString);
+    }
+
     setDeckFromCurrentURL() {
         const queryString = new URLSearchParams(window.location.search);
         let dataString = queryString.get('data');
-        if (dataString === null) {
+        this.setDeckWithEncodedString(dataString)
+    }
+
+    setDeckWithEncodedString(encodedString) {
+        this.deck = []
+
+        if (encodedString === null) {
             this.hero = "Quincy"
             this.updateUiFn()
             return;
         }
 
         // Don't consider version for now
-        dataString = dataString.substring(2);
+        let dataString = decodeURIComponent(encodedString.substring(2));
 
         // Handle hero
         switch (Number(dataString[0])) {
@@ -111,7 +146,7 @@ export class Deck {
         const dataStringClone = dataString
         for (const index in dataStringClone) {
             const character = dataStringClone[index]
-            if (isNaN(character)) {
+            if (isNaN(Number(character))) {
                 if (character === "_") {
                     break;
                 } else {
