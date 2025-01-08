@@ -1050,7 +1050,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "primary",
         "tower": "boomerang",
-        "cost": 18, "damage": 75, "ammo": 3, "delay": 2,
+        "cost": 10, "damage": 75, "ammo": 3, "delay": 2,
         "attributes": ["unique"]
     },
     {

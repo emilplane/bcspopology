@@ -377,6 +377,7 @@
     width: 900px; max-width: 900px;
     height: 650px; max-height: 650px;
     padding: 24px;
+    /*transform: scale(2);*/
     box-sizing: border-box;
     position: relative;
 }

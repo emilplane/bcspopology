@@ -554,9 +554,15 @@ function generateDeckImage() {
 
         // Download image
         const content = document.getElementById('imageWrapper');
-
+        const rect = content.getBoundingClientRect();
+        const pixelRatio = window.devicePixelRatio
+        content.style.transform = `scale(${2/pixelRatio})`
+        console.log(pixelRatio);
         // Use html2canvas to render the div
         html2canvas(content, {
+            // width: rect.width/pixelRatio,
+            // height: rect.height/pixelRatio,
+            // scale: 2,
             useCORS: true, // Ensure cross-origin resources are loaded properly
             backgroundColor: null,
         }).then(canvas => {
@@ -580,7 +586,7 @@ function generateDeckImage() {
             const file = new File([blob], `${deck.deckName}.png`, { type: 'image/png' });
 
             // Use Web Share API if available and supported
-            if (navigator.share && navigator.canShare({ files: [file] })) {
+            if (navigator.share && navigator.canShare({ files: [file] }) && !navigator.userAgent.includes("Windows")) {
                 navigator.share({
                     title: 'Shared Image',
                     text: `Check out this deck: ${deck.deckName}`,
@@ -601,7 +607,7 @@ function generateDeckImage() {
             }
         }).catch((err) => {imageGenFailedDialog(err)});
 
-        imagePreviewContainer.classList.remove("showImagePreviewContainer")
+        // imagePreviewContainer.classList.remove("showImagePreviewContainer")
     } catch (error) {
         imageGenFailedDialog(error)
     }
