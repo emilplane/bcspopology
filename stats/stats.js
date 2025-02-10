@@ -47,7 +47,7 @@ export const BLOONS = [
         "id": "ae",
         "description": [],
         "events": [
-            ["onPopped", {"type": "spawn", "name": "redBloon"}]
+            ["onDestroyed", {"type": "spawn", "name": "redBloon"}]
         ],
     
         "cardType": "bloon",
@@ -62,7 +62,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 1, "damage": 50, "delay": 1, "copies": 3,
+        "cost": 1, "damage": 45, "delay": 1, "copies": 3,
     },
     {
         "name": "doubleBlueBloon", "displayName": "Double Blue Bloon",
@@ -91,7 +91,7 @@ export const BLOONS = [
         "id": "ai",
         "description": [],
         "events": [
-            ["onPopped", {"type": "spawn", "name": "nestedBlue"}]
+            ["onDestroyed", {"type": "spawn", "name": "nestedBlue"}]
         ],
     
         "cardType": "bloon",
@@ -106,7 +106,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 80, "delay": 1, "copies": 3,
+        "cost": 2, "damage": 70, "delay": 1, "copies": 3,
     },
     {
         "name": "doubleGreenBloon", "displayName": "Double Green Bloon",
@@ -128,14 +128,14 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 3, "damage": 140, "delay": 1, "copies": 2,
+        "cost": 3, "damage": 130, "delay": 1, "copies": 2,
     },
     {
         "name": "nestedYellow", "displayName": "Nested Yellow",
         "id": "am",
         "description": [],
         "events": [
-            ["onPopped", {"type": "spawn", "name": "nestedGreen"}]
+            ["onDestroyed", {"type": "spawn", "name": "nestedGreen"}]
         ],
     
         "cardType": "bloon",
@@ -150,7 +150,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 3, "damage": 115, "delay": 1, "copies": 3,
+        "cost": 3, "damage": 110, "delay": 1, "copies": 3,
     },
     {
         "name": "doubleYellowBloon", "displayName": "Double Yellow Bloon",
@@ -464,7 +464,7 @@ export const BLOONS = [
 
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 10, "damage": 350, "delay": 3, "copies": 2,
+        "cost": 10, "damage": 330, "delay": 3, "copies": 2,
         "attributes": ["double"]
     },
     // Ceramics
@@ -673,7 +673,7 @@ export const MONKEYS = [
         "cost": 4, "damage": 40, "ammo": 1, "delay": 1, "fire": 30
     },
     {
-        "name": "crossbow", "displayName": "Crossbow",
+        "name": "crossbowMonkey", "displayName": "Crossbow Monkey",
         "id": "bc",
         "aliases": ["xbow"],
         "description": [],
@@ -682,7 +682,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "primary",
         "tower": "dart",
-        "cost": 4, "damage": 35, "ammo": 2, "delay": 2,
+        "cost": 4, "damage": 40, "ammo": 2, "delay": 2,
     },
     {
         "name": "monkeyVillage", "displayName": "Monkey Village",
@@ -792,6 +792,7 @@ export const MONKEYS = [
     {
         "name": "heartOfVengeanceDruid", "displayName": "Heart of Vengeance Druid",
         "id": "bl",
+        "aliases": ["hov"],
         "description": [],
         "events": [
             ["onLeak", {"type": "gainAttackPower", "value": 5}],
@@ -800,7 +801,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "magic",
         "tower": "druid",
-        "cost": 5, "damage": 15, "ammo": 2, "delay": 2,
+        "cost": 5, "damage": 15, "ammo": 3, "delay": 2,
     },
     {
         "name": "junglesBountyDruid", "displayName": "Jungle's Bounty Druid",
@@ -854,7 +855,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "magic",
         "tower": "wizard",
-        "cost": 7,
+        "cost": 5,
     },
     {
         "name": "thunderDruid", "displayName": "Thunder Druid",
@@ -929,7 +930,7 @@ export const MONKEYS = [
         "aliases": ["mael"],
         "description": [],
         "events": [
-            ["onTurnEnd", "Deal 15 damage to all enemy Bloons"],
+            ["onTurnEnd", "Deal 30 damage to all enemy Bloons"],
         ],
 
         "cardType": "monkey",
@@ -972,7 +973,7 @@ export const MONKEYS = [
         "description": [],
         "events": [
             ["onPlay", "Summon an Undead MOAB."],
-            ["onTurnStart", "Heal all friendly Bloons +30 HP."],
+            ["onTurnStart", "Heal all friendly Bloons +50 HP."],
         ],
 
         "cardType": "monkey",
@@ -1134,7 +1135,7 @@ export const POWERS = [
         "name": "manaShield", "displayName": "Mana Shield",
         "id": "bG",
         "events": [
-            ["onPlay", {"type": "gainShield", "value": 50}]
+            ["onPlay", {"type": "gainShield", "value": 70}]
         ],
 
         "cardType": "power",
@@ -1425,7 +1426,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
-        "cost": 5,
+        "cost": 3,
     },
     {
         "name": "shrink", "displayName": "Shrink",
@@ -1447,7 +1448,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
-        "cost": 6,
+        "cost": 5,
     },
     {
         "name": "quickReady", "displayName": "Quick Ready",

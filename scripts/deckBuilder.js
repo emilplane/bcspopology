@@ -60,8 +60,11 @@ function updateUi() {
     document.getElementById("deckName").innerText = deck.deckName
 
     let instantIndex = -1
+    console.log("updateUi")
+    console.log(deck)
     deck.deck.forEach((card, index) => {
         instantIndex++
+        const i = instantIndex
         const buttonContainer = new Element("div")
             .class("smallCardButtons")
             .children(
@@ -73,23 +76,28 @@ function updateUi() {
                     })
             )
 
+        // console.log(instantIndex, index)
+
         if (instantIndex !== 0) {
             buttonContainer.children(
                 new Element("button")
                     .class("smallCardButton", "material-symbols-outlined")
                     .text("keyboard_arrow_up")
                     .onclick(() => {
-                        deck.swapCardPositionByIndex(index-1, index)
+                        console.log(i)
+                        deck.swapCardPositionByIndex(i-1, i)
                     })
             )
         }
-        if (instantIndex !== deck.length - 1) {
+
+        if (instantIndex < deck.uniqueCardLength - 1) {
             buttonContainer.children(
                 new Element("button")
                     .class("smallCardButton", "material-symbols-outlined")
                     .text("keyboard_arrow_down")
                     .onclick(() => {
-                        deck.swapCardPositionByIndex(index, index+1)
+                        console.log(i)
+                        deck.swapCardPositionByIndex(i, i+1)
                     })
             )
         }

@@ -56,9 +56,12 @@ export class Deck {
     }
 
     swapCardPositionByIndex(index1, index2, updateUi = true) {
-        [this.deck[index1], this.deck[index2]] = [this.deck[index2], this.deck[index1]]
+        const deckIndexReset = [];
+        this.deck.forEach((card) => { deckIndexReset.push(card) });
+        this.deck = deckIndexReset;
+        [this.deck[index1], this.deck[index2]] = [this.deck[index2], this.deck[index1]];
 
-        if (updateUi) this.updateUiFn()
+        if (updateUi) this.updateUiFn();
     }
 
     deleteCardAtIndex(index, updateUi = true) {
@@ -178,6 +181,16 @@ export class Deck {
 
         this.deck.forEach((card) => {
             totalCount += card.count
+        })
+
+        return totalCount
+    }
+
+    get uniqueCardLength() {
+        let totalCount = 0
+
+        this.deck.forEach((card) => {
+            totalCount++
         })
 
         return totalCount

@@ -3,7 +3,10 @@ import Element from "./element.js";
 
 export function popupCard(card) {
     console.log(card)
-    document.querySelector(".cardPopupWrapper").style.display = "flex";
+
+    const cardPopupWrapper = document.querySelector(".cardPopupWrapper")
+
+    cardPopupWrapper.style.display = "flex";
     document.querySelector(".cardPopup").classList.add("bloonCardPopup");
     document.querySelector(".cardPopup").innerHTML = `
         <div class="cardPopupCardWrapper">
@@ -204,7 +207,13 @@ export function popupCard(card) {
             .element
     );
 
-    document.querySelector(".closePopupButton").addEventListener("click", () => {
-        document.querySelector(".cardPopupWrapper").style.display = "none";
+    document.querySelector(".closePopupButton").addEventListener("click", closePopup);
+
+    cardPopupWrapper.addEventListener("click", (event) => {
+        if (event.target === cardPopupWrapper) closePopup()
     });
+
+    function closePopup() {
+        cardPopupWrapper.style.display = "none";
+    }
 }
