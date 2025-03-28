@@ -97,7 +97,7 @@ const SHIELD = {
     "TEXT_Y": 45
 }
 
-export function generateCard(card, outputContainer) {
+export function generateCard(card, outputContainer, uniqueSvgDefsId = '') {
     const cardOutput = outputContainer
 
     let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = "", shieldInfo = "";
@@ -171,10 +171,15 @@ export function generateCard(card, outputContainer) {
             break;
     }
 
+    function svgDefID(name) {
+        return name + uniqueSvgDefsId + card.name
+    }
+    // ${svgDefID('')}
+
     const svgOutput = `<svg class="cardSvg" width="300" height="400" viewBox="0 0 300 400" 
         preserveAspectRatio="xMidYMid meet">
         <defs>
-            <filter id="bwFilter${card.name}">
+            <filter id="${svgDefID('bwFilter')}${card.name}">
                 <feColorMatrix type="matrix"
                     values="0.33 0.33 0.33 0 0
                             0.33 0.33 0.33 0 0
@@ -182,30 +187,30 @@ export function generateCard(card, outputContainer) {
                             0    0    0    1 0"
                 />
             </filter>
-            <clipPath id="imageClip${card.name}">
+            <clipPath id="${svgDefID('imageClip')}${card.name}">
                 <circle cx="${IMAGE.X}" cy="${IMAGE.Y}" r="${IMAGE.RADIUS - IMAGE.BORDER_WIDTH}" />
             </clipPath>
-            <clipPath id="backgroundTextClip${card.name}">
+            <clipPath id="${svgDefID('backgroundTextClip')}${card.name}">
                 <rect x="20" y="20" rx=${BACKGROUND.BORDER_RADIUS} width="260" height="360" 
                     transform="rotate(30 100 100)"/>
             </clipPath>
-            <clipPath id="fullHeightImageClip${card.name}">
+            <clipPath id="${svgDefID('fullHeightImageClip')}${card.name}">
                 <rect x="30" y="30" rx="20" width="240" height="340"/>
             </clipPath>
-            <linearGradient id="fullHeightImageGradient${card.name}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="${svgDefID('fullHeightImageGradient')}${card.name}" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="black" stop-opacity="0.1"/>
                 <stop offset="50%" stop-color="black" stop-opacity="0.5"/>
                 <stop offset="100%" stop-color="black" stop-opacity="1"/>
             </linearGradient>
-            <linearGradient id="borderGradient${card.name}" gradientTransform="rotate(90)">
+            <linearGradient id="${svgDefID('borderGradient')}${card.name}" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.borderGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.borderGradient[1]}" />
             </linearGradient>
-            <linearGradient id="textContainerGradient${card.name}" gradientTransform="rotate(90)">
+            <linearGradient id="${svgDefID('textContainerGradient')}${card.name}" gradientTransform="rotate(90)">
                 <stop offset="5%" stop-color="${gradients.textContainerGradient[0]}" />
                 <stop offset="95%" stop-color="${gradients.textContainerGradient[1]}" />
             </linearGradient>
-            <path id="circlePath${card.name}"
+            <path id="${svgDefID('circlePath')}${card.name}"
                 d="M ${IMAGE.X},${IMAGE.Y}
                 m -${IMAGE.RADIUS - IMAGE.BORDER_WIDTH + IMAGE.BORDER_TEXT_OFFSET},
                 0 a ${IMAGE.RADIUS - IMAGE.BORDER_WIDTH + IMAGE.BORDER_TEXT_OFFSET},
@@ -224,7 +229,7 @@ export function generateCard(card, outputContainer) {
         
         <text x="0" y="0" lengthAdjust="spacingAndGlyphs" text-anchor="left"
             class="bcsfont cardBackgroundText ${card.cardType}CardBackgroundText unselectable"
-            clip-path="url(#backgroundTextClip${card.name})">
+            clip-path="url(#${svgDefID('backgroundTextClip')}${card.name})">
             ${generateBackgroundText()}
         </text>
         
@@ -236,49 +241,49 @@ export function generateCard(card, outputContainer) {
                 width=${FULL_HEIGHT_IMAGE.WIDTH}
                 rx="${TEXT.CONTAINER_BORDER_RADIUS}"
                 href="media/cardArt/dartMonkey.png"
-                clip-path="url(#fullHeightImageClip${card.name})"
-                filter="url(#fullHeightImageGradient${card.name}) url(#bwFilter${card.name})"
+                clip-path="url(#${svgDefID('fullHeightImageClip')}${card.name})"
+                filter="url(#${svgDefID('fullHeightImageGradient')}${card.name}) url(#${svgDefID('bwFilter')}${card.name})"
             />
             <image x=${FULL_HEIGHT_IMAGE.X} 
                 y=${FULL_HEIGHT_IMAGE.Y}
                 width=${FULL_HEIGHT_IMAGE.WIDTH}
                 rx="${TEXT.CONTAINER_BORDER_RADIUS}"
                 href="media/cardArt/${card.name}.png"
-                clip-path="url(#fullHeightImageClip${card.name})"
-                filter="url(#fullHeightImageGradient${card.name})"
+                clip-path="url(#${svgDefID('fullHeightImageClip')}${card.name})"
+                filter="url(#${svgDefID('fullHeightImageGradient')}${card.name})"
             />
             <rect x="${FULL_HEIGHT_IMAGE.X}" y="${FULL_HEIGHT_IMAGE.Y}"
                   width="${FULL_HEIGHT_IMAGE.WIDTH}" height="${340}"
                   rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-                  clip-path="url(#fullHeightImageClip${card.name})"
-                  fill="url(#fullHeightImageGradient${card.name})"
+                  clip-path="url(#${svgDefID('fullHeightImageClip')}${card.name})"
+                  fill="url(#${svgDefID('fullHeightImageGradient')}${card.name})"
             />
             `
             :`<rect x="${TEXT.CONTAINER_X}" y="${TEXT.CONTAINER_Y}"
                   width="${TEXT.CONTAINER_WIDTH}" height="${TEXT.CONTAINER_HEIGHT}"
                   rx="${TEXT.CONTAINER_BORDER_RADIUS}"
-                  className="textContainer" fill="url(#textContainerGradient${card.name})"
+                  className="textContainer" fill="url(#${svgDefID('textContainerGradient')}${card.name})"
             />
             <circle cx=${IMAGE.X} cy=${IMAGE.Y} r=${IMAGE.RADIUS} class="imageBorder" 
-                fill="url(#borderGradient${card.name}"/>
+                fill="url(#${svgDefID('borderGradient')}${card.name}"/>
             <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
                 y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
                 width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
                 href="media/cardArt/redBloon.png"
                 class="cardImage" 
-                clip-path="url(#imageClip${card.name})"
-                filter="url(#bwFilter${card.name})"
+                clip-path="url(#${svgDefID('imageClip')}${card.name})"
+                filter="url(#${svgDefID('bwFilter')}${card.name})"
             />
             <image x=${IMAGE.X + IMAGE.BORDER_WIDTH - IMAGE.RADIUS} 
                 y=${IMAGE.Y + IMAGE.BORDER_WIDTH - IMAGE.RADIUS}
                 width=${(IMAGE.RADIUS - IMAGE.BORDER_WIDTH) * 2}
                 href="media/cardArt/${card.name}.png"
                 class="cardImage" 
-                clip-path="url(#imageClip${card.name})"
+                clip-path="url(#${svgDefID('imageClip')}${card.name})"
             />
             <text font-size="8" fill="black" class="bcsfont ${card.cardType}ImageBorderTextPath"
                 lengthAdjust="spacing" textLength="${2 * Math.PI * (IMAGE.RADIUS - IMAGE.BORDER_WIDTH)}">
-                <textPath href="#circlePath" startOffset="0%">
+                <textPath href="#${svgDefID('circlePath')}" startOffset="0%">
                     BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226; BCS Popology &#8226;
                     BCS Popology &#8226; BCS Popology &#8226;
                 </textPath>

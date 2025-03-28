@@ -8,7 +8,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 0, "damage": 40, "delay": 1, "copies": 2,
+        "cost": 0, "damage": 40, "delay": 2, "copies": 2,
     },
     {
         "name": "swarmRedBloon", "displayName": "Swarm Red Bloon",
@@ -18,7 +18,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 0, "damage": 20, "delay": 1, "copies": 3,
+        "cost": 0, "damage": 20, "delay": 2, "copies": 3,
     },
     {
         "name": "doubleRedBloon", "displayName": "Double Red Bloon",
@@ -40,7 +40,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 1, "damage": 60, "delay": 1, "copies": 2,
+        "cost": 1, "damage": 50, "delay": 2, "copies": 2,
     },
     {
         "name": "nestedBlue", "displayName": "Nested Blue",
@@ -52,7 +52,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 1, "damage": 60, "delay": 1, "copies": 1,
+        "cost": 1, "damage": 50, "delay": 1, "copies": 1,
     },
     {
         "name": "swarmBlueBloon", "displayName": "Swarm Blue Bloon",
@@ -62,7 +62,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 1, "damage": 45, "delay": 1, "copies": 3,
+        "cost": 1, "damage": 45, "delay": 2, "copies": 3,
     },
     {
         "name": "doubleBlueBloon", "displayName": "Double Blue Bloon",
@@ -84,7 +84,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 100, "delay": 1, "copies": 2,
+        "cost": 2, "damage": 90, "delay": 1, "copies": 2,
     },
     {
         "name": "nestedGreen", "displayName": "Nested Green",
@@ -96,7 +96,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 100, "delay": 1, "copies": 1,
+        "cost": 2, "damage": 80, "delay": 2, "copies": 1,
     },
     {
         "name": "swarmGreenBloon", "displayName": "Swarm Green Bloon",
@@ -140,7 +140,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "basic",
-        "cost": 3, "damage": 140, "delay": 1, "copies": 1,
+        "cost": 4, "damage": 120, "delay": 2, "copies": 1,
     },
     {
         "name": "swarmYellowBloon", "displayName": "Swarm Yellow Bloon",
@@ -306,7 +306,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 7, "damage": 300, "delay": 4, "copies": 1,
+        "cost": 6, "damage": 300, "delay": 4, "copies": 1,
     },
     {
         "name": "growthGasBloon", "displayName": "Growth Gas Bloon",
@@ -337,12 +337,12 @@ export const BLOONS = [
         "id": "aD",
         "description": [],
         "events": [
-            ["onBloonPlayed", {"type": "gainHP", "value": 30}],
+            ["onBloonPlayed", {"type": "gainHP", "value": 25}],
         ],
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 4, "damage": 50, "delay": 3, "copies": 1, "shield": 100,
+        "cost": 4, "damage": 50, "delay": 3, "copies": 1, "shield": 50,
     },
     {
         "name": "buddyBloon", "displayName": "Buddy Bloon",
@@ -355,7 +355,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 4, "damage": 50, "delay": 2, "copies": 1, "shield": 150,
+        "cost": 4, "damage": 75, "delay": 3, "copies": 1, "shield": 150,
     },
     {
         "name": "toxicBloon", "displayName": "Toxic Bloon",
@@ -379,7 +379,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 5, "damage": 100, "delay": 2, "copies": 4,
+        "cost": 5, "damage": 120, "delay": 2, "copies": 4,
     },
     {
         "name": "drainingBloon", "displayName": "Draining Bloon",
@@ -546,7 +546,7 @@ export const BLOONS = [
 
         "cardType": "bloon",
         "type": "basic",
-        "cost": 3, "damage": 50, "delay": 2, "copies": 1,
+        "cost": 3, "damage": 50, "delay": 2, "copies": 2,
     },
     {
         "name": "slowingBloon", "displayName": "Slowing Bloon",
@@ -749,7 +749,7 @@ export const MONKEYS = [
     {
         "name": "monkeyVillage", "displayName": "Monkey Village",
         "id": "bd",
-        "description": ["Adjacent monkeys have +15 Attack Power"],
+        "description": ["Adjacent monkeys have +20 Attack Power"],
         "events": [],
 
         "cardType": "monkey",
@@ -849,7 +849,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "primary",
         "tower": "tack",
-        "cost": 4, "damage": 20, "ammo": 4, "delay": 3, "defender": 10,
+        "cost": 4, "damage": 25, "ammo": 4, "delay": 3, "defender": 15,
     },
     {
         "name": "heartOfVengeanceDruid", "displayName": "Heart of Vengeance Druid",
@@ -925,7 +925,7 @@ export const MONKEYS = [
         "aliases": ["lightning"],
         "description": [],
         "events": [
-            ["onPlay", "Deal 100 damage to all enemy Bloons"],
+            ["onPlay", "Deal 80 damage to all enemy Bloons"],
         ],
 
         "cardType": "monkey",
@@ -1257,7 +1257,7 @@ export const POWERS = [
         "cardType": "power",
         "type": "basic",
         "hero": "Gwendolin",
-        "cost": 1,
+        "cost": 1, "copies": 2
     },
     {
         "name": "manaShield", "displayName": "Mana Shield",
@@ -1398,7 +1398,7 @@ export const POWERS = [
         "name": "rapidShot", "displayName": "Rapid Shot",
         "id": "bS",
         "events": [
-            ["onPlay", "Deal 40 damage to a random enemy Bloon 4 times."]
+            ["onPlay", "Deal 40 damage to a random enemy Bloon 5 times."]
         ],
 
         "cardType": "power",
@@ -1611,7 +1611,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
-        "cost": 8,
+        "cost": 10,
     },
     {
         "name": "doubleTrouble", "displayName": "Double Trouble",
@@ -1633,13 +1633,13 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
-        "cost": 2,
+        "cost": 2, "copies": 2
     },
     {
         "name": "naturesClarity", "displayName": "Nature's Clarity",
         "id": "cn",
         "events": [
-            ["onPlay", "Pick 4. Gain 20 shield per Gold cost of picked card."]
+            ["onPlay", "Pick 3. Gain 15 shield per Gold cost of picked card."]
         ],
 
         "cardType": "power",
@@ -1657,7 +1657,7 @@ export const POWERS = [
         "cardType": "power",
         "type": "exotic",
         "hero": "Gwendolin",
-        "cost": 4,
+        "cost": 4, "copies": 2
     },
     {
         "name": "ceasefire", "displayName": "Ceasefire",
@@ -1864,8 +1864,9 @@ export const POWERS = [
         "purchaseCurrency": "bloontonium"
     },
     {
-        "name": "redBloonApocalypse", "displayName": "Red Bloon Apocalypse",
+        "name": "redBloonApopalypse", "displayName": "Red Bloon Apopalypse",
         "id": "cX",
+        "aliases": ["red bloon apocalypse"],
         "description": [],
         "events": [
             ["onPlay", {"type": "fillBothSides", "name": "redBloon"}]

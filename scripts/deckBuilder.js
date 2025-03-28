@@ -315,7 +315,8 @@ document.getElementById("heroContainer").addEventListener("click", function () {
         case "Gwendolin":       deck.setHero("Obyn");       break;
         case "Obyn":            deck.setHero("Amelia");     break;
         case "Amelia":          deck.setHero("Adora");      break;
-        case "Adora":  default: deck.setHero("Quincy");     break;
+        case "Adora":           deck.setHero("Zee Jay");    break;
+        case "Zee Jay":  default: deck.setHero("Quincy");     break;
     }
 });
 
@@ -347,11 +348,13 @@ function generateDeckImage() {
     try {
         const imagePreviewContainer = document.getElementById("imagePreviewContainer")
 
+        const heroStr = deck.hero.replace(/\s/g, "");
+
         const imageHeader = new Element("div")
             .class("imageHeader", "imageBoxShadow")
             .children(
                 new Element("h2")
-                    .class("bcsfont", "imageDeckTitle", `imageDeckTitle-${deck.hero}`)
+                    .class("bcsfont", "imageDeckTitle", `imageDeckTitle-${heroStr}`)
                     .text(deck.deckName)
             )
 
@@ -538,7 +541,7 @@ function generateDeckImage() {
 
         const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
             .children(
-                new Element("p").class("bcsfont").text("BCS Popology • game version 2.0")
+                new Element("p").class("bcsfont").text("BCS Popology • game version 3.2")
             )
 
         const image = new Element("div")
@@ -615,7 +618,7 @@ function generateDeckImage() {
             }
         }).catch((err) => {imageGenFailedDialog(err)});
 
-        // imagePreviewContainer.classList.remove("showImagePreviewContainer")
+        imagePreviewContainer.classList.remove("showImagePreviewContainer")
     } catch (error) {
         imageGenFailedDialog(error)
     }
@@ -1052,8 +1055,6 @@ function restoreUserDecks(event) {
             }
             userDecks.restoreDecks(data)
             localStorage.setItem('userDecks', data);
-
-
             displayManageDecksDialog()
         };
         reader.readAsText(file);

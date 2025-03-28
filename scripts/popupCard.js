@@ -14,7 +14,7 @@ export function popupCard(card) {
         </div>
         <div class="cardPopupInfoWrapper"></div>
     `
-    generateCard(card, document.querySelector(".cardPopupCardContainer"));
+    generateCard(card, document.querySelector(".cardPopupCardContainer"), 'popupCard');
 
     const statChipContainer = new Element("div").class("statChipContainer");
     const propertiesAsStatChips = ["cost", "damage", "delay", "copies", "shield"];

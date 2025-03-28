@@ -94,6 +94,7 @@ export class Deck {
             case "Obyn":            dataString +=   "3"; break;
             case "Amelia":          dataString +=   "4"; break;
             case "Adora":           dataString +=   "5"; break;
+            case "Zee Jay":           dataString +=   "6"; break;
         }
         shrunkObject.deck.forEach((shrunkCard) => {
             const cardId = [...BLOONS, ...POWERS, ...MONKEYS].find(c => c.name === shrunkCard.name).id
@@ -140,6 +141,9 @@ export class Deck {
                 break;
             case 5:
                 this.hero = "Adora";
+                break;
+            case 6:
+                this.hero = "Zee Jay";
                 break;
         }
         dataString = dataString.substring(1)
