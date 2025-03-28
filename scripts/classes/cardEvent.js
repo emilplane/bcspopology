@@ -31,6 +31,20 @@ export class CardEvent {
                     name = bloon.displayName
                 }
                 return `Spawns a ${name}.`
+            case "fillYourSide":
+                const fillYourSideBloon = BLOONS.find(bloon => bloon.name === this.action.name)
+                let fillYourSideName = this.action.name
+                if (fillYourSideBloon !== undefined) {
+                    fillYourSideName = fillYourSideBloon.displayName
+                }
+                return `Fills your side with ${fillYourSideName}s.`
+            case "fillBothSides":
+                const fillBothSidesBloon = BLOONS.find(bloon => bloon.name === this.action.name)
+                let fillBothSidesName = this.action.name
+                if (fillBothSidesBloon !== undefined) {
+                    fillBothSidesName = fillBothSidesBloon.displayName
+                }
+                return `Fills both sides with ${fillBothSidesName}s.`
             case "drawCard":
                 const card = [...BLOONS, ...MONKEYS, ...POWERS].find(bloon => bloon.name === this.action.name)
                 let cardName = this.action.name
@@ -83,6 +97,38 @@ export class CardEvent {
                     new Element("span").text("Spawns a "),
                     toCardLink,
                     new Element("span").text(".")
+                )
+            case "fillYourSide":
+                const fillYourSideBloon = BLOONS.find(bloon => bloon.name === this.action.name)
+                let fillYourSideName = this.action.name
+                if (fillYourSideBloon !== undefined) {
+                    fillYourSideName = fillYourSideBloon.displayName
+                }
+                const fillYourSideToCardLink = new Element("span")
+                    .class("openCardLink")
+                    .text(fillYourSideName)
+
+                fillYourSideToCardLink.onclick(() => popupCard(new Card(fillYourSideBloon)))
+                return new Element("p").children(
+                    new Element("span").text("Fills both sides with "),
+                    fillYourSideToCardLink,
+                    new Element("span").text("s.")
+                )
+            case "fillBothSides":
+                const fillBothSidesBloon = BLOONS.find(bloon => bloon.name === this.action.name)
+                let fillBothSidesName = this.action.name
+                if (fillBothSidesBloon !== undefined) {
+                    fillBothSidesName = fillBothSidesBloon.displayName
+                }
+                const fillBothSidesToCardLink = new Element("span")
+                    .class("openCardLink")
+                    .text(fillBothSidesName)
+
+                fillBothSidesToCardLink.onclick(() => popupCard(new Card(fillBothSidesBloon)))
+                return new Element("p").children(
+                    new Element("span").text("Fills your side with "),
+                    fillBothSidesToCardLink,
+                    new Element("span").text("s.")
                 )
             case "drawCards":
                 return new Element("p").children(

@@ -19,7 +19,7 @@ export function popupCard(card) {
     const statChipContainer = new Element("div").class("statChipContainer");
     const propertiesAsStatChips = ["cost", "damage", "delay", "copies", "shield"];
     const propertyDescriptions = {
-        "cost": "How much gold each copy of the card costs.",
+        "cost": `How much ${card.purchaseCurrency} each copy of the card costs.`,
         "damage": `Amount of ${card.cardType === "monkey" ? "damage each attack does." : "HP this Bloon has, and the amount of damage it deals to the opponent's hero."}`,
         "delay": `The amount of turns it takes for this ${card.cardType === "monkey" ? "tower to reload its ammo." : "Bloon to damage the opponent's hero."}`,
         "shield": `Blocks up to ${card.shield} damage.`

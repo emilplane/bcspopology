@@ -31,6 +31,11 @@ export default class Card {
         }
         this.cost = this.blueprint.cost
 
+        this.purchaseCurrency = "gold"
+        if (this.blueprint.purchaseCurrency === "bloontonium") {
+            this.purchaseCurrency = "bloontonium"
+        }
+
         if (this.blueprint.copies === undefined) {
             this.copies = 1
         } else {

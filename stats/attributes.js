@@ -22,5 +22,11 @@ export const attributes = {
         "description": () => {
             return `You can only add one copy of this card to your deck.`
         },
+    },
+    "targetIsDoomed": {
+        "displayName": "Target is Doomed",
+        "description": () => {
+            return `This monkey is removed at the start of its next turn.`
+        },
     }
 }

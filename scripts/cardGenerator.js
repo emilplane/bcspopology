@@ -32,16 +32,25 @@ const TEXT = {
     "CONTAINER_Y": 170,
     "CONTAINER_BORDER_RADIUS": 20,
     "TITLE_FONT_SIZE_FACTOR": 0.8,
-    "DESCRIPTION_FONT_SIZE_FACTOR": 0.6
+    "DESCRIPTION_FONT_SIZE_FACTOR": 0.58
 }
 
-const COST = {
+const GOLD_COST = {
     "X": 0,
     "Y": 0,
     "RADIUS": 35,
     "TEXT_X": 35,
     "TEXT_Y": 48,
-    "COIN_SPACING": 20
+    "CURRENCY_SPACING": 20
+}
+
+const BLOONTONIUM_COST = {
+    "X": 7,
+    "Y": 0,
+    "RADIUS": 28,
+    "TEXT_X": 35,
+    "TEXT_Y": 48,
+    "CURRENCY_SPACING": 20
 }
 
 const DAMAGE = {
@@ -277,8 +286,10 @@ export function generateCard(card, outputContainer) {
             `
         }
         
-        ${generateCoinCopies(card.copies)}
-        <text x=${COST.TEXT_X} y=${COST.TEXT_Y} class="bcsfont cardStatText" 
+        ${
+            generateCurrencyImage(card)
+        }
+        <text x=${GOLD_COST.TEXT_X} y=${GOLD_COST.TEXT_Y} class="bcsfont cardStatText" 
             text-anchor="middle">${card.cost}</text>
         
         ${damageInfo}
@@ -378,11 +389,13 @@ function generateBackgroundText() {
     return output.join('');
 }
 
-function generateCoinCopies(amountOfRepeats) {
+function generateCurrencyImage(card) {
     const output = [];
-    for (let i = 0; i < amountOfRepeats; i++) {
-        output.unshift(`<image x=${COST.X+(COST.COIN_SPACING*i)} y=${COST.Y} width=${COST.RADIUS * 2}
-            href="media/coin.png"
+    const currencyImage = `media/${card.purchaseCurrency}.png`
+    const currencyTransformData = card.purchaseCurrency === "bloontonium" ? BLOONTONIUM_COST : GOLD_COST;
+    for (let i = 0; i < card.copies; i++) {
+        output.unshift(`<image x=${currencyTransformData.X+(currencyTransformData.CURRENCY_SPACING*i)} y=${currencyTransformData.Y} width=${currencyTransformData.RADIUS * 2}
+            href="${currencyImage}"
         />`);
     }
     return output.join('');

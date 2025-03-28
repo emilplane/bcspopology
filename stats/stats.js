@@ -559,6 +559,68 @@ export const BLOONS = [
         "cardType": "bloon",
         "type": "basic",
         "cost": 3, "damage": 140, "delay": 3, "copies": 2,
+    },
+    {
+        "name": "pinataBloon", "displayName": "Piñata Bloon",
+        "id": "cL",
+        "aliases": ["pinata bloon"],
+        "description": [],
+        "events": [
+            ["onDamaged", "Both players +1 Gold."],
+            ["onPopped", "Attacking Monkey reloads immediately."],
+        ],
+
+        "cardType": "bloon",
+        "type": "large",
+        "cost": 4, "damage": 300, "delay": 3, "copies": 1,
+    },
+    {
+        "name": "boosterBloon", "displayName": "Booster Bloon",
+        "id": "cM",
+        "description": [],
+        "events": [
+            ["onPlay", "Increase target friendly Bloon's delay +1 and health +100."],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 2, "damage": 50, "delay": 2, "copies": 2,
+    },
+    {
+        "name": "theEternal", "displayName": "The Eternal",
+        "id": "cN",
+        "description": [],
+        "events": [
+            ["onDestroyed", "Add a copy of this card to your hand with +70 health."],
+        ],
+
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 2, "damage": 70, "delay": 2, "copies": 1,
+        "attributes": ["unique"]
+    },
+    {
+        "name": "extractorBloon", "displayName": "Extractor Bloon",
+        "id": "cO",
+        "description": ["Gain 10 Health each time an enemy Bloon takes damage."],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 4, "damage": 100, "delay": 4, "copies": 1
+    },
+    {
+        "name": "zeeJaySpecial", "displayName": "Zee Jay Special",
+        "id": "cP",
+        "description": [],
+        "events": [
+            ["onPlay", "Gain 1 Rad Token."],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "hero": "Zee Jay",
+        "cost": 3, "damage": 80, "delay": 1, "copies": 2
     }
 ]
 
@@ -1094,6 +1156,72 @@ export const MONKEYS = [
         "tower": "agent",
         "cost": 2,
     },
+    {
+        "name": "bloontoniumMiner", "displayName": "Bloontonium Miner",
+        "id": "cQ",
+        "description": [],
+        "events": [
+            ["onPlay", {"type": "gainBloontonium", "value": 1}],
+            ["onTurnStart", {"type": "gainBloontonium", "value": 1}]
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "miner",
+        "cost": 1, "damage": 10, "ammo": 1, "delay": 1
+    },
+    {
+        "name": "leechingShotSniper", "displayName": "Leeching Shot Sniper",
+        "id": "cR",
+        "description": [],
+        "events": [
+            ["onAttack", {"type": "gainBloontonium", "value": 2}],
+        ],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "sniper",
+        "cost": 2, "damage": 50, "ammo": 1, "delay": 2
+    },
+    {
+        "name": "mineSupervisor", "displayName": "Mine Supervisor",
+        "id": "cS",
+        "description": [],
+        "events": [
+            ["onTurnStart", "Gain +1 Bloontonium per friendly Miner in play."],
+        ],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "miner",
+        "cost": 4, "damage": 45, "ammo": 1, "delay": 1
+    },
+    {
+        "name": "bloontoniumSaboteur", "displayName": "Bloontonium Saboteur",
+        "id": "cT",
+        "description": [],
+        "events": [
+            ["onPlay", "Opponent loses 4 Bloontonium."],
+        ],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "agent",
+        "cost": 3, "damage": 30, "ammo": 1, "delay": 1
+    },
+    {
+        "name": "monkeyPriestess", "displayName": "Monkey Priestess",
+        "id": "cU",
+        "description": [],
+        "events": [
+            ["onReplace", {"type": "gainHeroHP", "value": 200}],
+        ],
+
+        "cardType": "monkey",
+        "type": "military",
+        "tower": "agent",
+        "cost": 3, "damage": 20, "ammo": 2, "delay": 2
+    },
 ]
 
 export const POWERS = [
@@ -1215,7 +1343,7 @@ export const POWERS = [
         "name": "redBloonStorm", "displayName": "Red Bloon Storm",
         "id": "bN",
         "events": [
-            ["onPlay", "Fills your side with Red Bloons."]
+            ["onPlay", {"type": "fillYourSide", "name": "redBloon"}]
         ],
 
         "cardType": "power",
@@ -1712,5 +1840,72 @@ export const POWERS = [
         "type": "basic",
         "cost": 2,
         "hero": "Quincy"
+    },
+    {
+        "name": "overload", "displayName": "Overload",
+        "id": "cV",
+        "description": ["Destroy target Bloon with 100 or less Health."],
+        "events": [],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 5,
+        "purchaseCurrency": "bloontonium"
+    },
+    {
+        "name": "massDetonation", "displayName": "Mass Detonation",
+        "id": "cW",
+        "description": ["Deal 150 damage and 50 splash damage to highest enemy Bloon 3 times."],
+        "events": [],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 10,
+        "purchaseCurrency": "bloontonium"
+    },
+    {
+        "name": "redBloonApocalypse", "displayName": "Red Bloon Apocalypse",
+        "id": "cX",
+        "description": [],
+        "events": [
+            ["onPlay", {"type": "fillBothSides", "name": "redBloon"}]
+        ],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 8,
+    },
+    {
+        "name": "desperateDefense", "displayName": "Desperate Defense",
+        "id": "cY",
+        "description": ["Your Monkeys have +25 Attack Power until the start of your next turn."],
+        "events": [],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
+    {
+        "name": "fastAndLoose", "displayName": "Fast and Loose",
+        "id": "cZ",
+        "events": [
+            ["onPlay", "Pick 3. If it costs 3 Gold or less, gain 2 Rad Tokens."]
+        ],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+        "hero": "Zee Jay",
+    },
+    {
+        "name": "stylishFinish", "displayName": "Stylish Finish",
+        "id": "cZ",
+        "description": ["Target friendly Monkey gains +30 Attack Power."],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 1,
+        "hero": "Zee Jay",
+        "attributes": ["targetIsDoomed"]
     },
 ]
