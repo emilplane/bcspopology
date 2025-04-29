@@ -1861,7 +1861,8 @@ export const POWERS = [
         "cardType": "power",
         "type": "advanced",
         "cost": 10,
-        "purchaseCurrency": "bloontonium"
+        "purchaseCurrency": "bloontonium",
+        "attributes": ["unique"]
     },
     {
         "name": "redBloonApopalypse", "displayName": "Red Bloon Apopalypse",

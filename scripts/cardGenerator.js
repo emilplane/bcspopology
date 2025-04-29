@@ -376,6 +376,8 @@ export function generateCard(card, outputContainer, uniqueSvgDefsId = '') {
     window.addEventListener('load', adjustDescription);
     window.addEventListener('resize', adjustDescription);
     adjustDescription();
+
+    return {adjustTitle, adjustDescription}
 }
 
 function generateBackgroundText() {

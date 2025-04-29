@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="styles/deckBuilder.css"/>
         <link rel="stylesheet" href="styles/cardPopup.css"/>
         <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+        <script type="module" src="scripts/coverImage.js"></script>
         <style>
             @font-face {
                 font-family: 'BCS Font';
@@ -115,14 +116,7 @@
     <dialog class="manageDecksDialog" id="manageDecksDialog">
         <div class="manageDecksDialogContents" id="manageDecksDialogContents"></div>
     </dialog>
-    <style id="coverImageStyle">
-        .coverImage {
-            background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url('media/cardArt/zeeJaySpecial.png');
-            @media (prefers-color-scheme: dark) {
-                background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('media/cardArt/zeeJaySpecial.png');
-            }
-        }
-    </style>
+    <style id="coverImageStyle"></style>
     <script type="module" src="scripts/home.js"></script>
     <script type="module" src="scripts/deckBuilder.js"></script>
 </html>

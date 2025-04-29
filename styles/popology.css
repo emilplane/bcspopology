@@ -1,12 +1,129 @@
-.titleContainer {
-    height: 200px;
+#content {
     display: flex;
     flex-direction: column;
+    gap: 24px;
+}
+
+.titleWrapper {
+}
+
+.titleWrapper {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--transparent-background-light);
+}
+
+.titleContainer {
+    padding: 8px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.loadingBarContainer {
+    position: relative;
+    height: 0;
+    width: 100%;
+}
+
+.loadingBar {
+    width: 100%;
+    background-color: var(--primaryDark2);
+    height: 3px;
+    position: absolute;
+    left: 0;
+    top: -3px;
+    transition: opacity 0.3s;
+    animation: fadeLoadingBar 500ms infinite alternate;
+    opacity: 1;
+}
+
+@keyframes fadeLoadingBar {
+    0% {
+        background-color: var(--primaryDark1);
+    }
+    100% {
+        background-color: var(--primaryLight2);
+    }
+}
+
+.loadingBarHidden {
+    opacity: 0;
+}
+
+.quickFiltersContainer {
+    margin-left: auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.quickFiltersSection {
+    display: flex;
+    gap: 6px;
+}
+
+.quickFilterIconButton {
+    padding: 2px;
+    width: 38px;
+    aspect-ratio: 1;
+    background: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
-    padding-bottom: 48px
 }
+
+.quickFilterIconButton:hover {
+    background: none;
+}
+
+.bloonIconButton {
+    border-radius: 12px;
+    padding: 0.5px;
+}
+.bloonIconButton.filterButtonSelected {
+    background-color: hsl(207, 100%, 41%);
+}
+.bloonIconButton:hover {
+    background-color: hsl(207, 100%, 58%);
+}
+
+.powerIconButton {
+    border-radius: 12px;
+    padding: 0.5px;
+}
+.powerIconButton.filterButtonSelected {
+    background-color: hsl(283, 100%, 35%);
+}
+.powerIconButton:hover {
+    background-color: hsl(283, 100%, 50%);
+}
+
+.monkeyIconButton {
+    border-radius: 12px;
+    padding: 0.5px;
+}
+.monkeyIconButton.filterButtonSelected {
+    background-color: hsl(8, 100%, 39%);
+}
+.monkeyIconButton:hover {
+    background-color: hsl(8, 100%, 51%);
+}
+
+.quickFilterIconButton img {
+    height: 34px;
+}
+
+
+/*.flex-item {*/
+/*    padding: 10px;*/
+/*    margin: 0;*/
+/*    border-right: 1px solid #ccc;  !* Add border on the right side *!*/
+/*}*/
+
+/*.flex-item:last-child {*/
+/*    border-right: none;  !* Remove the border from the last item *!*/
+/*}*/
 
 .searchContainer {
     display: flex;
@@ -17,12 +134,15 @@
 
 .cardGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 8px;
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1000px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media screen and (max-width: 800px) {
         grid-template-columns: repeat(3, 1fr);
     }
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 600px) {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -36,4 +156,69 @@
     cursor: pointer;
     transform: scale(1.1);
     transition: 0.25s ease-in-out;
+}
+
+.bottomNavBarGap {
+    height: 46px;
+}
+
+.bottomNavBarContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 16px);
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.bottomNavBar {
+    height: 30px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--transparent-background-light);
+    border-radius: 8px;
+    gap: 6px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.pageInput {
+    width: 50px;
+    text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+    .titleContainer {
+        flex-direction: column;
+        align-items: start;
+        height: auto;
+        gap: 4px;
+    }
+
+    .quickFiltersContainer {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .titleContainer {
+        align-items: center;
+    }
+
+    .quickFiltersContainer {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .titleContainer {
+        background-color: var(--transparent-background-dark);
+    }
+
+    .bottomNavBar {
+        background-color: var(--transparent-background-dark);
+    }
 }

@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="styles/style.css"/>
         <link rel="stylesheet" href="styles/home.css"/>
+        <script type="module" src="scripts/coverImage.js"></script>
     </head>
     <body>
         <main id="main">
@@ -36,6 +37,16 @@
                     </div>
                     <section class="welcomeContainer">
                         <h1>Version History</h1>
+                    </section>
+                    <section class="roundedBoxSection">
+                        <h4>Website 6.0</h4>
+                        <p>Added a debounce to the function to update the Popology page's content</p>
+                        <p>Added filters for card categories</p>
+                        <p>Added pages to the card list to limit the amount of cards on the page at a time</p>
+                        <p>The website's splash art is now a random tower card art!</p>
+                        <p>Fixed an issue on Firefox with the Deck Builder's image export where the text of cards would overlap with the card's image</p>
+                        <p>Mass Detonation is now properly classified as Unique (gast86)</p>
+                        <p>Added missing card art</p>
                     </section>
                     <section class="roundedBoxSection">
                         <h4>Website 5.4</h4>
@@ -167,13 +178,6 @@
             margin-bottom: 8px;
         }
     </style>
-    <style id="coverImageStyle">
-        .coverImage {
-            background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url('media/cardArt/zeeJaySpecial.png');
-            @media (prefers-color-scheme: dark) {
-                background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('media/cardArt/zeeJaySpecial.png');
-            }
-        }
-    </style>
+    <style id="coverImageStyle"></style>
     <script type="module" src="scripts/home.js"></script>
 </html>

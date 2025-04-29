@@ -18,6 +18,9 @@
         <link rel="stylesheet" href="styles/card.css"/>
         <link rel="stylesheet" href="styles/cardPopup.css"/>
         <link rel="stylesheet" href="styles/popology.css"/>
+        <script type="module" src="scripts/home.js"></script>
+        <script type="module" src="scripts/popology.js"></script>
+        <script type="module" src="scripts/coverImage.js"></script>
     </head>
     <body>
         <main id="main">
@@ -36,18 +39,58 @@
                             <span class="material-symbols-outlined menuIcon">menu</span>
                         </div>
                     </div>
+                    <div style="display: none">
+                        <h1>Cards</h1>
+                        <div>
+                            <label class="searchContainer">
+                                <input type="text" class="searchInput" id="searchInput"
+                                       placeholder="Search cards..." autocomplete="off">
+                            </label>
+                        </div>
+                    </div>
                     <div id="content">
-                        <div class="titleContainer">
-                            <h1>Cards</h1>
-                            <div>
-                                <label class="searchContainer">
-                                    <input type="text" class="searchInput" id="searchInput"
-                                           placeholder="Search cards..." autocomplete="off">
-                                </label>
+                        <div class="titleWrapper">
+                            <div class="titleContainer">
+                                <h2 class="bcsfont">Browse Cards</h2>
+                                <div class="quickFiltersContainer">
+                                    <div class="quickFiltersSection">
+                                        <button class="quickFilterIconButton bloonIconButton" id="quickFilter_bloons">
+                                            <img src="media/bloonIcon.png" alt="Bloons Button">
+                                        </button>
+                                        <button class="quickFilterIconButton powerIconButton" id="quickFilter_powers">
+                                            <img src="media/powerIcon.png" alt="Powers Button">
+                                        </button>
+                                        <button class="quickFilterIconButton monkeyIconButton" id="quickFilter_monkeys">
+                                            <img src="media/monkeyIcon.png" alt="Monkeys Button">
+                                        </button>
+                                    </div>
+                                    <div class="quickFiltersSection">
+                                        <label class="searchContainer">
+                                            <input type="text" class="searchFilter" id="searchFilter"
+                                                   placeholder="Enter a keyword..." autocomplete="off">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="loadingBarContainer">
+                                <div class="loadingBar" id="loadingBar"></div>
                             </div>
                         </div>
                         <div id="cardContent">
-
+                            <div class="cardGrid" id="cardGrid"></div>
+                            <div class="bottomNavBarGap"></div>
+                            <div class="bottomNavBarContainer">
+                                <div class="bottomNavBar">
+                                    <button id="setFirstPageButton">First</button>
+                                    <button id="previousPageButton">Previous</button>
+                                    <label>
+                                        <input type="text" class="pageInput" id="pageInput"
+                                               placeholder="1" autocomplete="off">
+                                    </label>
+                                    <button id="nextPageButton">Next</button>
+                                    <button id="setLastPageButton">Last</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="cardPopupWrapper">
@@ -71,14 +114,5 @@
         <a href="deckBuilder.html"><h3>Deck Builder</h3></a>
         <a href="https://discord.gg/mJDw5qzvHV"><h3>Discord Server</h3></a>
     </dialog>
-    <style id="coverImageStyle">
-        .coverImage {
-            background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url('media/cardArt/zeeJaySpecial.png');
-            @media (prefers-color-scheme: dark) {
-                background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('media/cardArt/zeeJaySpecial.png');
-            }
-        }
-    </style>
-    <script type="module" src="scripts/home.js"></script>
-    <script type="module" src="scripts/popology.js"></script>
+    <style id="coverImageStyle"></style>
 </html>

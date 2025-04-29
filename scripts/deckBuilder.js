@@ -366,8 +366,9 @@ function generateDeckImage() {
             imageCardImgContainer.element.style.backgroundImage = `url(media/cardArt/${card.name}.png)`
 
             const shrinkTextInCardsClasses = []
-            if (deck.deck.length > 24) shrinkTextInCardsClasses.push("shrinkCard")
-            if (deck.deck.length > 28) {
+            console.log(deck.uniqueCardLength)
+            if (deck.uniqueCardLength > 22) shrinkTextInCardsClasses.push("shrinkCard")
+            if (deck.uniqueCardLength > 28) {
                 shrinkTextInCardsClasses.push("shrinkCard2")
             }
             allCards.class(...shrinkTextInCardsClasses)

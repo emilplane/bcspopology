@@ -13,8 +13,6 @@
     --primaryDark2: hsl(248, 55%, 40%);
     --primaryDark2b: hsl(249, 55%, 30%);
     --primaryDark3: hsl(249, 55%, 20%);
-    --primaryDark3: hsl(249, 55%, 20%);
-
     --shade1: hsl(0, 0%, 100%);
     --shade2: hsl(0, 0%, 95%);
     --shade2_5: hsl(0, 0%, 85%);
@@ -31,8 +29,8 @@
     --warningColorLight: hsl(0, 100%, 67%);
     --warningColorDark: hsl(0, 100%, 34%);
 
-    --transparent-background-light: hsla(0, 0%, 70%, 0.7);
-    --transparent-background-dark: hsla(0, 0%, 30%, 0.7);
+    --transparent-background-light: hsla(0, 0%, 70%, 0.8);
+    --transparent-background-dark: hsla(0, 0%, 30%, 0.8);
 
     --b2popologyLight3: hsl(161, 61%, 82%);
     --b2popologyLight2: hsl(160, 56%, 74%);
@@ -49,7 +47,7 @@
 }
 
 html {
-	font-family: "Roboto";
+    font-family: "Roboto", serif;
 }
 
 body {
@@ -73,7 +71,7 @@ h1, h2, h3, h4, h5, h6, p, ul, select, button, table, thead, tbody, td {
 }
 
 h1, h2, h3, h4, h5, h6, button, input, select, thead, .tableHead {
-    font-family: "Gabarito";
+    font-family: "Gabarito", serif;
     font-weight: 400;
     /* font-family: "Comic Neue";
     font-weight: 600; */
@@ -100,11 +98,11 @@ input {
 }
 
 p, ul, td, th {
-    font-family: "Roboto";
+    font-family: "Roboto", serif;
     font-weight: 100;
     /* font-family: "Comic Neue";
     font-weight: 400; */
-    padding: 0px 0;
+    padding: 0 0;
 }
 
 .largeText2 {
@@ -391,11 +389,12 @@ a {
 
 .coverImage {
     opacity: .5; filter: blur(4px);
-    width: 100%; height: 500px; 
+    width: 100%; height: 80vh;
     object-fit: cover; 
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center;
+    position: fixed;
 }
 
 .playerCoverImage {
