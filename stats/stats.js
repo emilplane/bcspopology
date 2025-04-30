@@ -443,7 +443,7 @@ export const BLOONS = [
 
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 8, "damage": 150, "delay": 2, "copies": 2,
+        "cost": 7, "damage": 180, "delay": 2, "copies": 2,
     },
     // Rainbow
     {
@@ -534,7 +534,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "large",
-        "cost": 10, "damage": 800, "delay": 5, "copies": 1,
+        "cost": 10, "damage": 900, "delay": 5, "copies": 1,
     },
     {
         "name": "signalBloon", "displayName": "Signal Bloon",
@@ -584,7 +584,7 @@ export const BLOONS = [
 
         "cardType": "bloon",
         "type": "basic",
-        "cost": 2, "damage": 50, "delay": 2, "copies": 2,
+        "cost": 2, "damage": 50, "delay": 3, "copies": 2,
     },
     {
         "name": "theEternal", "displayName": "The Eternal",
@@ -1303,7 +1303,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "basic",
-        "cost": 3,
+        "cost": 3, "copies": 2
     },
     {
         "name": "supplyDrop", "displayName": "Supply Drop",
@@ -1588,7 +1588,7 @@ export const POWERS = [
 
         "cardType": "power",
         "type": "exotic",
-        "cost": 6,
+        "cost": 7,
     },
     {
         "name": "expertNegotiator", "displayName": "Expert Negotiator",
