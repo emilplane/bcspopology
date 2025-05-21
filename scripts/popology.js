@@ -9,6 +9,7 @@ const quickFilterMonkeysButton = document.getElementById("quickFilter_monkeys");
 const quickFilterPowersButton = document.getElementById("quickFilter_powers");
 const quickFilterBloonsButton = document.getElementById("quickFilter_bloons");
 const loadingBar = document.getElementById("loadingBar");
+const amountOfCardsDropdown = document.getElementById("amountPerPage")
 
 let page = 1;
 let amountOfCardsPerPage = 20;
@@ -148,6 +149,14 @@ document.getElementById("setLastPageButton").addEventListener("click", () => {
     contentUpdateDebounce();
 })
 
+amountOfCardsDropdown.addEventListener("change", (event) => {
+    let amountNumber = Number(event.target.value)
+    if (isNaN(amountNumber)) amountNumber = 20;
+    amountOfCardsDropdown.value = amountNumber;
+    amountOfCardsPerPage = amountNumber;
+    contentUpdateDebounce();
+})
+
 quickFilterBloonsButton.addEventListener("click", () => {
     filters.categories.bloons = !filters.categories.bloons;
     contentUpdateDebounce({ resetPageCount: true });
@@ -164,30 +173,8 @@ quickFilterMonkeysButton.addEventListener("click", () => {
 })
 
 document.getElementById("searchFilter").addEventListener("input", function(event) {
-    let input = String(event.target.value);
-    const noInput = input === "";
-    filters.keyword = input;
+    filters.keyword = String(event.target.value);
     contentUpdateDebounce({ resetPageCount: true });
-
-    // function hideOrShowCards(arrayOfCards) {
-    //     arrayOfCards.forEach(bloonCardBlueprint => {
-    //         const card = new Card(bloonCardBlueprint);
-    //         const element = document.getElementById(`${card.name}Card`)
-    //
-    //         let displayCard = noInput;
-    //
-    //         if (noInput) {
-    //             element.style.order = "0"
-    //         } else {
-    //             if (card.searchInCard(input) > 0) displayCard = true;
-    //             element.style.order = String(-card.searchInCard(input))
-    //         }
-    //
-    //         element.style.display = displayCard  ? "flex" : "none";
-    //     })
-    // }
-
-    // hideOrShowCards([...BLOONS, ...POWERS, ...MONKEYS])
 });
 
 function calculateHighestPage() {

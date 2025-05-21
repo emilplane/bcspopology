@@ -81,14 +81,33 @@
                             <div class="bottomNavBarGap"></div>
                             <div class="bottomNavBarContainer">
                                 <div class="bottomNavBar">
-                                    <button id="setFirstPageButton">First</button>
-                                    <button id="previousPageButton">Previous</button>
-                                    <label>
-                                        <input type="text" class="pageInput" id="pageInput"
-                                               placeholder="1" autocomplete="off">
-                                    </label>
-                                    <button id="nextPageButton">Next</button>
-                                    <button id="setLastPageButton">Last</button>
+                                    <div class="emptyNavBarSection"></div>
+                                    <div class="pageButtonsContainer">
+                                        <button id="setFirstPageButton">First</button>
+                                        <button id="previousPageButton">Previous</button>
+                                        <label>
+                                            <input type="text" class="pageInput" id="pageInput"
+                                                   placeholder="1" autocomplete="off">
+                                        </label>
+                                        <button id="nextPageButton">Next</button>
+                                        <button id="setLastPageButton">Last</button>
+                                    </div>
+                                    <div class="amountPerPageContainer">
+                                        <div style="display: flex; flex-direction: column; align-items: end; justify-content: center">
+                                            <p style="margin-top: -1px; margin-bottom: -1px; font-size: 10pt">cards</p>
+                                            <p style="margin-top: -1px; margin-bottom: -1px; font-size: 10pt">per page</p>
+                                        </div>
+                                        <label for="amountPerPage"></label>
+                                        <select class="amountPerPage" id="amountPerPage">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20" selected="selected">20</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                            <option value="999999">all</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>

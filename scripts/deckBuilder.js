@@ -542,7 +542,7 @@ function generateDeckImage() {
 
         const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
             .children(
-                new Element("p").class("bcsfont").text("BCS Popology • game version 3.2")
+                new Element("p").class("bcsfont").text("BCS Popology • game version 3.4")
             )
 
         const image = new Element("div")
