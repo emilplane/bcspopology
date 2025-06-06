@@ -169,6 +169,14 @@ export default class Card {
     }
 
     /**
+     * Returns the armor of the card.
+     * @returns {number}
+     */
+    get armor() {
+        return this.blueprint.armor;
+    }
+
+    /**
      * Whether this card has the fire property.
      * @returns {boolean}
      */

@@ -163,6 +163,15 @@
     fill: lightgreen;
 }
 
+.shieldText {
+    font-size: 32px;
+    fill: lightgreen;
+}
+
+.armorText {
+    font-size: 32px;
+}
+
 .bcsPopologyText {
     fill: hsla(0, 0%, 100%, 0.6);
     font-size: 6px;

@@ -75,6 +75,23 @@ export const BLOONS = [
         "cost": 3, "damage": 60, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
+    {
+        "name": "cleverBlueBloon", "displayName": "Clever Blue Bloon",
+        "id": "df",
+        "description": [],
+        "events": [
+            ["onPlay",
+                {"type": "if", "value": {
+                    "condition": {"type": "lastPlayedCardType", "value": "Monkey"},
+                    "action": {"type": "damageFirstEnemy", "value": 50}
+                }}
+            ],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 1, "damage": 45, "delay": 2, "copies": 2,
+    },
     // Green
     {
         "name": "greenBloon", "displayName": "Green Bloon",
@@ -119,6 +136,23 @@ export const BLOONS = [
         "cost": 4, "damage": 80, "delay": 1, "copies": 2,
         "attributes": ["double"]
     },
+    {
+        "name": "cleverGreenBloon", "displayName": "Clever Green Bloon",
+        "id": "dg",
+        "description": [],
+        "events": [
+            ["onPlay",
+                {"type": "if", "value": {
+                    "condition": {"type": "lastPlayedCardType", "value": "Monkey"},
+                    "action": {"type": "drawCards", "value": 1}
+                }}
+            ],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 2, "damage": 80, "delay": 1, "copies": 2,
+    },
     // Yellow
     {
         "name": "yellowBloon", "displayName": "Yellow Bloon",
@@ -162,6 +196,23 @@ export const BLOONS = [
         "type": "basic",
         "cost": 5, "damage": 110, "delay": 1, "copies": 2,
         "attributes": ["double"]
+    },
+    {
+        "name": "cleverYellowBloon", "displayName": "Clever Yellow Bloon",
+        "id": "dh",
+        "description": [],
+        "events": [
+            ["onPlay",
+                {"type": "if", "value": {
+                    "condition": {"type": "lastPlayedCardType", "value": "Monkey"},
+                    "action": {"type": "gainHeroHP", "value": 80}
+                }}
+            ],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 120, "delay": 1, "copies": 2,
     },
     // Pink
     {
@@ -219,12 +270,12 @@ export const BLOONS = [
         "id": "at",
         "description": [],
         "events": [
-            ["onTurnStart", "Increase delay by 1. Gives another random friendly bloon +50HP."],
+            ["onTurnStart", "Gives another random friendly bloon +50HP."],
         ],
 
         "cardType": "bloon",
         "type": "basic",
-        "cost": 3, "damage": 100, "delay": 4, "copies": 2,
+        "cost": 3, "damage": 100, "delay": Infinity, "copies": 2,
     },
     {
         "name": "steadyGrowthBloon", "displayName": "Steady Growth Bloon",
@@ -428,7 +479,7 @@ export const BLOONS = [
     
         "cardType": "bloon",
         "type": "advanced",
-        "cost": 2, "damage": 150, "delay": 7, "copies": 1,
+        "cost": 2, "damage": 150, "delay": Infinity, "copies": 1,
         "attributes": ["unique"]
     },
     // Zebra
@@ -621,7 +672,161 @@ export const BLOONS = [
         "type": "basic",
         "hero": "Zee Jay",
         "cost": 3, "damage": 80, "delay": 1, "copies": 2
-    }
+    },
+    {
+        "name": "leadBloon", "displayName": "Lead Bloon",
+        "id": "db",
+        "description": [],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 140, "delay": 2, "copies": 2, "armor": 10
+    },
+    {
+        "name": "leadZeppelin", "displayName": "Lead Zeppelin",
+        "id": "dc",
+        "description": [],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "large",
+        "cost": 14, "damage": 750, "delay": 5, "copies": 1, "armor": 20,
+        "attributes": ["unique"]
+    },
+    {
+        "name": "doubleLeadBloon", "displayName": "Double Lead Bloon",
+        "id": "dd",
+        "description": [],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 5, "damage": 100, "delay": 2, "copies": 2, "armor": 10,
+        "attributes": ["double"]
+    },
+    {
+        "name": "cleverLeadBloon", "displayName": "Clever Lead Bloon",
+        "id": "de",
+        "description": [],
+        "events": [
+            ["onPlay",
+                {"type": "if", "value": {
+                    "condition": {"type": "lastPlayedCardType", "value": "Monkey"},
+                    "action": {"type": "gainArmor", "value": 10}
+                }}
+            ],
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 2, "damage": 70, "delay": 2, "copies": 2, "armor": 10,
+    },
+    {
+        "name": "leadCoatingBloon", "displayName": "Lead Coating Bloon",
+        "id": "dp",
+        "description": [],
+        "events": [
+            ["onTurnEnd", {"type": "armorOtherBloons", "value": 5}],
+        ],
+
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 5, "damage": 80, "delay": 3, "copies": 2, "armor": 30,
+    },
+    {
+        "name": "arbitr", "displayName": "ARBITR",
+        "id": "di",
+        "aliases": ["aerial response bloon invasion target restrictor"],
+        "description": [],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "large",
+        "cost": 5, "damage": 250, "delay": Infinity, "copies": 1,
+        "attributes": ["enemyBloonsCannotAttack"]
+    },
+    {
+        "name": "targetPracticeBlimp", "displayName": "Target Practice Blimp",
+        "id": "dj",
+        "description": [],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "large",
+        "cost": 4, "damage": 220, "delay": Infinity, "copies": 1,
+        "attributes": ["mustPop"]
+    },
+    {
+        "name": "weaponEnhancerBloon", "displayName": "Weapon Enhancer Bloon",
+        "id": "dk",
+        "description": ["Friendly monkeys have +10AP"],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "advanced",
+        "cost": 2, "damage": 100, "delay": Infinity, "copies": 2,
+    },
+    {
+        "name": "bombBloon", "displayName": "Bomb Bloon",
+        "id": "dl",
+        "description": [],
+        "events": [
+            ["onDestroyed", {"type": "addCard", "name": "bombShooter"}]
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 1, "damage": 40, "delay": 1, "copies": 2,
+    },
+    {
+        "name": "rangBloon", "displayName": "Rang Bloon",
+        "id": "dm",
+        "description": [],
+        "events": [
+            ["onDestroyed", {"type": "addCard", "name": "boomerangMonkey"}]
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 1, "damage": 40, "delay": 1, "copies": 2,
+    },
+    {
+        "name": "strikeBloon", "displayName": "Strike Bloon",
+        "id": "dn",
+        "description": [],
+        "events": [
+            ["onLeak", "Heal your hero the amount of damage dealt"]
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 3, "damage": 90, "delay": 1, "copies": 2,
+    },
+    {
+        "name": "rapid", "displayName": "RAPID",
+        "id": "do",
+        "description": [],
+        "events": [
+            ["onTurnStart", {"type": "reduceDelayLastEnemyBloon", "value": 1}]
+        ],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 4, "damage": 150, "delay": Infinity, "copies": 1, "shield": 50,
+        "attributes": ["unique"]
+    },
+    {
+        "name": "tripleThreatBloon", "displayName": "Triple Threat Bloon",
+        "id": "dq",
+        "description": ["Whenever you play a Monkey or Power, this gains 30 shield"],
+        "events": [],
+
+        "cardType": "bloon",
+        "type": "basic",
+        "cost": 4, "damage": 80, "delay": 2, "copies": 1, "shield": 60,
+        "attributes": ["triple"]
+    },
 ]
 
 export const MONKEYS = [
@@ -670,7 +875,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "military",
         "tower": "sniper",
-        "cost": 3, "damage": 75, "ammo": 1, "delay": 2,
+        "cost": 3, "damage": 80, "ammo": 1, "delay": 2,
     },
     {
         "name": "bananaFarm", "displayName": "Banana Farm",
@@ -952,7 +1157,7 @@ export const MONKEYS = [
         "description": [],
         "events": [
             ["onAttack", "Attack up to 2 other random Bloons"],
-            ["onReload", {"type": "drawCard", "name": "yellowBloon"}]
+            ["onReload", {"type": "addCard", "name": "yellowBloon"}]
         ],
 
         "cardType": "monkey",
@@ -1194,7 +1399,7 @@ export const MONKEYS = [
         "cardType": "monkey",
         "type": "support",
         "tower": "miner",
-        "cost": 4, "damage": 45, "ammo": 1, "delay": 1
+        "cost": 4, "damage": 40, "ammo": 1, "delay": 1
     },
     {
         "name": "bloontoniumSaboteur", "displayName": "Bloontonium Saboteur",
@@ -1221,6 +1426,256 @@ export const MONKEYS = [
         "type": "military",
         "tower": "agent",
         "cost": 3, "damage": 20, "ammo": 2, "delay": 2
+    },
+    {
+        "name": "ceramicGlazingKiln", "displayName": "Ceramic Glazing Kiln",
+        "id": "dr",
+        "description": ["When you play a Bloon, give it +25 Health and use 1 Ammo"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "factory",
+        "cost": 3, "ammo": 5,
+        "attributes": ["temporary", "cantAttack"]
+    },
+    {
+        "name": "leadCoatingFactory", "displayName": "Lead Coating Factory",
+        "id": "ds",
+        "description": ["When you play a Bloon, give it +10 Armor and use 1 Ammo"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "factory",
+        "cost": 2, "ammo": 4,
+        "attributes": ["temporary", "cantAttack"]
+    },
+    {
+        "name": "sharpenedDartsLab", "displayName": "Sharpened Darts Lab",
+        "id": "dt",
+        "description": ["When you play a Primary Monkey, it immediately attacks a random enemy Bloon. Use 1 ammo"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "factory",
+        "cost": 2, "ammo": 3,
+        "attributes": ["temporary", "cantAttack"]
+    },
+    {
+        "name": "corvusAcademyOfArts", "displayName": "Corvus Academy Of Arts",
+        "id": "du",
+        "description": ["When your hero would take damage, they take no damage. Use 1 ammo"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "factory",
+        "cost": 8, "ammo": 2,
+        "attributes": ["temporary", "cantAttack"]
+    },
+    {
+        "name": "moabConstructionFacility", "displayName": "MOAB Construction Facility",
+        "id": "dv",
+        "description": ["When you play a Large Bloon, reduce its delay by 1 and deal 100 damage to it. Use 1 ammo"],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "support",
+        "tower": "factory",
+        "cost": 4, "ammo": 3,
+        "attributes": ["temporary", "cantAttack"]
+    },
+    {
+        "name": "bombShooter", "displayName": "Bomb Shooter",
+        "id": "dw",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "bomb",
+        "cost": 2, "damage": 75, "ammo": 1, "delay": 3,
+        "attributes": ["armorPiercing"]
+    },
+    {
+        "name": "missileLauncher", "displayName": "Missile Launcher",
+        "id": "dx",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "bomb",
+        "cost": 5, "damage": 60, "ammo": 1, "delay": 2,
+        "attributes": ["armorPiercing", "double"]
+    },
+    {
+        "name": "moabEliminator", "displayName": "MOAB Eliminator",
+        "id": "dy",
+        "description": [],
+        "events": [
+            ["onAttack",
+                {"type": "if", "value": {
+                    "condition": {"type": "targetType", "value": "Large"},
+                    "action": {"type": "destroyTargetBloon"}
+                }}
+            ],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "bomb",
+        "cost": 16, "damage": 150, "ammo": 1, "delay": 3,
+    },
+    {
+        "name": "moabMauler", "displayName": "MOAB Mauler",
+        "id": "dz",
+        "description": [],
+        "events": [
+            ["onAttack",
+                {"type": "if", "value": {
+                    "condition": {"type": "targetType", "value": "Large"},
+                    "action": {"type": "bonusDamage", "value": 50}
+                }}
+            ],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "bomb",
+        "cost": 7, "damage": 60, "ammo": 2, "delay": 2,
+        "attributes": ["armorPiercing"]
+    },
+    {
+        "name": "fragBombShooter", "displayName": "Frag Bomb Shooter",
+        "id": "dA",
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "bomb",
+        "cost": 6, "damage": [30, 30, 30], "ammo": 3, "delay": 3,
+    },
+    {
+        "name": "alchemistMonkey", "displayName": "Alchemist Monkey",
+        "id": "dB",
+        "description": [],
+        "events": [
+            ["onAttack", {"type": "summonAcidPool"}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 2, "damage": 15, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "leadToGoldMonkey", "displayName": "Lead to Gold Monkey",
+        "id": "dC",
+        "aliases": ["lead 2 gold", "l2g", "ltg"],
+        "description": [],
+        "events": [
+            ["onAttack",
+                {"type": "if", "value": {
+                        "condition": {"type": "targetHasArmor"},
+                        "action": {"type": "gainGold", "value": 2}
+                    }}
+            ],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 3, "damage": 60, "ammo": 1, "delay": 2,
+        "attributes": ["armorPiercing"]
+    },
+    {
+        "name": "totalTransformationMonkey", "displayName": "Total Transformation Monkey",
+        "id": "dD",
+        "aliases": ["tt5"],
+        "description": [],
+        "events": [
+            ["onPlay", "Transform all other friendly Monkeys into transformed Monkeys"],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 12, "damage": 80, "ammo": 2, "delay": 1,
+        "attributes": ["unique"]
+    },
+    {
+        "name": "acidicMixAlchemist", "displayName": "Acidic Mix Alchemist",
+        "id": "dE",
+        "aliases": ["amd", "acidic mixture dip"],
+        "description": [],
+        "events": [
+            ["onPlay", "Target other friendly Monkey gains Armor-Piercing"],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 2, "damage": 25, "ammo": 2, "delay": 2,
+    },
+    {
+        "name": "bloonMasterAlchemist", "displayName": "Bloon Master Alchemist",
+        "id": "dF",
+        "aliases": ["bma"],
+        "description": [],
+        "events": [
+            ["onPlay", {"type": "convertTargetBloon", "name": "redBloon"}],
+            ["onAttack", {"type": "summonAcidPool", "strong": true}],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 8, "damage": 15, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "berserkerBrew", "displayName": "Berserker Brew",
+        "id": "dG",
+        "aliases": ["bbrew"],
+        "description": [],
+        "events": [
+            ["onPlay", "Target other friendly Monkey gains 3 Temporary Ammo, +20AP, and is Doomed"],
+        ],
+
+        "cardType": "monkey",
+        "type": "magic",
+        "tower": "alchemist",
+        "cost": 8, "damage": 30, "ammo": 1, "delay": 1,
+    },
+    {
+        "name": "barrelOfMonkeys", "displayName": "Barrel Of Monkeys",
+        "id": "dH",
+        "aliases": ["barrel", "monkey barrel"],
+        "description": [],
+        "events": [],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "dart",
+        "cost": 1, "damage": 20, "ammo": 1, "delay": 1, "copies": 5
+    },
+    {
+        "name": "shellShockMortar", "displayName": "Shell Shock Mortar",
+        "id": "dI",
+        "description": [],
+        "events": [
+            ["onTurnEnd", "Randomly attacks an enemy Bloon."],
+            ["onAttack", "Stun target for 1 turn"],
+        ],
+
+        "cardType": "monkey",
+        "type": "primary",
+        "tower": "mortar",
+        "cost": 3, "damage": 40, "ammo": 1, "delay": 2,
+        "attributes": ["normalAttacksDisabled"]
     },
 ]
 
@@ -1901,7 +2356,7 @@ export const POWERS = [
     },
     {
         "name": "stylishFinish", "displayName": "Stylish Finish",
-        "id": "cZ",
+        "id": "da",
         "description": ["Target friendly Monkey gains +30 Attack Power."],
 
         "cardType": "power",
@@ -1910,4 +2365,158 @@ export const POWERS = [
         "hero": "Zee Jay",
         "attributes": ["targetIsDoomed"]
     },
+    {
+        "name": "ordersReceived", "displayName": "Orders Received",
+        "id": "dJ",
+        "description": ["Target Military Monkey or Bomb Shooter reloads immediately and gains 2 Temporary Ammo"],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 5,
+        "hero": "Striker Jones",
+    },
+    {
+        "name": "artilleryCommand", "displayName": "Artillery Command",
+        "id": "dK",
+        "description": ["All friendly Mortar and Bomb Shooter Monkeys attack random targets once without using ammo"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4, "copies": 2,
+        "hero": "Striker Jones",
+    },
+    {
+        "name": "warBonds", "displayName": "War Bonds",
+        "id": "dL",
+        "description": ["Gain 1 Gold per friendly Military Monkey"],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 0, "copies": 2,
+        "hero": "Striker Jones",
+    },
+    {
+        "name": "leadCasing", "displayName": "Lead Casing",
+        "id": "dM",
+        "description": ["Target Bloon gains 20 Armor"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 6, "copies": 2,
+    },
+    {
+        "name": "massLeadProduction", "displayName": "Mass Lead Production",
+        "id": "dN",
+        "description": ["All friendly Bloons gain 5 Armor"],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 2,
+    },
+    {
+        "name": "bloontoniumLeak", "displayName": "Bloontonium Leak",
+        "id": "dO",
+        "description": ["Drain all Bloontonium from all players"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 5,
+    },
+    {
+        "name": "shieldsDown", "displayName": "Shields Down!",
+        "id": "dP",
+        "description": ["Removes all Shields from all Heroes and Bloons"],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 5,
+    },
+    {
+        "name": "bloonsdayDevice", "displayName": "Bloonsday Device",
+        "id": "dQ",
+        "description": ["Destroy all Bloons"],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 15,
+        "attributes": ["unique"],
+    },
+    {
+        "name": "bloonRedirect", "displayName": "Bloon Redirect",
+        "id": "dR",
+        "description": ["Target Bloon switches to your side. Increase its delay by 2"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 8,
+        "purchaseCurrency": "bloontonium",
+    },
+    {
+        "name": "ultraRarePower", "displayName": "ULTRA Rare Power",
+        "id": "dS",
+        "description": ["Draw a random Ultra Rare from your deck"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 3,
+    },
+    {
+        "name": "bombsAway", "displayName": "Bombs Away",
+        "id": "dT",
+        "description": ["Destroy target non-large Bloon"],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 7, "copies": 2,
+    },
+    {
+        "name": "accidentAtTheLab", "displayName": "Accident at the Lab",
+        "id": "dU",
+        "description": ["Put Acid Pools in all enemy Bloon spaces"],
+
+        "cardType": "power",
+        "type": "advanced",
+        "cost": 4,
+        "purchaseCurrency": "bloontonium",
+    },
+    {
+        "name": "preemptiveStrike", "displayName": "Pre-emptive Strike",
+        "id": "dV",
+        "description": ["The next Bloon your opponent plays is destroyed"],
+
+        "cardType": "power",
+        "type": "exotic",
+        "cost": 3,
+    },
+    {
+        "name": "longRangeRang", "displayName": "Long Range Rang",
+        "id": "dW",
+        "description": ["Deal 70 damage to a Bloon. If that doesn't destroy it, return this card to your hand"],
+
+        "cardType": "power",
+        "type": "basic",
+        "cost": 3,
+    },
 ]
+
+const all = [...BLOONS, ...MONKEYS, ...POWERS]
+const ids = []
+const counts = {}
+
+all.forEach((item) => {
+    ids.push(item.id)
+})
+ids.forEach((id) => {
+    if (!counts[id]) {
+        counts[id] = 1
+    } else {
+        counts[id]++
+    }
+})
+for (const id in counts) {
+    if (counts[id] === 1) {
+        delete counts[id]
+    }
+}
+
+console.log(counts);

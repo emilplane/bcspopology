@@ -311,12 +311,13 @@ function confirmHeroChangeDialog(heroName, changeFn) {
 
 document.getElementById("heroContainer").addEventListener("click", function () {
     switch (deck.hero) {
-        case "Quincy":          deck.setHero("Gwendolin");  break;
-        case "Gwendolin":       deck.setHero("Obyn");       break;
-        case "Obyn":            deck.setHero("Amelia");     break;
-        case "Amelia":          deck.setHero("Adora");      break;
-        case "Adora":           deck.setHero("Zee Jay");    break;
-        case "Zee Jay":  default: deck.setHero("Quincy");     break;
+        case "Quincy":              deck.setHero("Gwendolin");  break;
+        case "Gwendolin":           deck.setHero("Obyn");       break;
+        case "Obyn":                deck.setHero("Amelia");     break;
+        case "Amelia":              deck.setHero("Adora");      break;
+        case "Adora":               deck.setHero("Zee Jay");    break;
+        case "Zee Jay":             deck.setHero("Striker Jones"); break;
+        case "Striker Jones": default: deck.setHero("Quincy");  break;
     }
 });
 
@@ -534,7 +535,7 @@ function generateDeckImage() {
             .children(
                 new Element("h5")
                     .class("imageHeroText")
-                    .text(`Hero: ${deck.hero}`),
+                    .text(`${deck.hero}`),
                 new Element("div")
                     .class("summaryContainerDivider"),
                 summaryCardContainer
@@ -542,7 +543,7 @@ function generateDeckImage() {
 
         const extraDetailsContainer = new Element("div").class("extraDetailsContainer")
             .children(
-                new Element("p").class("bcsfont").text("BCS Popology • game version 3.4")
+                new Element("p").class("bcsfont").text("BCS Popology • game version 4.2")
             )
 
         const image = new Element("div")

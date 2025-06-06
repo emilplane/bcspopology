@@ -2,8 +2,6 @@ import {generateCard} from "./cardGenerator.js";
 import Element from "./element.js";
 
 export function popupCard(card) {
-    console.log(card)
-
     const cardPopupWrapper = document.querySelector(".cardPopupWrapper")
 
     cardPopupWrapper.style.display = "flex";
@@ -17,12 +15,13 @@ export function popupCard(card) {
     generateCard(card, document.querySelector(".cardPopupCardContainer"), 'popupCard');
 
     const statChipContainer = new Element("div").class("statChipContainer");
-    const propertiesAsStatChips = ["cost", "damage", "delay", "copies", "shield"];
+    const propertiesAsStatChips = ["cost", "damage", "delay", "copies", "shield", "armor"];
     const propertyDescriptions = {
         "cost": `How much ${card.purchaseCurrency} each copy of the card costs.`,
         "damage": `Amount of ${card.cardType === "monkey" ? "damage each attack does." : "HP this Bloon has, and the amount of damage it deals to the opponent's hero."}`,
         "delay": `The amount of turns it takes for this ${card.cardType === "monkey" ? "tower to reload its ammo." : "Bloon to damage the opponent's hero."}`,
-        "shield": `Blocks up to ${card.shield} damage.`
+        "shield": `Blocks up to ${card.shield} damage.`,
+        "armor": `Reduces incoming damage by ${card.armor}.`
     }
 
     // Modify description if this card does adjacent damage
@@ -41,10 +40,15 @@ export function popupCard(card) {
         delete propertiesAsStatChips[3]
     }
 
-    if (card.cardType === "monkey") {
-        // propertiesAsStatChips.push("ammo")
-        // propertyDescriptions.ammo =
-        //     `Number of times this Monkey can attack.`
+    if (card.cardType === "monkey" && card.ammo !== undefined) {
+        propertiesAsStatChips.push("ammo")
+        if (card.hasAttribute("temporary")) {
+            propertyDescriptions.ammo =
+                `Number of times this Monkey can attack before it disappears.`
+        } else {
+            propertyDescriptions.ammo =
+                `Number of times this Monkey can attack before it has to reload.`
+        }
     }
 
     if (card.defender) {

@@ -97,21 +97,42 @@ const SHIELD = {
     "TEXT_Y": 45
 }
 
+const ARMOR = {
+    "X": 160,
+    "Y": 5,
+    "WIDTH": 60,
+    "TEXT_X": 190,
+    "TEXT_Y": 45
+}
+
 export function generateCard(card, outputContainer, uniqueSvgDefsId = '') {
     const cardOutput = outputContainer
 
-    let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = "", shieldInfo = "";
+    let delayInfo = "", damageInfo = "", ammoInfo = "", defenderInfo = "", shieldInfo = "", armorInfo = "";
     if (["monkey", "bloon"].includes(card.cardType)) {
-        card.delay !== undefined ? delayInfo = `
-            <image x=${DELAY.X}
-                y=${card.cardType === "monkey" ? DELAY.Y + DELAY.MONKEY_Y_OFFSET : DELAY.Y}
-                width=${DELAY.WIDTH}
-                href="media/delay.png"
-            />
+        if (card.delay === undefined) {
+            delayInfo = ""
+        } else if (card.delay === Infinity) {
+            delayInfo = `
+                <image x=${DELAY.X}
+                    y=${card.cardType === "monkey" ? DELAY.Y + DELAY.MONKEY_Y_OFFSET : DELAY.Y}
+                    width=${DELAY.WIDTH}
+                    href="media/immobile.png"
+                />
+            `
+        } else {
+            delayInfo = `
+                <image x=${DELAY.X}
+                    y=${card.cardType === "monkey" ? DELAY.Y + DELAY.MONKEY_Y_OFFSET : DELAY.Y}
+                    width=${DELAY.WIDTH}
+                    href="media/delay.png"
+                />
+    
+                <text x=${DELAY.TEXT_X} y=${card.cardType === "monkey" ? DELAY.TEXT_Y + DELAY.MONKEY_Y_OFFSET : DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
+                    text-anchor="middle">${card.delay}</text>
+            `
+        }
 
-            <text x=${DELAY.TEXT_X} y=${card.cardType === "monkey" ? DELAY.TEXT_Y + DELAY.MONKEY_Y_OFFSET : DELAY.TEXT_Y} class="bcsfont cardStatText delayText" 
-                text-anchor="middle">${card.delay}</text>
-        ` : ""
         card.damage !== undefined ? damageInfo = `
             <image x=${DAMAGE[`${card.cardType.toUpperCase()}_X`]}
                    y=${DAMAGE[`${card.cardType.toUpperCase()}_Y`]}
@@ -146,8 +167,16 @@ export function generateCard(card, outputContainer, uniqueSvgDefsId = '') {
                     href="media/shield.png"
                 />
     
-                <text x=${SHIELD.TEXT_X} y=${SHIELD.TEXT_Y} class="bcsfont cardStatText defenderText"
+                <text x=${SHIELD.TEXT_X} y=${SHIELD.TEXT_Y} class="bcsfont cardStatText shieldText"
                     text-anchor="middle">+${card.shield}</text>
+            ` : ""
+            card.armor !== undefined ? shieldInfo = `
+                <image x=${ARMOR.X} y=${ARMOR.Y} width=${ARMOR.WIDTH}
+                    href="media/armor.png"
+                />
+    
+                <text x=${ARMOR.TEXT_X} y=${ARMOR.TEXT_Y} class="bcsfont cardStatText armorText"
+                    text-anchor="middle">${card.armor}</text>
             ` : ""
         }
     }
